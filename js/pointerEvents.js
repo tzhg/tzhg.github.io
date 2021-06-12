@@ -105,6 +105,8 @@ export function pointerEvents() {
 			});
 		};
 
+		initDesign();
+
 		const hover = (evt) => {
 			const id = $(evt.target).attr(`data-${dataId}`);
 
