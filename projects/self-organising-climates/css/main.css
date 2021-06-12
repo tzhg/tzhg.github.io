@@ -1,0 +1,199 @@
+/* =============================================================================
+Layout boxes
+============================================================================= */
+
+.soc {
+	max-width: 1250px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+	margin-bottom: 25px;
+}
+
+.soc .viz-box {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	width: 100%;
+}
+
+/* =============================================================================
+Month selection
+============================================================================= */
+
+.soc .month-box {
+	width: 100%;
+	font-weight: 600;
+    display: flex;
+    flex-flow: row wrap;
+	margin-bottom: 10px;
+}
+
+.soc .month-button {
+	position: relative;
+	flex: 15%;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	width: 50px;
+	margin-bottom: 5px;
+	font-weight: 600;
+}
+
+.soc .month-button > * {
+	pointer-events: none;
+	user-select: none;
+}
+
+.soc .month-text-big {
+	display: none;
+}
+
+.soc .month-button::after {
+	content: "";
+	width: 1px;
+	height: calc(40px - 2 * 5px);
+	background-color: var(--month-sep);
+	position: absolute;
+	left: 0;
+	top: 5px;
+}
+
+.soc .month-button:first-child::after, .soc .month-button:nth-child(7)::after {
+	display: none;
+}
+
+/* =============================================================================
+Variable selection
+============================================================================= */
+
+.soc .var-box {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.soc .var-button {
+	padding: 4px 0;
+	font-weight: 600;
+	justify-content: center;
+	padding: 4px 8px;
+}
+
+.soc .var-button-container {
+	width: 100%;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+.soc .var-button > svg {
+	height: 14px;
+	width: 14px;
+	margin-right: 2px;
+}
+
+.soc .var-button > svg * {
+	fill: var(--var-icon-color);
+}
+
+/* =============================================================================
+Chart
+============================================================================= */
+
+.soc .chart-svg {
+	position: relative;
+}
+
+.soc .city-label {
+	font-size: 3.285px;
+	font-weight: 600;
+}
+
+.soc .colour-bar {
+	display: flex;
+	flex-flow: row nowrap;
+	height: 15px;
+	width: 100%;
+	font-size: 11px;
+	margin-top: 10px;
+}
+
+.soc .legend-cell {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
+}
+
+/* =============================================================================
+Media queries
+============================================================================= */
+
+@media all and (min-width: 500px) {
+	.soc .var-button-container {
+		width: 50%;
+	}
+
+	.soc .var-box {
+		display: flex;
+		flex-flow: row wrap;
+	}
+}
+
+@media all and (min-width: 600px) {
+	.soc .viz-box {
+		flex-flow: row nowrap;
+	}
+
+	.soc .colour-bar {
+		flex-flow: column-reverse nowrap;
+		height: auto;
+		width: 35px;
+	}
+
+    .soc .month-box {
+	    margin-bottom: 15px;
+    }
+
+	.soc .month-button {
+		font-size: 14px;
+		flex: 1;
+		margin-bottom: 0;
+	}
+
+	.soc .month-button:nth-child(7)::after {
+		display: block;
+	}
+
+	.soc .month-button:first-child::after {
+		display: none;
+	}
+
+    .soc .colour-bar {
+		margin-top: 0;
+		margin-left: 10px;
+    }
+}
+
+@media all and (min-width: 800px) {
+	.soc .var-box {
+		flex-flow: row nowrap;
+	}
+}
+
+@media all and (min-width: 1050px) {
+	.soc .month-text-big {
+		display: block;
+	}
+
+	.soc .month-text-small {
+		display: none;
+	}
+}

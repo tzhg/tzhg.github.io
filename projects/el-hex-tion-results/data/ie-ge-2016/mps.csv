@@ -1,0 +1,159 @@
+name1,name2,constit_id,party_id,first_pref_percent
+McGuinness,John,0,1,15.04
+Aylward,Bobby,0,1,13.38
+Funchion,Kathleen,0,2,12.43
+Phelan,John Paul,0,0,10.81
+Deering,Pat,0,0,9.37
+Humphreys,Heather,1,0,20.77
+Ó Caoláin,Caoimhghín,1,2,16.87
+Smith,Brendan,1,1,14.71
+Smyth,Niamh,1,1,10.51
+Dooley,Timmy,2,1,17.92
+Harty,Michael,2,7,15.14
+Breen,Pat,2,0,11.55
+Carey,Joe,2,0,10.65
+O'Keeffe,Kevin,3,1,15.65
+Stanton,David,3,0,13.58
+Sherlock,Seán,3,3,13.16
+Buckley,Pat,3,2,10.15
+Kelleher,Billy,4,1,27.92
+Barry,Mick,4,4,15.71
+O'Brien,Jonathan,4,2,12.18
+Murphy,Dara,4,0,10.29
+Moynihan,Aindrias,5,1,19.00
+Creed,Michael,5,0,18.89
+Moynihan,Michael,5,1,15.61
+McGrath,Michael,6,1,21.18
+Martin,Micheál,6,1,20.38
+Coveney,Simon,6,0,14.30
+Ó Laoghaire,Donnchadh,6,2,12.55
+Murphy O'Mahony,Margaret,7,1,19.61
+Daly,Jim,7,0,17.04
+Collins,Michael,7,7,15.64
+McConalogue,Charlie,8,1,17.10
+Doherty,Pearse,8,2,14.05
+Gallagher,Pat the Cope,8,1,13.91
+McHugh,Joe,8,0,11.48
+Pringle,Thomas,8,7,8.49
+Bruton,Richard,9,0,13.30
+Haughey,Sean,9,1,10.88
+McGrath,Finian,9,7,7.98
+Broughan,Tommy,9,8,7.28
+Mitchell,Denise,9,2,6.84
+Murphy, Eoghan,10,0,16.54
+O'Connell,Kate,10,0,13.60
+O'Callaghan,Jim,10,1,11.52
+Ryan,Eamon,10,6,11.41
+McDonald,Mary Lou,11,2,24.36
+Donohoe,Paschal,11,0,13.62
+O'Sullivan,Maureen,11,7,8.40
+O'Brien,Darragh,12,1,17.93
+Daly,Clare,12,8,15.70
+Farrell,Alan,12,0,12.44
+Ryan,Brendan,12,3,9.95
+O'Reilly,Louise,12,2,8.66
+Ó Broin,Eoin,13,2,22.69
+Fitzgerald,Frances,13,0,20.94
+Curran,John,13,1,16.17
+Kenny,Gino,13,4,10.74
+Shortall,Róisín,14,5,28.48
+Ellis,Dessie,14,2,20.46
+Rock,Noel,14,0,12.54
+Ross,Shane,15,7,24.82
+Madigan,Josepha,15,0,16.22
+Martin,Catherine,15,6,10.03
+Ó Snodaigh,Aengus,16,2,15.49
+Collins,Joan,16,8,14.46
+Byrne,Catherine,16,0,14.30
+Smith,Bríd,16,4,10.21
+Lahart,John,17,1,14.34
+Murphy,Paul,17,4,13.39
+Brophy,Colm,17,0,10.70
+Crowe,Seán,17,2,10.37
+Zappone,Katherine,17,7,6.63
+Varadkar,Leo,18,0,19.66
+Chambers,Jack,18,1,16.49
+Coppinger,Ruth,18,4,15.54
+Burton,Joan,18,3,15.36
+Barrett,Seán,19,0,-1
+Mitchell O'Connor,Mary,19,0,18.26
+Bailey,Maria,19,0,17.71
+Boyd Barrett,Richard,19,4,16.50
+Canney,Seán,20,7,18.67
+Cannon,Ciarán,20,0,15.75
+Rabbitte,Anne,20,1,15.31
+O'Cuiv,Eamon,21,1,14.84
+Grealish,Noel,21,7,11.18
+Kyne,Seán,21,0,9.55
+Connolly,Catherine,21,7,7.59
+Naughton,Hildegarde,21,0,7.11
+Healy Rae,Michael,22,7,25.71
+Healy Rae,Danny,22,7,12.60
+Griffin,Brendan,22,0,12.20
+Ferris,Martin,22,2,11.93
+Brassil,John,22,1,10.29
+Murphy,Catherine,23,5,22.70
+Lawless,James,23,1,15.25
+O'Rourke,Frank,23,1,12.96
+Durkan,Bernard,23,0,12.56
+Heydon, Martin,24,0,21.34
+O'Loughlin,Fiona,24,1,18.77
+Ó Fearghaíl,Seán,24,1,17.59
+Fleming,Sean,25,1,35.06
+Flanagan,Charlie,25,0,21.53
+Stanley,Brian,25,2,21.21
+O'Dea,Willie,26,1,27.80
+Noonan,Michael,26,0,15.60
+Quinlivan,Maurice,26,2,12.60
+O'Sullivan,Jan,26,3,11.18
+Collins,Niall,27,1,27.64
+O'Donovan,Patrick,27,0,19.09
+Neville,Tom,27,0,18.04
+Troy,Robert,28,1,21.09
+Moran,Kevin Boxer,28,7,13.73
+Burke,Peter,28,0,10.28
+Penrose,Willie,28,3,8.72
+Adams,Gerry,29,2,15.79
+Breathnach,Declan,29,1,13.47
+Munster,Imelda,29,2,13.07
+O'Dowd,Fergus,29,0,10.09
+Fitzpatrick,Peter,29,0,9.49
+Kenny,Enda,30,0,20.93
+Ring,Michael,30,0,17.72
+Calleary,Dara,30,1,14.77
+Chambers,Lisa,30,1,12.93
+Byrne,Thomas,31,1,26.14
+McEntee,Helen,31,0,2618.26
+Doherty,Regina,31,0,2616.50
+Cassells,Shane,32,1,27.42
+Tóibín,Peadar,32,2,24.46
+English,Damien,32,0,21.04
+Cowen,Barry,33,1,28.08
+CorcoranKennedy,Marcella,33,0,15.53
+Nolan,Carol,33,2,10.91
+Naughten,Denis,34,7,30.51
+Fitzmaurice,Michael,34,7,21.34
+Murphy,Eugene,34,1,14.91
+MacSharry,Marc,35,1,14.21
+Kenny,Martin,35,2,10.20
+McLoughlin,Tony,35,0,9.90
+Scanlon,Eamon,35,1,9.42
+Lowry, Michael,36,7,16.76
+McGrath,Mattie,36,7,14.42
+Kelly,Alan,36,3,9.94
+Healy,Seamus,36,7,9.56
+Cahill,Jackie,36,1,9.51
+Butler,Mary,37,1,20.51
+Cullinane,David,37,2,18.84
+Halligan,John,37,7,16.06
+Deasy,John,37,0,14.78
+Howlin,Brendan,38,3,14.76
+Browne,James,38,1,13.71
+Wallace,Mick,38,8,11.05
+D'Arcy,Michael,38,0,10.88
+Kehoe,Paul,38,0,10.74
+Donnelly, Stephen,39,5,20.85
+Brady,John,39,2,16.21
+Harris,Simon,39,0,15.72
+Casey,Pat,39,1,9.14
+Doyle,Andrew,39,0,8.79

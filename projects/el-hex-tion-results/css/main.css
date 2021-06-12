@@ -1,0 +1,405 @@
+/* =============================================================================
+   Layout boxes
+============================================================================= */
+
+.ehr {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+	margin-bottom: 25px;
+}
+
+.ehr .election-box {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+    margin-bottom: 25px;
+}
+
+.ehr .viz-box {
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+    margin-bottom: 25px;
+}
+
+.ehr .density-box {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.ehr .legend-box {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+	max-width: 260px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    flex: 100%;
+}
+
+/* =============================================================================
+Tooltip
+============================================================================= */
+
+.ehr .tool-tip {
+    background-color: white;
+	font-size: 12px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--light-grey);
+    position: absolute;
+    padding: 6px 10px;
+    text-align: left;
+	z-index: 3;
+	display: none;
+}
+
+.ehr .tool-tip-mp-box:first-child {
+	height: auto;
+	align-items: flex-end;
+}
+
+.ehr .tool-tip-mp-box {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	height: 22px;
+}
+
+.ehr .tool-tip-constit-label {
+	font-weight: 600;
+	margin-right: 15px;
+}
+
+.ehr .tool-tip-pfp-label {
+	display: inline-block;
+	color: var(--dark-medium-grey);
+}
+
+.ehr .tool-tip-party {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	text-align: center;
+	margin-right: 6px;
+	height: 17px;
+}
+
+.ehr .tool-tip-party > span {
+	font-size: 10px;
+	font-weight: 600;
+}
+
+.ehr .tool-tip-name {
+	white-space: nowrap;
+	flex: 1;
+	margin-right: 15px;
+}
+
+.ehr .tool-tip-percent {
+	flex: 0;
+}
+
+.ehr .party-icon {
+    display: inline-block;
+    position: relative;
+    width: 18px;
+    height: 10.39px;
+    margin: 5.2px 0;
+    pointer-events: none;
+    user-select: none;
+    background-color: var(--hex-colour, red);
+}
+
+.ehr .party-icon:before, .party-icon:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+}
+
+.ehr .party-icon:before {
+    bottom: 100%;
+    border-bottom: 5.2px solid var(--hex-colour, red);
+}
+
+.ehr .party-icon:after {
+    top: 100%;
+    width: 0;
+    border-top: 5.2px solid var(--hex-colour, red);
+}
+
+/* =============================================================================
+Legend
+============================================================================= */
+
+.ehr .legend-content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1 1;
+    white-space: nowrap;
+}
+
+.ehr .legend-row:first-of-type {
+	height: auto;
+	align-items: flex-end;
+}
+
+.ehr .legend-row {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	width: 100%;
+	text-align: center;
+	justify-content: space-between;
+	height: 22px;
+}
+
+.ehr .legend-row > * {
+	width: 100%;
+}
+
+
+.ehr .legend-col-1 {
+	text-align: left;
+	height: 100%;
+	flex: 1;
+}
+
+.ehr .legend-button {
+	height: 100%;
+	position: relative;
+	padding: 0 4px;
+	font-weight: 600;
+	color: var(--legend-colour);
+}
+
+.ehr .legend-hex {
+	margin-right: 4px;
+	width: 14px;
+	height: 14px;
+	fill: var(--legend-colour);
+}
+
+.ehr .legend-button-label {
+	text-align: left;
+	pointer-events: none;
+	display: inline-block;
+}
+
+.ehr .legend-col-1.hf {
+	position: relative;
+	display: inline-block;
+	padding-left: 23px;
+	height: auto;
+}
+
+.ehr .legend-col-2  {
+	text-align: right;
+	width: 30px;
+}
+
+.ehr .legend-col-3 {
+	text-align: right;
+	width: 55px;
+}
+
+.ehr .table-header {
+	color: var(--dark-medium-grey);
+	font-size: 10px;
+}
+
+.ehr .legend-header-col-2-3 {
+	text-align: right;
+	position: relative;
+	display: inline-block;
+}
+
+/* =============================================================================
+Filters and buttons
+============================================================================= */
+
+.ehr .election-button {
+	flex-flow: column nowrap;
+	font-weight: 600;
+	font-size: 14px;
+	padding: 5px;
+    flex: 0;
+}
+
+.ehr .election-label {
+    background-color: var(--election-background-colour);
+    color: var(--election-colour);
+    padding: 0 4px;
+    margin-top: 5px;
+}
+
+.ehr .election-button .hexagon.elec-sel {
+    fill: white;
+    stroke: white;
+    stroke-width: 1px;
+}
+
+.ehr .election-button > .map-container {
+	width: 80px;
+}
+
+.ehr .density-button {
+    padding: 4px 8px;
+    justify-content: center;
+	font-weight: 600;
+}
+
+.ehr .density-box div:first-child {
+    margin-bottom: 5px;
+}
+
+.ehr .subregion-label {
+	position: absolute;
+	padding: 0 4px;
+	font-weight: 600;
+}
+
+/* =============================================================================
+Chart
+============================================================================= */
+
+.ehr .map-container {
+	position: relative;
+    margin: 0 auto;
+    max-width: 360px;
+	width: 100%;
+}
+
+.ehr .map-svg .grey-hex {
+    stroke-width: 1.4;
+}
+
+.ehr .grey-hex {
+    fill: var(--light-grey);
+    stroke: var(--light-grey);
+    stroke-width: 0.1;
+}
+
+/* =============================================================================
+Media queries
+============================================================================= */
+
+/* Medium screens */
+@media all and (min-width: 500px) {
+    .ehr .map-container {
+        max-width: 380px;
+    }
+
+    .ehr .legend-box {
+        max-width: 230px;
+        flex: 1;
+    }
+}
+
+/* Large screens */
+@media all and (min-width: 900px) {
+    .ehr .tool-tip {
+        font-size: 13px;
+    }
+
+	.ehr .tool-tip-mp-box {
+		height: 26px;
+	}
+
+	.ehr .tool-tip-party {
+		font-size: 11px;
+		width: 32px;
+	}
+
+	.ehr .top-box {
+		margin-bottom: 0;
+	}
+
+	.ehr .viz-box {
+		flex-flow: row nowrap;
+		flex: 1;
+    	margin-right: 25px;
+	}
+
+	.ehr .election-box {
+		flex-flow: column-reverse nowrap;
+        justify-content: flex-end;
+		margin-right: 25px;
+	}
+
+    .ehr .election-button > .map-container {
+		width: 80px;
+	}
+
+	.ehr .legend-box {
+		padding-top: calc(25px / 2);
+	}
+
+	.ehr .legend-row {
+		height: 26px;
+	}
+
+	.ehr .legend-col-1 > .legend-button > .legend-hex {
+		width: 18px;
+		height: 18px;
+	}
+
+	.ehr .legend-col-1.hf {
+		padding-left: 26px;
+	}
+}
+
+
+
+/* Large screens */
+@media all and (min-width: 1150px) {
+    .ehr .tool-tip {
+    	font-size: 14px;
+    }
+
+	.ehr .tool-tip-mp-box {
+		height: 28px;
+	}
+
+	.ehr .tool-tip-party {
+		font-size: 13px;
+		width: 34px;
+	}
+
+    .ehr .legend-box {
+        max-width: 260px;
+    }
+
+    .ehr .legend-row {
+        height: 28px;
+    }
+
+	.ehr .legend-col-1 > .legend-button > .legend-hex {
+		width: 20px;
+		height: 20px;
+	}
+
+	.ehr .legend-col-2  {
+		width: 35px;
+	}
+
+	.ehr .legend-col-3 {
+		width: 65px;
+	}
+
+	.ehr .legend-col-1.hf {
+		padding-left: 29px;
+	}
+}

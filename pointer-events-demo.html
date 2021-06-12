@@ -1,0 +1,209 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>pointerEvents demo</title>
+
+        <style type="text/css">
+            :root {
+                --border-colour: #404040;
+            }
+
+            .main-col {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                font-family: "Arial", "Helvetica", sans-serif;
+                margin-top: 50px;
+            }
+
+            .title {
+                font-size: 36px;
+                margin-bottom: 25px;
+            }
+
+            .square {
+                display: flex;
+                height: 100px;
+                width: 100px;
+                background-color: white;
+                border: 10px solid var(--border-colour);
+                justify-content: center;
+                align-items: center;
+            }
+
+            .square > * {
+                display: none;
+            }
+
+            .row {
+                display: flex;
+                flex-flow: row wrap;
+                margin-bottom: 15px;
+                align-items: center;
+                font-size: 16px;
+            }
+
+            .row > * {
+                margin-right: 15px;
+            }
+
+            .row-title {
+                width: 50px;
+            }
+
+            .info {
+                font-size: 24px;
+                margin-top: 40px;
+                margin-bottom: 10px;
+            }
+
+            .button {
+                padding: 10px 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main-col">
+            <div class="title">pointerEvents demo</div>
+            <div class="square">
+                <div class="date-text"></div>
+                <div class="colour-text"></div>
+                <div class="word-text">Word</div>
+            </div>
+            <div class="info">1. Click buttons:</div>
+            <div class="row r1">
+                <div class="button" data-id="0">Change background colour</div>
+                <div class="button" data-id="1">Change border colour</div>
+            </div>
+            <div class="info">2. Toggle buttons:</div>
+            <div class="row r2">
+                <div class="row-title">Click:</div>
+                <div class="button" data-id="0">Show date</div>
+                <div class="button" data-id="1">Show colour</div>
+                <div class="button" data-id="2">Show word</div>
+            </div>
+            <div class="row r5">
+                <div class="row-title">Hover:</div>
+                <div class="button" data-id="0">Show date</div>
+                <div class="button" data-id="1">Show colour</div>
+                <div class="button" data-id="2">Show word</div>
+            </div>
+        <div class="info">3. Toggle buttons (mandatory):</div>
+        <div class="row r3">
+            <div class="row-title">Click:</div>
+            <div class="button" data-id="0">Square</div>
+            <div class="button" data-id="1">Circle</div>
+        </div>
+        <div class="row r4">
+            <div class="row-title">Hover:</div>
+            <div class="button" data-id="0">Square</div>
+            <div class="button" data-id="1">Circle</div>
+        </div>
+    </div>
+
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+        </script>
+        <script type="module">
+import { pointerEvents } from "./js/pointerEvents.js";
+
+const bb = pointerEvents();
+const black = "#404040";
+const pal = ["#3588d1", "#d38f57", "#30766a", "#bf3854", "#846dff", "#749d3c"];
+
+$(".date-text").text(new Date().toISOString().slice(0, 10));
+$(".colour-text").text("#ffffff");
+
+bb.buttons(
+    "click",
+    ".r1 > .button",
+    "id",
+    () => pal[0],
+    {
+        "background-color": [0.5, -0.5, 0.6],
+        "color": [black, "white", black]
+    },
+    "",
+    (evt, id) => {
+        const colour = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        if (id === "0") {
+            $(".square").css("background", colour);
+            $(".colour-text").text(colour);
+        } else if (id === "1") {
+            $(".square").css("--border-colour", colour);
+        }
+    }
+);
+
+bb.buttons(
+    "clickToggle",
+    ".r2 > .button",
+    "id",
+    () => pal[1],
+    {
+        "background-color": [0.5, -0.5, 0.7, -0.7],
+        "color": [black, "white", black, "white"]
+    },
+    "",
+    (evt, id) => {
+        $(".square > *").hide();
+        $(`.${["date", "colour", "word"][id]}-text`).show();
+    },
+    false
+);
+
+bb.buttons(
+    "hoverToggle",
+    ".r5 > .button",
+    "id",
+    () => pal[1],
+    {
+        "background-color": [0.5, -0.5, 0.7, -0.7],
+        "color": [black, "white", black, "white"]
+    },
+    "",
+    (evt, id) => {
+        $(".square > *").hide();
+        $(`.${["date", "colour", "word"][id]}-text`).show();
+    },
+    false
+);
+
+bb.buttons(
+    "clickToggle",
+    ".r3 > .button",
+    "id",
+    () => pal[2],
+    {
+        "background-color": [0.5, -0.5, 0.7, -0.7],
+        "color": [black, "white", black, "white"]
+    },
+    "",
+    (evt, id) => {
+        $(".square").css("border-radius", id === "0" ? "0" : "100px");
+    },
+    true,
+    "0"
+);
+
+bb.buttons(
+    "hoverToggle",
+    ".r4 > .button",
+    "id",
+    () => pal[2],
+    {
+        "background-color": [0.5, -0.5],
+        "color": [black, "white"]
+    },
+    "",
+    (evt, id) => {
+        $(".square").css("border-radius", id === "0" ? "0" : "100px");
+    },
+    true,
+    "0"
+);
+        </script>
+    </body>
+</html>

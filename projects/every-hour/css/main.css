@@ -1,0 +1,99 @@
+:root {
+	--year-container-height: 19px;
+}
+
+/* =============================================================================
+Layout boxes
+============================================================================= */
+
+.eh {
+	margin-bottom: 25px;
+}
+
+.eh .viz-box {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+/* =============================================================================
+Chart
+============================================================================= */
+
+.eh .chart-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: -25px;
+    margin-left: -25px;
+	flex: 1;
+}
+
+.eh .viz-container {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 40%;
+    margin-bottom: 25px;
+    margin-left: 25px;
+}
+
+.eh .viz-container > svg {
+	max-width: 300px;
+	min-width: 80px;
+}
+
+.eh .year-container {
+	font-weight: 600;
+	height: var(--year-container-height);
+}
+
+/* =============================================================================
+Legend
+============================================================================= */
+
+.eh .legend-container {
+	width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+	margin-top: 25px;
+}
+
+.eh .legend-button {
+	color: var(--legend-colour);
+	padding: 4px 8px;
+	font-weight: 600;
+}
+
+.eh .legend-square {
+	background-color: var(--legend-colour);
+	width: 14px;
+	height: 14px;
+	margin-right: 6px;
+}
+
+/* =============================================================================
+Media queries
+============================================================================= */
+
+@media all and (min-width: 500px) {
+    .eh .viz-container {
+        width: 25%;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .eh .viz-container {
+    	flex: 1;
+    }
+}
+@media all and (min-width: 1000px) {
+    .eh .viz-box {
+        flex-flow: row nowrap;
+    }
+
+	.eh .legend-container {
+		margin-left: 25px;
+		margin-top: var(--year-container-height);
+		justify-content: center;
+	    flex-flow: column nowrap;
+		width: 125px;
+	}
+}

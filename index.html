@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>tzhg.github.io</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="./projects/every-hour/css/main.css">
+    <link rel="stylesheet" href="./projects/el-hex-tion-results/css/main.css">
+    <link rel="stylesheet" href="./projects/self-organising-climates/css/main.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Martel:wght@600&family=Open+Sans:wght@400;600&family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
+
+    <meta name="theme-color" content="#1e9664">
+</head>
+
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="title">Hi, I'm Tony</div>
+        <div class="about-me">
+            Here you can find my mobile-friendly interactive visualisations.<br>
+            Feel free to contact me at tonyzheng27@gmail.com.
+        </div>
+    </div>
+</div>
+
+<div class="main-container">
+
+<!-- ===========================================================================
+every-hour
+============================================================================!-->
+
+<div class="title">How I spend my time</div>
+<div class="desc">Time spent on various activities, smoothed</div>
+<div class="eh">
+    <div class="viz-box">
+        <div class="chart-container"></div>
+        <div class="legend-container"></div>
+    </div>
+</div>
+<div class="info-row">
+    <div class="info-button button" data-project-id="every-hour">More info</div>
+</div>
+<div class="info-content" data-project-id="every-hour">
+    <div>
+        <h3>About this project:</h3>
+
+        Time is a precious resource. And what are we, but the sum of our actions?
+        Some events in our life will stay in our minds forever.
+        But most hours that we spend will be left behind, ceasing to exist as soon as the next hour begins.
+    </div>
+    <div>
+        In order to preserve a complete picture of my lifetime,
+        I have been collecting data on each hour I spend since the beginning of 2017.
+        This visualisation shows the proportion of time each day spent on various types of activities,
+        smoothed using a Gaussian filter.
+    </div>
+    <div>
+        This data gives me great insight into my past, as I can identify various events and stages of my life,
+        and allows me to set goals for the future.
+        Hopefully other people will find it interesting too.
+    </div>
+    <div>
+        <h3>Made using:</h3>
+        <ul>
+            <li><a href="https://jquery.com">jQuery</a></li>
+            <li><a href="https://numpy.org">NumPy</a></li>
+            <li><a href="https://pandas.pydata.org">pandas</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ===========================================================================
+el-hextion-results
+============================================================================!-->
+
+<div class="title">How Ireland voted</div>
+<div class="desc">One hexagon = one seat</div>
+<div class="ehr">
+    <div class="election-box"></div>
+    <div class="viz-box"></div>
+    <div class="legend-box">
+        <div class="legend-content"></div>
+    </div>
+    <div class="density-box">
+        <div>Filter by population density:</div>
+        <div class="density-button button" data-density="5">&gt;2k people/km<sup>2</sup></div>
+        <div class="density-button button" data-density="4">500&ndash;2k people/km<sup>2</sup></div>
+        <div class="density-button button" data-density="3">75&ndash;500 people/km<sup>2</sup></div>
+        <div class="density-button button" data-density="2">50&ndash;75 people/km<sup>2</sup></div>
+        <div class="density-button button" data-density="1">35&ndash;50 people/km<sup>2</sup></div>
+        <div class="density-button button" data-density="0">&lt;35 people/km<sup>2</sup></div>
+    </div>
+
+    <div class="tool-tip"></div>
+    <div class="cover"></div>
+</div>
+<div class="info-row">
+    <div class="info-button button" data-project-id="el-hex-tion-results">More info</div>
+</div>
+<div class="info-content" data-project-id="el-hex-tion-results">
+    <div>
+        <h3>About this project:</h3>
+
+        Election results can be visualised using <a href="https://en.wikipedia.org/wiki/Cartogram">cartograms</a>,
+        which convey the proportions of seats won by each party,
+        through a map projection which associates area to the number of seats,
+        while retaining some geographical information on the constituencies.
+        See for example
+        <a href="https://geographical.co.uk/media/k2/items/cache/97b69b9f7e1a5c5d4d0fd3d24f506fa4_XL.jpg">this map</a>
+        of the 2017 UK general election.
+    </div>
+    <div>
+        Ireland's general elections use multi-member constituencies to elect TDs, members of parliament, to Dáil Éireann, its national assembly.
+        Cartograms for this type of election can be trickier to make,
+        as there may be additional constraints due to seats being grouped by constituency.
+        I constructed my map projections by hand, aiming to preserve the
+        shapes and locations of constituencies as much as possible,
+        and additionally grouping the constituencies by subregion (province) to further facilitate spatial orientation.
+    </div>
+    <div>
+        TDs are elected by a <a href="https://en.wikipedia.org/wiki/Single_transferable_vote">single transferable voting system</a>,
+        where voters rank the candidates in their constituency by order of preference.
+        Tooltips on the visualisation show the percentage of first preference votes won by each TD.
+        One TD, the Ceann Comhairle, or chairperson, is automatically re-elected, and is marked "C.C.".
+    </div>
+    <div>
+        <h3>Made using:</h3>
+        <ul>
+            <li><a href="https://jquery.com">jQuery</a></li>
+            <li><a href="https://numpy.org">NumPy</a></li>
+            <li><a href="https://pandas.pydata.org">pandas</a></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Data sources:</h3>
+        <ul>
+            <li><a href="https://www.irishtimes.com">The Irish Times</a></li>
+            <li><a href="https://www.gov.ie/en/publication/2b6b9-33rd-dail-election-february-2020-election-results">https://www.gov.ie</a></li>
+            <li><a href="https://data.gov.ie">https://data.gov.ie</a></li>
+            <li><a href="https://data.cso.ie">https://data.cso.ie</a></li>
+            <li><a href="https://www.oireachtas.ie/en/how-parliament-is-run/houses-of-the-oireachtas-service/library-and-research-service/use-our-research/constituency-profiles(https://www.oireachtas.ie/en/how-parliament-is-run/houses-of-the-oireachtas-service/library-and-research-service/use-our-research/constituency-profiles">https://www.oireachtas.ie</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ===========================================================================
+self-organising-climates
+============================================================================!-->
+
+<div class="title">Mapping city climates</div>
+<div class="desc"></div>
+<div class="soc">
+    <div class="month-box"></div>
+    <div class="var-box">
+        <div class="var-button-container">
+            <div class="var-button button" data-var="0">
+                <svg
+                   width="8mm"
+                   height="8mm"
+                   viewBox="0 0 8 8"
+                   version="1.1"
+                   id="svg5"
+                   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+                   sodipodi:docname="icon-0.svg"
+                   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                   xmlns="http://www.w3.org/2000/svg"
+                   xmlns:svg="http://www.w3.org/2000/svg">
+                  <sodipodi:namedview
+                     id="namedview7"
+                     pagecolor="#ffffff"
+                     bordercolor="#666666"
+                     borderopacity="1.0"
+                     inkscape:pageshadow="2"
+                     inkscape:pageopacity="0.0"
+                     inkscape:pagecheckerboard="0"
+                     inkscape:document-units="mm"
+                     showgrid="false"
+                     inkscape:zoom="24.060157"
+                     inkscape:cx="18.100464"
+                     inkscape:cy="14.900152"
+                     inkscape:window-width="1848"
+                     inkscape:window-height="1016"
+                     inkscape:window-x="72"
+                     inkscape:window-y="27"
+                     inkscape:window-maximized="1"
+                     inkscape:current-layer="layer1"
+                     width="50mm" />
+                  <defs
+                     id="defs2">
+                    <linearGradient
+                       id="linearGradient14064"
+                       inkscape:swatch="solid">
+                      <stop
+                         style="stop-color:#000000;stop-opacity:1;"
+                         offset="0"
+                         id="stop14062" />
+                    </linearGradient>
+                  </defs>
+                  <g
+                     inkscape:label="Layer 1"
+                     inkscape:groupmode="layer"
+                     id="layer1">
+                    <path
+                       id="path16294"
+                       style="fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.22065;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+                       d="M 15.117188 0 C 13.023329 2.9605947e-16 11.337891 1.6854386 11.337891 3.7792969 L 11.337891 16.130859 A 7.5590551 7.5590551 0 0 0 7.5585938 22.677734 A 7.5590551 7.5590551 0 0 0 15.117188 30.236328 A 7.5590551 7.5590551 0 0 0 22.677734 22.677734 A 7.5590551 7.5590551 0 0 0 18.898438 16.130859 L 18.898438 3.7792969 C 18.898438 1.6854386 17.211046 0 15.117188 0 z "
+                       transform="scale(0.26458333)" />
+                  </g>
+                </svg>
+                Mean daily high (°C)
+            </div>
+        </div>
+        <div class="var-button-container">
+            <div class="var-button button" data-var="1">
+                <svg
+                   width="8mm"
+                   height="8mm"
+                   viewBox="0 0 8 8"
+                   version="1.1"
+                   id="svg5"
+                   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+                   sodipodi:docname="icon-1.svg"
+                   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                   xmlns="http://www.w3.org/2000/svg"
+                   xmlns:svg="http://www.w3.org/2000/svg">
+                  <sodipodi:namedview
+                     id="namedview7"
+                     pagecolor="#ffffff"
+                     bordercolor="#666666"
+                     borderopacity="1.0"
+                     inkscape:pageshadow="2"
+                     inkscape:pageopacity="0.0"
+                     inkscape:pagecheckerboard="0"
+                     inkscape:document-units="mm"
+                     showgrid="false"
+                     inkscape:zoom="24.060157"
+                     inkscape:cx="18.100464"
+                     inkscape:cy="14.900152"
+                     inkscape:window-width="1848"
+                     inkscape:window-height="1016"
+                     inkscape:window-x="72"
+                     inkscape:window-y="27"
+                     inkscape:window-maximized="1"
+                     inkscape:current-layer="layer1"
+                     width="50mm" />
+                  <defs
+                     id="defs2">
+                    <linearGradient
+                       id="linearGradient14064"
+                       inkscape:swatch="solid">
+                      <stop
+                         style="stop-color:#000000;stop-opacity:1;"
+                         offset="0"
+                         id="stop14062" />
+                    </linearGradient>
+                  </defs>
+                  <g
+                     inkscape:label="Layer 1"
+                     inkscape:groupmode="layer"
+                     id="layer1">
+                    <path
+                       id="path16294"
+                       style="fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.22065;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+                       d="M 15.117188 0 C 13.023329 2.9605947e-16 11.337891 1.6854386 11.337891 3.7792969 L 11.337891 16.130859 A 7.5590551 7.5590551 0 0 0 7.5585938 22.677734 A 7.5590551 7.5590551 0 0 0 15.117188 30.236328 A 7.5590551 7.5590551 0 0 0 22.677734 22.677734 A 7.5590551 7.5590551 0 0 0 18.898438 16.130859 L 18.898438 3.7792969 C 18.898438 1.6854386 17.211046 0 15.117188 0 z "
+                       transform="scale(0.26458333)" />
+                  </g>
+                </svg>
+
+                Mean daily low (°C)
+            </div>
+        </div>
+        <div class="var-button-container">
+            <div class="var-button button" data-var="2">
+                <svg
+                   width="8mm"
+                   height="8mm"
+                   viewBox="0 0 8 8"
+                   version="1.1"
+                   id="svg5"
+                   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+                   sodipodi:docname="icon-2.svg"
+                   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                   xmlns="http://www.w3.org/2000/svg"
+                   xmlns:svg="http://www.w3.org/2000/svg">
+                  <sodipodi:namedview
+                     id="namedview7"
+                     pagecolor="#ffffff"
+                     bordercolor="#666666"
+                     borderopacity="1.0"
+                     inkscape:pageshadow="2"
+                     inkscape:pageopacity="0.0"
+                     inkscape:pagecheckerboard="0"
+                     inkscape:document-units="mm"
+                     showgrid="false"
+                     inkscape:zoom="17.0131"
+                     inkscape:cx="34.914272"
+                     inkscape:cy="18.544533"
+                     inkscape:window-width="1848"
+                     inkscape:window-height="1016"
+                     inkscape:window-x="72"
+                     inkscape:window-y="27"
+                     inkscape:window-maximized="1"
+                     inkscape:current-layer="layer1"
+                     width="50mm" />
+                  <defs
+                     id="defs2" />
+                  <g
+                     inkscape:label="Layer 1"
+                     inkscape:groupmode="layer"
+                     id="layer1">
+                    <g
+                       id="g17544"
+                       style=";fill-opacity:1">
+                      <circle
+                         style="fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.40914;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:fill markers stroke"
+                         id="path17298"
+                         cx="4"
+                         cy="5.5"
+                         r="2.5" />
+                      <path
+                         sodipodi:type="star"
+                         style="fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:fill markers stroke"
+                         id="path17436"
+                         inkscape:flatsided="true"
+                         sodipodi:sides="3"
+                         sodipodi:cx="13.999907"
+                         sodipodi:cy="1.1233268"
+                         sodipodi:r1="6.7301903"
+                         sodipodi:r2="3.3650949"
+                         sodipodi:arg1="-1.5641255"
+                         sodipodi:arg2="-0.51692792"
+                         inkscape:rounded="0"
+                         inkscape:randomized="0"
+                         d="M 14.044802,-5.6067138 19.805845,4.5272278 8.1490727,4.4494663 Z"
+                         transform="matrix(0.40292834,0,0.00491986,0.45991219,-1.6429324,2.5785958)"
+                         inkscape:transform-center-x="-0.007510476"
+                         inkscape:transform-center-y="-0.76486604" />
+                    </g>
+                  </g>
+                </svg>
+
+                Mean precipitation (mm)
+            </div>
+        </div>
+        <div class="var-button-container">
+            <div class="var-button button" data-var="3">
+                <svg
+                   width="8mm"
+                   height="8mm"
+                   viewBox="0 0 8 8"
+                   version="1.1"
+                   id="svg5"
+                   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+                   sodipodi:docname="icon-3.svg"
+                   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                   xmlns="http://www.w3.org/2000/svg"
+                   xmlns:svg="http://www.w3.org/2000/svg">
+                  <sodipodi:namedview
+                     id="namedview7"
+                     pagecolor="#ffffff"
+                     bordercolor="#666666"
+                     borderopacity="1.0"
+                     inkscape:pageshadow="2"
+                     inkscape:pageopacity="0.0"
+                     inkscape:pagecheckerboard="0"
+                     inkscape:document-units="mm"
+                     showgrid="false"
+                     inkscape:zoom="24.060157"
+                     inkscape:cx="15.211871"
+                     inkscape:cy="20.095463"
+                     inkscape:window-width="1848"
+                     inkscape:window-height="1016"
+                     inkscape:window-x="72"
+                     inkscape:window-y="27"
+                     inkscape:window-maximized="1"
+                     inkscape:current-layer="layer1"
+                     width="50mm" />
+                  <defs
+                     id="defs2" />
+                  <g
+                     inkscape:label="Layer 1"
+                     inkscape:groupmode="layer"
+                     id="layer1">
+                    <g
+                       id="g1690-6"
+                       transform="rotate(45,86.812123,-30.336796)"
+                       style="fill-opacity:1">
+                      <rect
+                         style="fill-opacity:1;stroke:none;stroke-width:0.656688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+                         id="rect1026-7"
+                         width="8"
+                         height="1"
+                         x="48.5"
+                         y="52"
+                         ry="0.5" />
+                      <rect
+                         style="fill-opacity:1;stroke:none;stroke-width:0.656688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+                         id="rect1026-3-5"
+                         width="8"
+                         height="1"
+                         x="48.5"
+                         y="-53"
+                         ry="0.5"
+                         transform="rotate(90)" />
+                    </g>
+                    <g
+                       id="g1690"
+                       transform="translate(-48.5,-48.5)"
+                       style="fill-opacity:1">
+                      <rect
+                         style="fill-opacity:1;stroke:none;stroke-width:0.656688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+                         id="rect1026"
+                         width="8"
+                         height="1"
+                         x="48.5"
+                         y="52"
+                         ry="0.5" />
+                      <rect
+                         style="fill-opacity:1;stroke:none;stroke-width:0.656688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+                         id="rect1026-3"
+                         width="8"
+                         height="1"
+                         x="48.5"
+                         y="-53"
+                         ry="0.5"
+                         transform="rotate(90)" />
+                    </g>
+                    <circle
+                       style="fill-opacity:1;stroke:none;stroke-width:1.21924;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                       id="path868"
+                       cx="4"
+                       cy="4"
+                       r="2.5" />
+                  </g>
+                </svg>
+                Mean sunshine hours
+            </div>
+        </div>
+    </div>
+    <div class="viz-box">
+        <svg class="chart-svg" viewBox="0 0 120 230"></svg>
+        <div class="colour-bar"></div>
+    </div>
+</div>
+<div class="info-row">
+    <div class="info-button button" data-project-id="self-organising-climates">More info</div>
+</div>
+<div class="info-content" data-project-id="self-organising-climates">
+    <div>
+        <h3>About this project:</h3>
+
+        Climate data recorded at various locations can be effectively visualised by colouring in a map of the region with
+        colours associated to values (for example <a href="https://commons.wikimedia.org/wiki/File:Annual_Average_Temperature_Map.jpg">this</a> map of annual mean temperature).
+        However, this requires a dense collection of data points in order to estimate the variable over the entire surface.
+        Using such a geographic mapping on a smaller data set creates unavoidable gaps between the data points, wasting space
+        and hindering comparison.
+    </div>
+    <div>
+        This problem can be solved by creating a new mapping, where the data points are positioned according to similarity of the data.
+        To test this idea, I collected climate data from Wikipedia on a selection of cities (corresponding to the 141 <a href="https://en.wikipedia.org/wiki/Globalization_and_World_Cities_Research_Network">alpha and beta level global cities</a> as of 2020).
+        To create the similarity mapping, I used a <a href="https://en.wikipedia.org/wiki/Self-organizing_map">self-organising map</a>, an algorithm which produces a discrete topology-preserving lower-dimensional representation of an input space.
+        I chose 4 climate variables, and I considered their values for each month as independent, resulting in 48 dimensions of data.
+        As the algorithm can create maps of any rectangular shape (with enough area),
+        I generated multiple maps to ensure that there is a suitable visualisation no matter the screen-size.
+        I also ensured that the resulting mappings were injective in order to facilitate labelling.
+        The resulting visualisation is compact, adaptable, and allows for better understanding of the data (including possibility for clustering)
+        than a regular map.
+    </div>
+    <div>
+        <h3>Made using:</h3>
+        <ul>
+            <li><a href="https://jquery.com">jQuery</a></li>
+            <li><a href="https://numpy.org">NumPy</a></li>
+            <li><a href="https://github.com/JustGlowing/minisom">minisom</a> (SOM implementation in Python)</li>
+            <li><a href="https://pypi.org/project/cmcrameri">cmcrameri</a> (colour palettes)</li>
+        </ul>
+    </div>
+    <div>
+        <h3>Data sources:</h3>
+        <ul>
+            <li><a href="https://en.wikipedia.org">Wikipedia</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ===========================================================================
+Modal
+============================================================================!-->
+
+</div>
+
+<div class="modal">
+    <div class="modal-cover">
+        <div class="modal-box">
+            <div class="modal-content"></div>
+            <div class="modal-close-row">
+                <div class="modal-close-button button" data-id="0">OK</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+    src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+    crossorigin="anonymous"></script>
+<script src="js/main.js" type="module"></script>
+<script src="./projects/every-hour/js/main.js" type="module"></script>
+<script src="./projects/el-hex-tion-results/js/main.js" type="module"></script>
+<script src="./projects/self-organising-climates/js/main.js" type="module"></script>
+
+</body>
+
+</html>
