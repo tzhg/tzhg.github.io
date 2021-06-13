@@ -182,9 +182,14 @@ const createMonthSelection = () => {
         $textBig.text(month);
         $button.append($textBig);
 
+        const $mediumSmall = $(document.createElement("div"));
+        $mediumSmall.addClass("month-text-medium");
+        $mediumSmall.text(month.substring(0, 3));
+        $button.append($mediumSmall);
+
         const $textSmall = $(document.createElement("div"));
         $textSmall.addClass("month-text-small");
-        $textSmall.text(month.substring(0, 3));
+        $textSmall.text(month.substring(0, 1));
         $button.append($textSmall);
     });
 
@@ -195,10 +200,15 @@ const createMonthSelection = () => {
         "",
         {
             "background-color": [lightGrey, darkGrey, darkGrey, darkGrey],
-            "color": [darkGrey, lightGrey, lightGrey, lightGrey],
-            "--month-sep": [lightMediumGrey, darkGrey, darkGrey, darkGrey]
+            "color": [darkGrey, lightGrey, lightGrey, lightGrey]
         },
-        "",
+        (elem, state) => {
+            if (state === 0) {
+                $(elem).removeClass("selected-month");
+            } else {
+                $(elem).addClass("selected-month");
+            }
+        },
         (evt, id) => {
             selectedMonth = Number(evt.target.dataset.month);
             draw();

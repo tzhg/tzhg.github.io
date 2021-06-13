@@ -25,23 +25,20 @@ Month selection
 	width: 100%;
 	font-weight: 600;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
 	margin-bottom: 10px;
 }
 
 .soc .month-button {
 	position: relative;
-	flex: 15%;
+	flex: 10%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 12px;
-	width: 50px;
 	margin-bottom: 5px;
 	font-weight: 600;
 	border-radius: 0;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 6px 4px;
 }
 
 .soc .month-button:first-child {
@@ -59,7 +56,7 @@ Month selection
 	user-select: none;
 }
 
-.soc .month-text-big {
+.soc .month-text-big, .soc .month-text-medium {
 	display: none;
 }
 
@@ -67,13 +64,17 @@ Month selection
 	content: "";
 	width: 1px;
 	height: calc(100% - 2 * 5px);
-	background-color: var(--month-sep);
+	background-color: var(--light-medium-grey);
 	position: absolute;
 	left: 0;
 	top: 5px;
 }
 
-.soc .month-button:first-child::after, .soc .month-button:nth-child(7)::after {
+.soc .selected-month::after, .soc .selected-month + .month-button::after  {
+	display: none;
+}
+
+.soc .month-button:first-child::after {
 	display: none;
 }
 
@@ -84,17 +85,16 @@ Variable selection
 .soc .var-box {
 	display: flex;
 	flex-flow: column nowrap;
-	align-items: center;
-	justify-content: center;
 	width: 100%;
 	margin-bottom: 10px;
+	justify-content: space-between;
 }
 
 .soc .var-button {
 	padding: 4px 0;
 	font-weight: 600;
 	justify-content: center;
-	padding: 4px 8px;
+	flex: 1;
 }
 
 .soc .var-button-container {
@@ -151,6 +151,12 @@ Media queries
 @media all and (min-width: 500px) {
 	.soc .var-button-container {
 		width: 50%;
+		justify-content: space-between;
+	}
+
+	.soc .var-button {
+		width: 200px;
+		padding: 10px;
 	}
 
 	.soc .var-box {
@@ -180,23 +186,29 @@ Media queries
 		margin-bottom: 0;
 	}
 
-	.soc .month-button:nth-child(7)::after {
-		display: block;
-	}
-
-	.soc .month-button:first-child::after {
-		display: none;
-	}
-
     .soc .colour-bar {
 		margin-top: 0;
 		margin-left: 10px;
     }
+
+	.soc .month-text-medium {
+		display: block;
+	}
+
+	.soc .month-text-small {
+		display: none;
+	}
 }
 
 @media all and (min-width: 800px) {
 	.soc .var-box {
 		flex-flow: row nowrap;
+		justify-content: flex-start;
+	}
+
+	.soc .var-button {
+		margin-right: 10px;
+		flex: 0;
 	}
 }
 
@@ -205,7 +217,7 @@ Media queries
 		display: block;
 	}
 
-	.soc .month-text-small {
+	.soc .month-text-medium {
 		display: none;
 	}
 }
