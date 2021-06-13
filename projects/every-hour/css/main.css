@@ -58,15 +58,17 @@ Legend
 
 .eh .legend-button {
 	color: var(--legend-colour);
-	padding: 4px 8px;
 	font-weight: 600;
 }
 
 .eh .legend-square {
 	background-color: var(--legend-colour);
-	width: 14px;
-	height: 14px;
-	margin-right: 6px;
+	width: 15px;
+	height: 15px;
+	margin-right: 4px;
+	border-radius: 4px;
+	position: relative;
+	left: -1px;
 }
 
 /* =============================================================================

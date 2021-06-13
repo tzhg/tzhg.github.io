@@ -145,7 +145,7 @@ a:active {
 }
 
 .desc {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .about-me {
@@ -166,6 +166,8 @@ a:active {
 	display: flex;
     align-items: center;
     white-space: nowrap;
+    border-radius: 4px;
+    padding: 4px 8px;
 }
 
 .button > * {
@@ -260,6 +262,7 @@ Modal and info row
     height: 90vh;
     max-height: 700px;
     padding: 50px;
+    border-radius: 5px;
 }
 
 .modal-content {
@@ -277,18 +280,6 @@ Modal and info row
 
 .info-content {
     display: none;
-}
-
-.info-button {
-    padding: 4px 8px;
-}
-
-.modal-close-button {
-    padding: 4px 8px;
-}
-
-.modal-content h5 {
-
 }
 
 /* =============================================================================

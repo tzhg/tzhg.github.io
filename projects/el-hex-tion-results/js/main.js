@@ -820,10 +820,10 @@ const initDensitySelection = () => {
         "hoverToggle",
         ".ehr .density-button",
         "density",
-        () => themeColour,
+        () => darkGrey,
         {
-            "background-color": ["white", 0],
-            "color": [darkGrey, 1]
+            "background-color": ["white", darkGrey, lightGrey, veryLightGrey],
+            "color": [darkGrey, "white", darkGrey, darkGrey]
         },
         "",
         (evt, id) => {
