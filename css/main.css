@@ -145,6 +145,8 @@ a:active {
 }
 
 .desc {
+    position: relative;
+    top: -3px;
     padding-bottom: 10px;
 }
 
