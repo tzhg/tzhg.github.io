@@ -258,7 +258,7 @@ const layout = () => {
 
     /* Desired width of grid */
     const nHorizCells = $(".chart-svg").width() < 600 ? $(".chart-svg").width() / 25 : $(".chart-svg").width() / 50;
-    const dataIdx = Math.max(Math.round(nHorizCells / 5) - 1, 0);
+    const dataIdx = Math.max(Math.round(nHorizCells / 5) - 2, 0);
 
     mapData = importedData[2][dataIdx];
 
