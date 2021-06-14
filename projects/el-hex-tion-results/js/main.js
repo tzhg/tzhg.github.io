@@ -17,11 +17,10 @@ const bb = pointerEvents();
 /* css constants */
 const themeColour = "#1e9664";
 const projectColour = "#199bce";
-const veryLightGrey = "#eaeaea";
-const lightGrey = "#cccccc";
-const mediumGrey = "#b3b3b3"
-const mediumDarkGrey = "#808080"
-const darkGrey = "#404040"
+const lightGrey = "#e6e6e6";
+const lightMediumGrey = "#b3b3b3";
+const mediumDarkGrey = "#808080";
+const darkGrey = "#333333";
 const viewBoxW = 100;
 const mapPadding = 25;
 
@@ -403,7 +402,7 @@ const formatPercent = (n) => {
     if (n === 100) {
         return "100%";
     }
-    return `${n.toFixed(2)}%`;
+    return `${n.toFixed(1)}%`;
 };
 
 const initLegend = () => {
@@ -414,22 +413,14 @@ const initLegend = () => {
     const totalNSeats = Object.values(data[elec].parties).reduce((sum, {n_seats}) => sum + n_seats , 0);
 
     const $legendHeaderRow = $(document.createElement("div"));
-    const $legendHeaderCol1 = $(document.createElement("div"));
-    const $legendHeaderCol23 = $(document.createElement("div"));
-    const $legendHeaderPartyLabel = $(document.createElement("div"));
+    const $legendHeaderRowLabel = $(document.createElement("div"));
 
-    $legendHeaderRow.addClass("legend-row table-header");
-    $legendHeaderCol1.addClass("legend-col-1 hf");
-    $legendHeaderCol23.addClass("legend-header-col-2-3");
+    $legendHeaderRow.addClass("legend-row");
+    $legendHeaderRowLabel.addClass("section-title");
 
-    $legendHeaderPartyLabel.text("PARTY");
-    $legendHeaderCol23.text("NO. AND % OF SEATS");
+    $legendHeaderRowLabel.text("Parties and number of seats:");
 
-    $legendHeaderCol1.append($legendHeaderPartyLabel);
-
-    $legendHeaderRow.append($legendHeaderCol1);
-    $legendHeaderRow.append($legendHeaderCol23);
-
+    $legendHeaderRow.append($legendHeaderRowLabel);
     $(".ehr .legend-content").append($legendHeaderRow);
 
     const buttonList = [];
@@ -449,7 +440,6 @@ const initLegend = () => {
         const $legendRow = $(document.createElement("div"));
         const $legendCol1 = $(document.createElement("div"));
         const $legendCol2 = $(document.createElement("div"));
-        const $legendCol3 = $(document.createElement("div"));
         const $button = $(document.createElement("div"));
         const $buttonIcon = $(document.createElement("div"));
         const $buttonLabel = $(document.createElement("div"));
@@ -479,17 +469,13 @@ const initLegend = () => {
         $legendRow.addClass("legend-row");
         $legendCol1.addClass("legend-col-1");
         $legendCol2.addClass("legend-col-2");
-        $legendCol3.addClass("legend-col-3");
         $button.addClass("legend-button button");
         $buttonLabel.addClass("legend-button-label");
         $buttonIcon.addClass("party-icon");
 
         $button.attr("data-party-id", party.party_id);
 
-        const percent = formatPercent(100 * party.hex_coords.length / totalNSeats);
         $buttonLabel.text(party.party_name);
-        $legendCol2.text(party.hex_coords.length);
-        $legendCol3.text(percent);
 
         //$button.append($buttonIcon);
         $button.append($hexSvg);
@@ -498,7 +484,6 @@ const initLegend = () => {
 
         $legendRow.append($legendCol1);
         $legendRow.append($legendCol2);
-        $legendRow.append($legendCol3);
 
         $(".ehr .legend-content").append($legendRow);
     });
@@ -506,19 +491,13 @@ const initLegend = () => {
     const $legendFooterRow = $(document.createElement("div"));
     const $legendFooterCol1 = $(document.createElement("div"));
     const $legendFooterCol2 = $(document.createElement("div"));
-    const $legendFooterCol3 = $(document.createElement("div"));
 
     $legendFooterRow.addClass("legend-row");
     $legendFooterCol1.addClass("legend-col-1 hf");
     $legendFooterCol2.addClass("legend-col-2 f");
-    $legendFooterCol3.addClass("legend-col-3 f");
-
-    $legendFooterCol2.text(totalNSeats);
-    $legendFooterCol3.text("100%");
 
     $legendFooterRow.append($legendFooterCol1);
     $legendFooterRow.append($legendFooterCol2);
-    $legendFooterRow.append($legendFooterCol3);
 
     $(".ehr .legend-content").append($legendFooterRow);
 
@@ -529,6 +508,7 @@ const initLegend = () => {
         (id) => data[elec].parties[id].colour,
         {
             "background-color": [1, 0, 0.7, 0.8],
+            "color": [darkGrey, 1, darkGrey, 1],
             "--legend-colour": [0, 1, 0, 0]
         },
         "",
@@ -579,7 +559,7 @@ const initSubregionLabels = () => {
 			"subregion-id",
             "",
             {
-                "background-color": ["white", darkGrey, lightGrey, veryLightGrey],
+                "background-color": ["white", darkGrey, lightMediumGrey, lightGrey],
                 "color": [darkGrey, "white", darkGrey, darkGrey]
             },
             "",
@@ -658,16 +638,14 @@ const filter = () => {
             "n/a" :
             formatPercent(100 * partyCounts[i] / totalSeats);
 
-        $(legendButton).parent().siblings(".legend-col-2").text(partyCounts[i]);
-        $(legendButton).parent().siblings(".legend-col-3").text(percent);
+        $(legendButton).parent().siblings(".legend-col-2").text(`${partyCounts[i]} (${percent})`);
     });
 
     /* Updates total seat count */
 
     let totalPercent = totalSeats === 0 ? "n/a" : "100%";
 
-    $(".ehr .legend-col-2.f").text(totalSeats);
-    $(".ehr .legend-col-3.f").text(totalPercent);
+    $(".ehr .legend-row:last-child .legend-col-1.hf").text(`Total seats: ${totalSeats}`);
 };
 
 const initToolTip = (elec_id) => {
@@ -822,7 +800,7 @@ const initDensitySelection = () => {
         "density",
         () => darkGrey,
         {
-            "background-color": ["white", darkGrey, lightGrey, veryLightGrey],
+            "background-color": ["white", darkGrey, lightMediumGrey, lightGrey],
             "color": [darkGrey, "white", darkGrey, darkGrey]
         },
         "",

@@ -15,6 +15,7 @@
 	flex-flow: row nowrap;
 	justify-content: flex-start;
     margin-bottom: 25px;
+    width: 100%;
 }
 
 .ehr .viz-box {
@@ -28,7 +29,6 @@
 .ehr .density-box {
     display: flex;
     flex-flow: column nowrap;
-    align-items: flex-start;
 }
 
 .ehr .legend-box {
@@ -162,15 +162,12 @@ Legend
 	flex-flow: row nowrap;
 	align-items: center;
 	width: 100%;
-	text-align: center;
 	justify-content: space-between;
-	height: 22px;
 }
 
 .ehr .legend-row > * {
 	width: 100%;
 }
-
 
 .ehr .legend-col-1 {
 	text-align: left;
@@ -181,9 +178,6 @@ Legend
 .ehr .legend-button {
 	height: 100%;
 	position: relative;
-	padding: 0 4px;
-	font-weight: 600;
-	color: var(--legend-colour);
 }
 
 .ehr .legend-hex {
@@ -202,29 +196,12 @@ Legend
 .ehr .legend-col-1.hf {
 	position: relative;
 	display: inline-block;
-	padding-left: 23px;
 	height: auto;
 }
 
 .ehr .legend-col-2  {
 	text-align: right;
-	width: 30px;
-}
-
-.ehr .legend-col-3 {
-	text-align: right;
-	width: 55px;
-}
-
-.ehr .table-header {
-	color: var(--dark-medium-grey);
-	font-size: 10px;
-}
-
-.ehr .legend-header-col-2-3 {
-	text-align: right;
-	position: relative;
-	display: inline-block;
+	width: 80px;
 }
 
 /* =============================================================================
@@ -236,7 +213,9 @@ Filters and buttons
 	font-weight: 600;
 	font-size: 14px;
 	padding: 5px;
-    flex: 0;
+    flex: 1;
+    max-width: 80px;
+    margin-right: 10px;
 }
 
 .ehr .election-label {
@@ -252,23 +231,18 @@ Filters and buttons
     stroke-width: 1px;
 }
 
-.ehr .election-button > .map-container {
-	width: 80px;
-}
-
 .ehr .density-button {
     justify-content: center;
-	font-weight: 600;
-}
-
-.ehr .density-box div:first-child {
-    margin-bottom: 5px;
 }
 
 .ehr .subregion-label {
 	position: absolute;
 	padding: 2px 4px;
-	font-weight: 600;
+}
+
+.ehr .section-title {
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 
 /* =============================================================================
@@ -278,7 +252,6 @@ Chart
 .ehr .map-container {
 	position: relative;
     margin: 0 auto;
-    max-width: 360px;
 	width: 100%;
 }
 
@@ -305,24 +278,21 @@ Media queries
     .ehr .legend-box {
         max-width: 230px;
         flex: 1;
+        margin-bottom: 0;
     }
+
+	.ehr .legend-col-1 > .legend-button > .legend-hex {
+		width: 16px;
+		height: 16px;
+	}
+
+	.ehr .legend-col-2  {
+		width: 80px;
+	}
 }
 
 /* Large screens */
 @media all and (min-width: 900px) {
-    .ehr .tool-tip {
-        font-size: 13px;
-    }
-
-	.ehr .tool-tip-mp-box {
-		height: 26px;
-	}
-
-	.ehr .tool-tip-party {
-		font-size: 11px;
-		width: 32px;
-	}
-
 	.ehr .top-box {
 		margin-bottom: 0;
 	}
@@ -331,40 +301,22 @@ Media queries
 		flex-flow: row nowrap;
 		flex: 1;
     	margin-right: 25px;
+        margin-bottom: 0;
 	}
 
 	.ehr .election-box {
 		flex-flow: column-reverse nowrap;
         justify-content: flex-end;
 		margin-right: 25px;
+        margin-bottom: 0;
+        width: auto;
 	}
 
-    .ehr .election-button > .map-container {
-		width: 80px;
-	}
+    .election-button {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
 
-	.ehr .legend-box {
-		padding-top: calc(25px / 2);
-	}
-
-	.ehr .legend-row {
-		height: 26px;
-	}
-
-	.ehr .legend-col-1 > .legend-button > .legend-hex {
-		width: 18px;
-		height: 18px;
-	}
-
-	.ehr .legend-col-1.hf {
-		padding-left: 26px;
-	}
-}
-
-
-
-/* Large screens */
-@media all and (min-width: 1150px) {
     .ehr .tool-tip {
     	font-size: 14px;
     }
@@ -376,30 +328,5 @@ Media queries
 	.ehr .tool-tip-party {
 		font-size: 13px;
 		width: 34px;
-	}
-
-    .ehr .legend-box {
-        max-width: 260px;
-    }
-
-    .ehr .legend-row {
-        height: 28px;
-    }
-
-	.ehr .legend-col-1 > .legend-button > .legend-hex {
-		width: 20px;
-		height: 20px;
-	}
-
-	.ehr .legend-col-2  {
-		width: 35px;
-	}
-
-	.ehr .legend-col-3 {
-		width: 65px;
-	}
-
-	.ehr .legend-col-1.hf {
-		padding-left: 29px;
 	}
 }

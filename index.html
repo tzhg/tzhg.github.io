@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./projects/self-organising-climates/css/main.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Martel:wght@600&family=Open+Sans:wght@400;600&family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <meta name="theme-color" content="#1e9664">
 </head>
@@ -40,10 +40,8 @@ every-hour
 <div class="title">How I've spent my time</div>
 <div class="desc">Time spent on various activities, smoothed</div>
 <div class="eh">
-    <div class="viz-box">
-        <div class="chart-container"></div>
-        <div class="legend-container"></div>
-    </div>
+    <div class="chart-container"></div>
+    <div class="legend-container"></div>
 </div>
 <div class="info-row">
     <div class="info-button button" data-project-id="every-hour">More info</div>
@@ -90,17 +88,16 @@ el-hextion-results
         <div class="legend-content"></div>
     </div>
     <div class="density-box">
-        <div>Filter by population density:</div>
-        <div class="density-button button" data-density="5">&gt;2k people/km<sup>2</sup></div>
-        <div class="density-button button" data-density="4">500&ndash;2k people/km<sup>2</sup></div>
-        <div class="density-button button" data-density="3">75&ndash;500 people/km<sup>2</sup></div>
-        <div class="density-button button" data-density="2">50&ndash;75 people/km<sup>2</sup></div>
-        <div class="density-button button" data-density="1">35&ndash;50 people/km<sup>2</sup></div>
-        <div class="density-button button" data-density="0">&lt;35 people/km<sup>2</sup></div>
+        <div class="section-title">Filter by people/km<sup>2</sup>:</div>
+        <div class="density-button button" data-density="5">&gt;2k</div>
+        <div class="density-button button" data-density="4">500&ndash;2k</div>
+        <div class="density-button button" data-density="3">75&ndash;500</div>
+        <div class="density-button button" data-density="2">50&ndash;75</div>
+        <div class="density-button button" data-density="1">35&ndash;50</div>
+        <div class="density-button button" data-density="0">&lt;35</div>
     </div>
 
     <div class="tool-tip"></div>
-    <div class="cover"></div>
 </div>
 <div class="info-row">
     <div class="info-button button" data-project-id="el-hex-tion-results">More info</div>

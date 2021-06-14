@@ -17,6 +17,7 @@ const data = dataObj.data;
 const nCats = categoryInfo.length;
 
 const lightGrey = "#e6e6e6";
+const darkGrey = "#333333";
 
 const NS = "http://www.w3.org/2000/svg";
 
@@ -26,16 +27,15 @@ const initDraw = () => {
 		$vizContainer.addClass("viz-container");
 		$(".eh .chart-container").append($vizContainer)
 
+		const $svg = $(document.createElementNS(NS, "svg"));
+		$svg.attr("viewBox", "0 0 1 1");
+		$svg.attr("data-year", d);
+		$vizContainer.append($svg)
+
 		const $yearContainer = $(document.createElement("div"));
 		$yearContainer.addClass("year-container");
 		$yearContainer.text(startYear + d);
 		$vizContainer.append($yearContainer)
-
-		const $svg = $(document.createElementNS(NS, "svg"));
-		$svg.attr("viewBox", "0 0 1 1");
-		$svg.attr("data-year", d);
-
-		$vizContainer.append($svg)
 	});
 };
 
@@ -202,7 +202,8 @@ const genLegend = (layoutType) => {
 		"cat",
 		(id) => categoryInfo[id][1],
 		{
-			"background-color": ["rgba(0, 0, 0, 0)", 0, 0.9, 0],
+			"background-color": [1, 0, 0.9, 0],
+			"color": [darkGrey, 1, darkGrey, 1],
 			"--legend-colour": [0, 1, 0, 1],
 		},
 		"",
