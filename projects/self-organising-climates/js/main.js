@@ -11,7 +11,7 @@ const bb = pointerEvents();
 const lightGrey = "#e6e6e6";
 const lightMediumGrey = "#b3b3b3";
 const darkMediumGrey = "#808080";
-const darkGrey = "#404040";
+const darkGrey = "#333333";
 let svgShape;
 
 const importedData = importData();
@@ -243,12 +243,6 @@ const createVarSelection = () => {
 };
 
 const layout = () => {
-    /* 0: square chart, var selection below */
-    /* 1: square chart, var selection to the right */
-    /* 2: oblong chart, var selection to the right */
-
-    const minHorizCells = 2;
-
     let layoutType = 0;
 
     const thr = [380, 450, 600, 600, 750, 950, 1100];
@@ -262,7 +256,9 @@ const layout = () => {
             2 * mainContainerPadding, minimumWidth
     );
 
-    const dataIdx = Math.max(Math.round(chartWidth / 30 / 4) - minHorizCells, 0);
+    /* Desired width of grid */
+    const nHorizCells = $(".chart-svg").width() < 600 ? $(".chart-svg").width() / 25 : $(".chart-svg").width() / 50;
+    const dataIdx = Math.max(Math.round(nHorizCells / 5) - 1, 0);
 
     mapData = importedData[2][dataIdx];
 

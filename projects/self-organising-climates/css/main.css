@@ -3,7 +3,6 @@ Layout boxes
 ============================================================================= */
 
 .soc {
-	max-width: 1250px;
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
@@ -23,7 +22,6 @@ Month selection
 
 .soc .month-box {
 	width: 100%;
-	font-weight: 600;
     display: flex;
     flex-flow: row nowrap;
 	margin-bottom: 10px;
@@ -36,7 +34,6 @@ Month selection
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 5px;
-	font-weight: 600;
 	border-radius: 0;
 	padding: 6px 4px;
 }
@@ -91,8 +88,6 @@ Variable selection
 }
 
 .soc .var-button {
-	padding: 4px 0;
-	font-weight: 600;
 	justify-content: center;
 	flex: 1;
 }
@@ -132,7 +127,6 @@ Chart
 	flex-flow: row nowrap;
 	height: 15px;
 	width: 100%;
-	font-size: 11px;
 	margin-top: 10px;
 }
 
@@ -141,7 +135,7 @@ Chart
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-weight: 600;
+	font-size: 11px;
 }
 
 /* =============================================================================
@@ -156,12 +150,19 @@ Media queries
 
 	.soc .var-button {
 		width: 200px;
+	}
+
+	.soc .month-button {
 		padding: 10px;
 	}
 
 	.soc .var-box {
 		display: flex;
 		flex-flow: row wrap;
+	}
+
+	.soc .legend-cell {
+		font-size: 12px;
 	}
 }
 
@@ -173,7 +174,13 @@ Media queries
 	.soc .colour-bar {
 		flex-flow: column-reverse nowrap;
 		height: auto;
-		width: 35px;
+		width: 50px;
+		margin-top: 0;
+		margin-left: 15px;
+	}
+
+	.soc .var-box {
+	    margin-bottom: 15px;
 	}
 
     .soc .month-box {
@@ -186,11 +193,6 @@ Media queries
 		margin-bottom: 0;
 	}
 
-    .soc .colour-bar {
-		margin-top: 0;
-		margin-left: 10px;
-    }
-
 	.soc .month-text-medium {
 		display: block;
 	}
@@ -200,7 +202,7 @@ Media queries
 	}
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 700px) {
 	.soc .var-box {
 		flex-flow: row nowrap;
 		justify-content: flex-start;

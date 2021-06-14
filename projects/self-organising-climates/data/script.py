@@ -162,13 +162,14 @@ def fit_som(data, r, grid_size, sigma, learning_rate):
         random_seed=r,
         neighborhood_function="gaussian")
 
-    #som.pca_weights_init(data)
-    som.train(data, 20000, verbose=True)
-    print(f"Topographic error: {som.topographic_error(data)}");
+    som.train(data, 50000, verbose=True)
+
+    error = [som.topographic_error(data), som.quantization_error(data)]
+    max_ar = np.max(som.activation_response(data2))
 
     city_positions = np.array([som.winner(city) for city in data])
 
-    return (som, city_positions)
+    return (som, city_positions, error, max_ar)
 
 
 def plot_climate():
@@ -191,47 +192,6 @@ def plot_som_dist():
         plt.text(w[0] + 0.5, w[1], data_names[i][:2])
 
     plt.show()
-
-
-def save_colour_meshes(grid_size, som_climate_data):
-    for i in range(len(variable_info)):
-        # Iterate over climate variables
-        for j in range(12):
-            # Iterate over months
-            fig, ax = plt.subplots(figsize=(grid_size[0] / 2, grid_size[1] / 2))
-
-            color_mat = som_climate_data[:, :, i, j].T
-
-            if i == 0 or i == 1:
-                plt.pcolormesh(
-                    color_mat,
-                    cmap=variable_info[i]["cm"],
-                    norm=TwoSlopeNorm(
-                        vcenter=0,
-                        vmin=variable_info[i]["range"][0],
-                        vmax=variable_info[i]["range"][1]))
-            elif i == 2:
-                plt.pcolormesh(
-                    color_mat,
-                    cmap=variable_info[i]["cm"],
-                    vmin=variable_info[i]["range"][0],
-                    vmax=variable_info[i]["range"][1])
-            elif i == 3:
-                plt.pcolormesh(
-                    color_mat,
-                    cmap=variable_info[i]["cm"],
-                    vmin=variable_info[i]["range"][0],
-                    vmax=variable_info[i]["range"][1])
-
-            plt.axis("off")
-
-            ax.set_aspect("equal", adjustable="box")
-
-            plt.savefig(
-                os.path.join(dirname, f"../img/{i}-{j}.jpeg"),
-                bbox_inches="tight",
-                pad_inches=0)
-            plt.close()
 
 
 def get_city_positions(city_positions, som_climate_data):
@@ -260,6 +220,7 @@ def save_data(*data):
         file.write(f"export function importData() {{\n	return {data_json};\n}}")
 
 
+# Plots one map
 def test(weights, city_positions):
     plt.figure(figsize=(20, 20))
 
@@ -276,27 +237,27 @@ def test(weights, city_positions):
     plt.close()
 
 
-def map_data(grid_width, seed):
-    ar = 2
+def get_map_data(grid_width, seed):
+    max_ar = 2
+    error = [1, 1]
     count = 0
-    grid_height = round(250 / grid_width)
+    grid_height = round(200 / grid_width)
 
     if seed == 0:
         seed = int(random.random() * 1000000)
 
-    while ar > 1:
+    while max_ar > 1 or error[0] > 0 or error[1] > 0.02:
         random.seed(seed)
 
-        som, city_positions = fit_som(data2, seed, [grid_width, grid_height], 1.5, 2.2)
+        som, city_positions, error, max_ar = fit_som(data2, seed, [grid_width, grid_height], 1.5, 2.2)
 
-        ar = np.max(som.activation_response(data2))
         count += 1
-        if count == 50:
+        if count == 100:
             count = 0
             grid_height += 1
 
-        print(f"grid size: [{grid_width}, {grid_height}], max cities in a cell: {ar}")
-        success = [seed, grid_height]
+        print(f"Grid size: [{grid_width}, {grid_height}]")
+        success = [seed, [grid_width, grid_height], *error]
 
         seed = int(random.random() * 1000000)
 
@@ -334,25 +295,23 @@ with open(os.path.join(dirname, f"./data.csv")) as f:
 # Deletes 2nd column (mean temperature)
 data_list = np.delete(data_list, 1, 1)
 
+# Data range
 #data_range = np.array([np.amin(data_list, axis=(0, 2)), np.amax(data_list, axis=(0, 2))])
-#print(data_range)
 
 # Transforms data
 data2 = transform_data(data_list)
 
-map_data_ = np.array([
-    map_data(*x)
-    for x in [
-        [8, 0],
-        [12, 0],
-        [16, 0],
-        [20, 0],
-        [24, 0],
-        [28, 0],
-        [32, 0],
-        [36, 0]]])
+# Grid widths and seeds
+map_data = [
+    get_map_data(10, 0),
+    get_map_data(15, 0),
+    get_map_data(20, 0),
+    get_map_data(25, 0)
+]
 
-print(map_data_[:, 0])
+# Prints details of each map
+for m_d in map_data:
+    print(m_d[0])
 
 saved_var_info = [
     {
@@ -365,4 +324,4 @@ saved_var_info = [
 with open(os.path.join(dirname, f"./data.csv")) as f:
     city_names = [line.split(";")[0] for i, line in enumerate(f) if i > 0]
 
-save_data(saved_var_info, city_names, map_data_[:, 1:].tolist())
+save_data(saved_var_info, city_names, [x[1:] for x in map_data])
