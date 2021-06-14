@@ -10,18 +10,18 @@ const bb = pointerEvents();
 
 const themeColour = "#1e9664";
 
-/*
+
 bb.buttons(
     "click",
-    ".link",
-    "link-id",
+    ".gh-button",
+    "id",
     (id) => themeColour,
     {
-        "background-color": [1, 0, 0.8],
-        "color": [0, 1, 0]
+        "background-color": [1, 0.2, 0.3],
+        "color": [0, 0, 0]
     }
 );
-*/
+
 bb.buttons(
     "click",
     ".info-button",

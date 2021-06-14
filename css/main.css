@@ -125,6 +125,23 @@ a:active {
     background-color: var(--theme-colour);
 }
 
+.a-dark {
+    color: white;
+}
+
+.a-dark:hover {
+    text-decoration: underline;
+    background-color: #2ad58e
+}
+
+.a-dark:active {
+    color: var(--theme-colour);
+    background-color: white;
+}
+
+ul {
+    margin: 0;
+}
 
 .main-container {
 	max-width: var(--content-max-width);
@@ -221,53 +238,52 @@ Modal and info row
     height: 100%;
     width: 100%;
     z-index: 10;
-    padding-top: 2%;
-}
-
-.modal-cover {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    padding-top: 2%;
-}
-
-.modal-close-row {
-    margin-bottom: 25px;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-close-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 .modal-box {
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100px;
-    width: 100px;
+    --modal-padding: 25px;
+    --modal-height: 90vh;
+    --modal-width: 90vw;
+    --modal-close-height: 20px;
+    --modal-max-height: 600px;
+    --modal-max-width: 600px;
+    position: fixed;
     background-color: white;
-    margin: 0 auto;
-    width: 95vw;
-    max-width: 600px;
-    height: 90vh;
-    max-height: 700px;
-    padding: 50px;
-    border-radius: 5px;
+    height: min(var(--modal-height), var(--modal-max-height));
+    width: min(var(--modal-width), var(--modal-max-width));
+    padding: var(--modal-padding);
+    border-radius: 6px;
+    margin: 10px;
 }
 
 .modal-content {
-    display: flex;
-    flex-flow: column nowrap;
+    --modal-close-height: 20px;
+    height: calc(min(var(--modal-height), var(--modal-max-height)) - 2 * var(--modal-padding) - var(--modal-close-height));
+    width: calc(min(var(--modal-width), var(--modal-max-width)) - 2 * var(--modal-padding));
     text-align: justify;
     text-justify: inter-word;
     height: 100%;
-    justify-content: center;
+    overflow-y: auto;
+    padding-right: 25px;
 }
 
 .modal-content > div {
     margin-bottom: 10px;
+}
+
+.modal-title {
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .info-content {
@@ -277,12 +293,25 @@ Modal and info row
 /* =============================================================================
 Media queries
 ============================================================================= */
-
-@media all and (min-width: 600px) {
+@media all and (min-width: 500px) {
 	.title {
         font-size: 32px;
     }
+
+    .modal-box {
+        --modal-padding: 50px;
+        --modal-height: 75vh;
+        --modal-width: 75vw;
+    }
 }
+
+/*
+@media all and (min-width: 700px) {
+    .modal-box {
+        --modal-margin-tb: calc(5px + 10vh);
+        --modal-margin-rl: calc(5px + 20vw);
+    }
+}*/
 
 @media all and (min-width: 1000px) {
 	.title {
