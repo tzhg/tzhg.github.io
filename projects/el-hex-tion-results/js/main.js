@@ -418,7 +418,7 @@ const initLegend = () => {
     $legendHeaderRow.addClass("legend-row");
     $legendHeaderRowLabel.addClass("section-title");
 
-    $legendHeaderRowLabel.text("Parties and number of seats:");
+    $legendHeaderRowLabel.text("Parties and numbers of seats:");
 
     $legendHeaderRow.append($legendHeaderRowLabel);
     $(".ehr .legend-content").append($legendHeaderRow);
