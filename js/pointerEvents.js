@@ -86,15 +86,12 @@ export function pointerEvents() {
 			}
 		});
 
-		if (type === "click" || type === "clickToggle") {
-			$(sel).attr("tabindex", "1");
-		}
-
 		let toggledOnId = "";
 		let touchedElem = "";
 
 		const initDesign = () => {
 			$(sel).each((_, elem) => {
+				$(sel).css("touch-action", "none");
 				const id = $(elem).attr(`data-${dataId}`);
 				if (startId === "" || startId !== id) {
 					buttonStateId(id, 0);
@@ -149,6 +146,7 @@ export function pointerEvents() {
 		$(sel)
 			.on("pointerdown", (evt) => {
 				evt.preventDefault();
+				evt.target.releasePointerCapture(evt.pointerId);
 
 				const id = $(evt.target).attr(`data-${dataId}`);
 				touchedElem = evt.target.dataset[dataId];
