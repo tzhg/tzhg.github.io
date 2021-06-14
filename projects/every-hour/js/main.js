@@ -18,6 +18,7 @@ const nCats = categoryInfo.length;
 
 const lightGrey = "#e6e6e6";
 const darkGrey = "#333333";
+const darkMediumGrey = "#808080";
 
 const NS = "http://www.w3.org/2000/svg";
 
@@ -172,7 +173,6 @@ const genLegend = (layoutType) => {
 		const $square = $(document.createElement("div"));
 		const $label = $(document.createElement("span"));
 
-		$buttonContainer.addClass("legend-button-container");
 		$button.addClass("legend-button button");
 		$square.addClass("legend-square");
 		$label.addClass("legend-label");
@@ -184,9 +184,7 @@ const genLegend = (layoutType) => {
 		$button.append($square);
 		$button.append($label);
 
-		$buttonContainer.append($button);
-
-		$(".eh .legend-container").append($buttonContainer);
+		$(".eh .legend-container").append($button);
 /*
 		if (layoutType === 0) {
 			$buttonContainer.width(maxWidths[i] + buttonSpace);
@@ -206,7 +204,10 @@ const genLegend = (layoutType) => {
 			"color": [darkGrey, 1, darkGrey, 1],
 			"--legend-colour": [0, 1, 0, 1],
 		},
-		"",
+        (elem, state) => {
+            const borderColour = [lightGrey, darkMediumGrey];
+            $(elem).parent().css("border", `1px solid ${borderColour[state]}`);
+        },
 		(evt, id) => {
 			if (id === "") {
 				draw();

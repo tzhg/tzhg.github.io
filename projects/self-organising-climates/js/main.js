@@ -199,7 +199,7 @@ const createMonthSelection = () => {
         "month",
         "",
         {
-            "background-color": [lightGrey, darkGrey, darkGrey, darkGrey],
+            "background-color": ["white", darkGrey, darkGrey, darkGrey],
             "color": [darkGrey, lightGrey, lightGrey, lightGrey]
         },
         (elem, state) => {
@@ -227,9 +227,10 @@ const createVarSelection = () => {
         "var",
         (id) => varColours[id],
         {
-            "background-color": [1, 0, 0.7, 0.8],
+            "background-color": [1, 0, 1, 0.8],
             "color": [darkGrey, "white", darkGrey, darkGrey],
-            "--var-icon-color": [0, "white", 0, 0]
+            "--var-icon-color": [0, "white", 0, 0],
+            "--var-border": [lightGrey, 0, darkGrey, darkGrey]
         },
         "",
         (evt, id) => {

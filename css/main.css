@@ -94,12 +94,7 @@ textarea {
    --light-grey: #e6e6e6; /* 90 */
    --theme-colour: #1e9664;
    --main-container-padding: 25px;
-   --content-max-width: 940px;
-}
-
-html {
-    color: var(--content-max-width);
-    font-size: 14px;
+   --content-max-width: 1000px;
 }
 
 body {
@@ -109,6 +104,11 @@ body {
     font-family: "Open Sans", sans-serif;
 	font-weight: 400;
     color: var(--dark-grey);
+    font-size: 14px;
+}
+
+body * {
+    box-sizing: border-box;
 }
 
 a {

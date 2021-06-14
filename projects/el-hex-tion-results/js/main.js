@@ -19,7 +19,7 @@ const themeColour = "#1e9664";
 const projectColour = "#199bce";
 const lightGrey = "#e6e6e6";
 const lightMediumGrey = "#b3b3b3";
-const mediumDarkGrey = "#808080";
+const darkMediumGrey = "#808080";
 const darkGrey = "#333333";
 const viewBoxW = 100;
 const mapPadding = 25;
@@ -410,19 +410,6 @@ const initLegend = () => {
 
     let selectedParty = "";
 
-    const totalNSeats = Object.values(data[elec].parties).reduce((sum, {n_seats}) => sum + n_seats , 0);
-
-    const $legendHeaderRow = $(document.createElement("div"));
-    const $legendHeaderRowLabel = $(document.createElement("div"));
-
-    $legendHeaderRow.addClass("legend-row");
-    $legendHeaderRowLabel.addClass("section-title");
-
-    $legendHeaderRowLabel.text("Parties and numbers of seats:");
-
-    $legendHeaderRow.append($legendHeaderRowLabel);
-    $(".ehr .legend-content").append($legendHeaderRow);
-
     const buttonList = [];
     const buttonWidthList = [];
 
@@ -437,12 +424,10 @@ const initLegend = () => {
             selectedParty = String(party.party_id);
         }
 
-        const $legendRow = $(document.createElement("div"));
-        const $legendCol1 = $(document.createElement("div"));
-        const $legendCol2 = $(document.createElement("div"));
-        const $button = $(document.createElement("div"));
-        const $buttonIcon = $(document.createElement("div"));
+        const $legendButton = $(document.createElement("div"));
         const $buttonLabel = $(document.createElement("div"));
+        const $buttonIconLabel = $(document.createElement("div"));
+        const $legendSeatCount = $(document.createElement("div"));
 
         const $hexSvg = $(document.createElementNS(NS, "svg"));
         const $hex = $(document.createElementNS(NS, "polygon"));
@@ -466,40 +451,21 @@ const initLegend = () => {
 
         $hexSvg.append($hex);
 
-        $legendRow.addClass("legend-row");
-        $legendCol1.addClass("legend-col-1");
-        $legendCol2.addClass("legend-col-2");
-        $button.addClass("legend-button button");
+        $legendButton.addClass("legend-button button");
         $buttonLabel.addClass("legend-button-label");
-        $buttonIcon.addClass("party-icon");
+        $legendSeatCount.addClass("legend-seat-count");
 
-        $button.attr("data-party-id", party.party_id);
+        $legendButton.attr("data-party-id", party.party_id);
 
         $buttonLabel.text(party.party_name);
 
-        //$button.append($buttonIcon);
-        $button.append($hexSvg);
-        $button.append($buttonLabel);
-        $legendCol1.append($button);
+        $buttonIconLabel.append($hexSvg);
+        $buttonIconLabel.append($buttonLabel);
+        $legendButton.append($buttonIconLabel);
+        $legendButton.append($legendSeatCount);
 
-        $legendRow.append($legendCol1);
-        $legendRow.append($legendCol2);
-
-        $(".ehr .legend-content").append($legendRow);
+        $(".ehr .legend-content").append($legendButton);
     });
-
-    const $legendFooterRow = $(document.createElement("div"));
-    const $legendFooterCol1 = $(document.createElement("div"));
-    const $legendFooterCol2 = $(document.createElement("div"));
-
-    $legendFooterRow.addClass("legend-row");
-    $legendFooterCol1.addClass("legend-col-1 hf");
-    $legendFooterCol2.addClass("legend-col-2 f");
-
-    $legendFooterRow.append($legendFooterCol1);
-    $legendFooterRow.append($legendFooterCol2);
-
-    $(".ehr .legend-content").append($legendFooterRow);
 
     bb.buttons(
         "hoverToggle",
@@ -511,7 +477,10 @@ const initLegend = () => {
             "color": [darkGrey, 1, darkGrey, 1],
             "--legend-colour": [0, 1, 0, 0]
         },
-        "",
+        (elem, state) => {
+            const borderColour = [lightGrey, darkMediumGrey];
+            $(elem).parent().css("border", `1px solid ${borderColour[state]}`);
+        },
         (evt, id) => {
             selectedPartyGroup = id === "" ?
                 "" :
@@ -559,8 +528,9 @@ const initSubregionLabels = () => {
 			"subregion-id",
             "",
             {
-                "background-color": ["white", darkGrey, lightMediumGrey, lightGrey],
-                "color": [darkGrey, "white", darkGrey, darkGrey]
+                "background-color": ["white", darkGrey],
+                "color": [darkGrey, "white"],
+                "--subregion-border-colour": [lightGrey, darkGrey]
             },
             "",
             (evt, id) => {
@@ -638,14 +608,14 @@ const filter = () => {
             "n/a" :
             formatPercent(100 * partyCounts[i] / totalSeats);
 
-        $(legendButton).parent().siblings(".legend-col-2").text(`${partyCounts[i]} (${percent})`);
+        $(legendButton).find(".legend-seat-count").text(`${partyCounts[i]} (${percent})`);
     });
 
     /* Updates total seat count */
 
     let totalPercent = totalSeats === 0 ? "n/a" : "100%";
 
-    $(".ehr .legend-row:last-child .legend-col-1.hf").text(`Total seats: ${totalSeats}`);
+    $(".ehr .legend-footer").text(`Total seats: ${totalSeats}`);
 };
 
 const initToolTip = (elec_id) => {
@@ -798,12 +768,15 @@ const initDensitySelection = () => {
         "hoverToggle",
         ".ehr .density-button",
         "density",
-        () => darkGrey,
-        {
-            "background-color": ["white", darkGrey, lightMediumGrey, lightGrey],
-            "color": [darkGrey, "white", darkGrey, darkGrey]
-        },
         "",
+        {
+            "background-color": ["white", darkGrey],
+            "color": [darkGrey, "white"]
+        },
+        (elem, state) => {
+            const borderColour = [lightGrey, darkMediumGrey];
+            $(elem).parent().css("border", `1px solid ${borderColour[state]}`);
+        },
         (evt, id) => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();
@@ -848,10 +821,11 @@ const initElectionSelection = () => {
         "clickToggle",
         ".ehr .election-button",
         "election-id",
-        () => darkGrey,
+        "",
         {
-            "background-color": [1, 0, 0.85, 0.9],
-            "color": [0, 1, 0, 0]
+            "background-color": ["white", darkGrey, "white", lightGrey],
+            "color": [darkGrey, "white", darkGrey, darkGrey],
+            "--election-border-colour": [lightGrey, darkGrey, darkMediumGrey, darkMediumGrey]
         },
         (elem, state) => {
             if (state === 1) {

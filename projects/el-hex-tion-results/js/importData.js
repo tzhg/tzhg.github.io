@@ -1083,7 +1083,7 @@ export function importData() {
                     21,
                     22
                 ],
-                "density": 127.38920255444569
+                "density": 127.38920255444566
             },
             "5": {
                 "name": "Cork North-West",
@@ -1108,7 +1108,7 @@ export function importData() {
                     24,
                     25
                 ],
-                "density": 33.663406666640014
+                "density": 33.66340666664001
             },
             "6": {
                 "name": "Cork South-Central",
@@ -1193,7 +1193,7 @@ export function importData() {
                     35,
                     36
                 ],
-                "density": 47.21071389276563
+                "density": 47.21071389276564
             },
             "9": {
                 "name": "Donegal South-West",
@@ -1218,7 +1218,7 @@ export function importData() {
                     38,
                     39
                 ],
-                "density": 25.179052262955963
+                "density": 25.179052262955956
             },
             "10": {
                 "name": "Dublin Central",
@@ -1333,7 +1333,7 @@ export function importData() {
                     53,
                     54
                 ],
-                "density": 3743.412259071957
+                "density": 3743.412259071958
             },
             "14": {
                 "name": "Dublin North-East",
@@ -1418,7 +1418,7 @@ export function importData() {
                     64,
                     65
                 ],
-                "density": 1490.7631621701253
+                "density": 1490.763162170125
             },
             "17": {
                 "name": "Dublin South-Central",
@@ -1453,7 +1453,7 @@ export function importData() {
                     69,
                     70
                 ],
-                "density": 4268.6152261166735
+                "density": 4268.615226116674
             },
             "18": {
                 "name": "Dublin South-East",
@@ -1513,7 +1513,7 @@ export function importData() {
                     77,
                     78
                 ],
-                "density": 1064.2352748090132
+                "density": 1064.235274809013
             },
             "20": {
                 "name": "Dublin West",
@@ -1543,7 +1543,7 @@ export function importData() {
                     81,
                     82
                 ],
-                "density": 946.0866916264283
+                "density": 946.0866916264284
             },
             "21": {
                 "name": "D\u00fan Laoghaire",
@@ -1573,7 +1573,7 @@ export function importData() {
                     85,
                     86
                 ],
-                "density": 2285.164288034307
+                "density": 2285.1642880343065
             },
             "22": {
                 "name": "Galway East",
@@ -1603,7 +1603,7 @@ export function importData() {
                     89,
                     90
                 ],
-                "density": 29.725571040828104
+                "density": 29.725571040828108
             },
             "23": {
                 "name": "Galway West",
@@ -1833,7 +1833,7 @@ export function importData() {
                     119,
                     120
                 ],
-                "density": 625.8959947183263
+                "density": 625.8959947183262
             },
             "31": {
                 "name": "Longford-Westmeath",
@@ -2008,7 +2008,7 @@ export function importData() {
                     142,
                     143
                 ],
-                "density": 25.51127856290935
+                "density": 25.511278562909347
             },
             "37": {
                 "name": "Sligo North-Leitrim",
@@ -2033,7 +2033,7 @@ export function importData() {
                     145,
                     146
                 ],
-                "density": 28.64467081313129
+                "density": 28.644670813131295
             },
             "38": {
                 "name": "Tipperary North",
@@ -2113,7 +2113,7 @@ export function importData() {
                     155,
                     156
                 ],
-                "density": 62.52818846242475
+                "density": 62.52818846242476
             },
             "41": {
                 "name": "Wexford",
@@ -4863,8 +4863,8 @@ export function importData() {
         "subregions": {
             "0": {
                 "name": "Dublin",
-                "x": 0.9,
-                "y": 0.21,
+                "x": 0.95,
+                "y": 0.18,
                 "subregion_id": 0,
                 "mps": [
                     40,
@@ -5109,7 +5109,7 @@ export function importData() {
             "1": {
                 "name": "Munster",
                 "x": 0.4,
-                "y": 0.98,
+                "y": 1.02,
                 "subregion_id": 1,
                 "mps": [
                     11,
@@ -5348,8 +5348,8 @@ export function importData() {
             },
             "2": {
                 "name": "Rest of Leinster",
-                "x": 0.72,
-                "y": 0.89,
+                "x": 0.75,
+                "y": 0.92,
                 "subregion_id": 2,
                 "mps": [
                     0,
@@ -5569,8 +5569,8 @@ export function importData() {
             },
             "3": {
                 "name": "Ulster &<br>Connacht",
-                "x": 0.19,
-                "y": 0.17,
+                "x": 0.15,
+                "y": 0.14,
                 "subregion_id": 3,
                 "mps": [
                     6,
@@ -6735,7 +6735,7 @@ export function importData() {
                     11,
                     12
                 ],
-                "density": 32.860442700318146
+                "density": 32.86044270031815
             },
             "3": {
                 "name": "Cork East",
@@ -7035,7 +7035,7 @@ export function importData() {
                     51,
                     52
                 ],
-                "density": 412.23910666502405
+                "density": 412.2391066650241
             },
             "13": {
                 "name": "Dublin Mid-West",
@@ -7180,7 +7180,7 @@ export function importData() {
                     70,
                     71
                 ],
-                "density": 1336.188189065954
+                "density": 1336.1881890659542
             },
             "18": {
                 "name": "Dublin West",
@@ -7365,7 +7365,7 @@ export function importData() {
                     95,
                     96
                 ],
-                "density": 202.78992168359397
+                "density": 202.789921683594
             },
             "24": {
                 "name": "Kildare South",
@@ -7415,7 +7415,7 @@ export function importData() {
                     101,
                     102
                 ],
-                "density": 50.57224274097324
+                "density": 50.57224274097323
             },
             "26": {
                 "name": "Limerick City",
@@ -7535,7 +7535,7 @@ export function importData() {
                     117,
                     118
                 ],
-                "density": 165.5997647482658
+                "density": 165.59976474826584
             },
             "30": {
                 "name": "Mayo",
@@ -7615,7 +7615,7 @@ export function importData() {
                     127,
                     128
                 ],
-                "density": 66.04668454783592
+                "density": 66.04668454783591
             },
             "33": {
                 "name": "Offaly",
@@ -7665,7 +7665,7 @@ export function importData() {
                     133,
                     134
                 ],
-                "density": 25.26430845299322
+                "density": 25.264308452993223
             },
             "35": {
                 "name": "Sligo-Leitrim",
@@ -7695,7 +7695,7 @@ export function importData() {
                     137,
                     138
                 ],
-                "density": 27.481851840649348
+                "density": 27.48185184064934
             },
             "36": {
                 "name": "Tipperary",
@@ -7830,7 +7830,7 @@ export function importData() {
                     156,
                     157
                 ],
-                "density": 68.0014777378421
+                "density": 68.00147773784208
             }
         },
         "mps": {
@@ -10366,8 +10366,8 @@ export function importData() {
         "subregions": {
             "0": {
                 "name": "Dublin",
-                "x": 0.9,
-                "y": 0.21,
+                "x": 0.95,
+                "y": 0.18,
                 "subregion_id": 0,
                 "mps": [
                     36,
@@ -10597,7 +10597,7 @@ export function importData() {
             "1": {
                 "name": "Munster",
                 "x": 0.4,
-                "y": 0.98,
+                "y": 1.02,
                 "subregion_id": 1,
                 "mps": [
                     9,
@@ -10821,8 +10821,8 @@ export function importData() {
             },
             "2": {
                 "name": "Rest of Leinster",
-                "x": 0.72,
-                "y": 0.89,
+                "x": 0.75,
+                "y": 0.92,
                 "subregion_id": 2,
                 "mps": [
                     0,
@@ -11046,8 +11046,8 @@ export function importData() {
             },
             "3": {
                 "name": "Ulster &<br>Connacht",
-                "x": 0.19,
-                "y": 0.17,
+                "x": 0.15,
+                "y": 0.14,
                 "subregion_id": 3,
                 "mps": [
                     5,
@@ -12254,7 +12254,7 @@ export function importData() {
                     16,
                     17
                 ],
-                "density": 76.95766674408507
+                "density": 76.95766674408509
             },
             "4": {
                 "name": "Cork North-Central",
@@ -13009,7 +13009,7 @@ export function importData() {
                     117,
                     118
                 ],
-                "density": 45.339858943393615
+                "density": 45.33985894339361
             },
             "29": {
                 "name": "Louth",
@@ -13044,7 +13044,7 @@ export function importData() {
                     122,
                     123
                 ],
-                "density": 160.3216637842427
+                "density": 160.32166378424267
             },
             "30": {
                 "name": "Mayo",
@@ -13179,7 +13179,7 @@ export function importData() {
                     139,
                     140
                 ],
-                "density": 27.65767327682226
+                "density": 27.65767327682225
             },
             "35": {
                 "name": "Tipperary",
@@ -15882,8 +15882,8 @@ export function importData() {
         "subregions": {
             "0": {
                 "name": "Dublin",
-                "x": 0.9,
-                "y": 0.21,
+                "x": 0.95,
+                "y": 0.18,
                 "subregion_id": 0,
                 "mps": [
                     37,
@@ -16118,7 +16118,7 @@ export function importData() {
             "1": {
                 "name": "Munster",
                 "x": 0.4,
-                "y": 0.98,
+                "y": 1.02,
                 "subregion_id": 1,
                 "mps": [
                     10,
@@ -16342,8 +16342,8 @@ export function importData() {
             },
             "2": {
                 "name": "Rest of Leinster",
-                "x": 0.72,
-                "y": 0.89,
+                "x": 0.75,
+                "y": 0.92,
                 "subregion_id": 2,
                 "mps": [
                     0,
@@ -16567,8 +16567,8 @@ export function importData() {
             },
             "3": {
                 "name": "Ulster &<br>Connacht",
-                "x": 0.19,
-                "y": 0.17,
+                "x": 0.15,
+                "y": 0.14,
                 "subregion_id": 3,
                 "mps": [
                     5,

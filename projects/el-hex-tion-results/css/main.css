@@ -21,7 +21,7 @@
 .ehr .viz-box {
 	position: relative;
 	width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 45px;
 }
 
 .ehr .density-box {
@@ -33,10 +33,9 @@
 
 .ehr .legend-box {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: space-around;
-    margin-right: 25px;
     margin-bottom: 25px;
     flex: 100%;
     text-align: center;
@@ -146,38 +145,32 @@ Legend
 .ehr .legend-content {
     display: flex;
     flex-flow: column nowrap;
-    align-items: center;
-    justify-content: space-around;
+    align-items: stretch;
     flex: 1 1;
     white-space: nowrap;
-}
-
-.ehr .legend-row:first-of-type {
-	height: auto;
-	align-items: flex-end;
-}
-
-.ehr .legend-row {
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
-	width: 100%;
-	justify-content: space-between;
-}
-
-.ehr .legend-row > * {
-	width: 100%;
-}
-
-.ehr .legend-col-1 {
-	text-align: left;
-	height: 100%;
-	flex: 1;
+    border: 1px solid var(--light-grey);
+    border-radius: 6px;
+    margin-bottom: 5px;
+    padding: 2px;
+    width: 100%;
 }
 
 .ehr .legend-button {
 	height: 100%;
-	position: relative;
+    border-radius: 0;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+    min-width: 225px;
+}
+
+.ehr .legend-button:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.ehr .legend-button:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .ehr .legend-hex {
@@ -193,29 +186,22 @@ Legend
 	display: inline-block;
 }
 
-.ehr .legend-col-1.hf {
-	position: relative;
-	display: inline-block;
-	height: auto;
-}
-
-.ehr .legend-col-2  {
-	text-align: right;
-	width: 75px;
-}
-
 /* =============================================================================
-Filters and buttons
+Election selection
 ============================================================================= */
 
 .ehr .election-button {
 	flex-flow: column nowrap;
-	font-weight: 600;
 	font-size: 14px;
 	padding: 5px;
     flex: 1;
     max-width: 80px;
     margin-right: 10px;
+    border: 1px solid var(--election-border-colour);
+}
+
+.ehr .election-button:last-child {
+    margin-right: 0;
 }
 
 .ehr .election-label {
@@ -231,26 +217,40 @@ Filters and buttons
     stroke-width: 1px;
 }
 
-.ehr .subregion-label {
-	position: absolute;
-	padding: 2px 4px;
-}
-
-.ehr .section-title {
-    font-weight: 600;
-    margin-bottom: 3px;
-}
+/* =============================================================================
+Density selection
+============================================================================= */
 
 .ehr .density-button {
-    width: 100%;
     justify-content: center;
+    border-radius: 0;
 }
 
-.ehr .dens-units-1 {
+.ehr .density-button:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.ehr .density-button:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.ehr .density-button-container {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px solid var(--light-grey);
+    border-radius: 6px;
+    margin-bottom: 5px;
+    padding: 2px;
+    width: 100%;
+}
+
+.ehr .dens-units-1, .ehr .dens-units-2 {
     display: none;
 }
 
-.ehr .dens-unit-2 {
+.ehr .dens-units-3 {
     display: inline-block;
 }
 
@@ -275,16 +275,33 @@ Chart
 }
 
 /* =============================================================================
+Misc.
+============================================================================= */
+
+.ehr .subregion-label {
+	position: absolute;
+	padding: 2px 4px;
+    border: 1px solid var(--subregion-border-colour);
+}
+
+.ehr .section-title {
+    font-weight: 600;
+    margin-bottom: 3px;
+    white-space: nowrap;
+}
+
+/* =============================================================================
 Media queries
 ============================================================================= */
 
-@media all and (min-width: 420px) {
+@media all and (min-width: 450px) {
     .ehr {
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .ehr .election-box {
         justify-content: flex-start;
+        order: 0;
     }
 
     .ehr .map-container {
@@ -292,36 +309,58 @@ Media queries
     }
 
     .ehr .density-box {
-        flex: 1;
-        align-items: flex-end;
+        flex: 0;
+        align-items: flex-start;
+        order: 3;
     }
 
     .ehr .density-button {
-        width: inherit;
+        width: auto;
         justify-content: left;
     }
 
+    .ehr .viz-box {
+        order: 1;
+    }
+
     .ehr .legend-box {
-        flex: 1;
+        flex: 0;
         margin-bottom: 0;
+        margin-right: 25px;
         text-align: left;
+        justify-content: flex-start;
+        align-items: stretch;
+        order: 2;
+    }
+
+    .ehr .dens-units-2 {
+        display: inline-block;
+    }
+
+    .ehr .dens-units-3 {
+        display: none;
     }
 }
 
 
-@media all and (min-width: 720px) {
+@media all and (min-width: 800px) {
     .ehr .legend-box {
-        max-width: 225px;
+        max-width: 250px;
     }
 
 	.ehr .viz-box {
 		flex: auto;
         width: inherit;
+        margin-right: 25px;
 	}
 
 	.ehr .density-box {
 		flex-flow: row nowrap;
         align-items: center;
+	}
+
+	.ehr .density-button-container {
+		flex-flow: row nowrap;
 	}
 
     .ehr .dens-units-1 {
@@ -338,14 +377,13 @@ Media queries
     }
 }
 
-@media all and (min-width: 950px) {
+@media all and (min-width: 1000px) {
 	.ehr .top-box {
 		margin-bottom: 0;
 	}
 
 	.ehr .viz-box {
 		flex: 1;
-    	margin-right: 25px;
         margin-bottom: 0;
 	}
 
@@ -357,7 +395,7 @@ Media queries
         width: auto;
 	}
 
-    .election-button {
+    .ehr .election-button {
         margin-right: 0;
         margin-bottom: 10px;
     }
@@ -378,6 +416,7 @@ Media queries
 	.ehr .density-box {
 		flex-flow: column nowrap;
         flex: 0;
+        align-items: flex-start;
 	}
 
     .ehr .dens-units-1 {
@@ -392,4 +431,8 @@ Media queries
         margin-bottom: 3px;
         margin-right: 0;
     }
+
+	.ehr .density-button-container {
+		flex-flow: column nowrap;
+	}
 }
