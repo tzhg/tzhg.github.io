@@ -169,6 +169,10 @@ ul {
     margin-top: calc(40px + 2%);
 }
 
+.about-me {
+    font-size: 20px;
+}
+
 /* =============================================================================
 Viz headers
 ============================================================================= */
@@ -208,6 +212,15 @@ Modal and info row
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
+    border-top: 1px solid var(--dark-grey);
+}
+
+.info-button {
+    margin-top: 10px;
+}
+
+.info-content {
+    display: none;
 }
 
 .modal {
@@ -270,10 +283,6 @@ Modal and info row
 .modal-title {
     font-weight: 600;
     margin-bottom: 5px;
-}
-
-.info-content {
-    display: none;
 }
 
 /* =============================================================================

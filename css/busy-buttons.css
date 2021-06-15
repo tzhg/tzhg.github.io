@@ -19,10 +19,12 @@
 
 .hover-button {
     border: 1px solid var(--light-medium-grey);
+    background-color: var(--very-light-grey);
 }
 
 .toggle-button {
     border: 1px solid var(--light-medium-grey);
+    background-color: var(--very-light-grey);
 }
 
 .click-button {
@@ -31,6 +33,7 @@
 
 .slide-box {
     background-color: var(--very-light-grey);
+    //box-shadow: inset 0px 0px 2px 0px var(--light-medium-grey);
 	touch-action: none;
 	display: flex;
     border-radius: calc(var(--button-border-rad) + var(--slide-box-padding));

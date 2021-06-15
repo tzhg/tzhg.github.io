@@ -494,9 +494,10 @@ const initSubregionLabels = () => {
             $label.html(subregion.name);
             $label.attr("data-subregion-id", subregion.subregion_id);
 
-            $label.css("fontSize",
-                $(".ehr .map-svg").width() > 400 ?"14px" : "12px"
-            );
+            $label.css({
+                "font-size": $(".ehr .map-svg").width() > 400 ? "14px" : "12px",
+                "padding": $(".ehr .map-svg").width() > 400 ? "4px 8px" : "2px 4px"
+            });
 
             $container.append($label);
 
@@ -515,7 +516,7 @@ const initSubregionLabels = () => {
 		bb.hoverButton(
 			".ehr .subregion-label",
 			"subregion-id",
-            () => darkGrey,
+            () => projectColour,
             (id) => {
                 selectedSubregion = id;
                 filter();
@@ -703,6 +704,15 @@ const initDensitySelection = () => {
         [2000, 10000]
     ];
 
+    const densityPalette = [
+        "#1f9663",
+        "#598936",
+        "#7c7712",
+        "#98610d",
+        "#ab4628",
+        "#b02949"
+    ];
+
     bb.slideBox(
         ".ehr .density-container",
         "density",
@@ -710,7 +720,7 @@ const initDensitySelection = () => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();
         },
-        () => darkGrey
+        (id) => densityPalette[id]
     );
 };
 
@@ -729,10 +739,10 @@ const initElectionSelection = () => {
 
         $mapContainer.addClass("map-container");
         $electionButton.addClass("election-button");
-        $buttonLabel.addClass("election-label button");
+        $buttonLabel.addClass("election-label button toggle-button");
         $svg.addClass(`map-svg-${elec_id}`);
 
-        $buttonLabel.text(obj.name);
+        $buttonLabel.text(`GE ${obj.name}`);
         $buttonLabel.attr("data-election-id", elec_id);
 
         $svg.attr("viewBox", svgViewBox);
@@ -749,7 +759,7 @@ const initElectionSelection = () => {
     bb.toggleButton(
         ".ehr .election-label",
         "election-id",
-        () => darkGrey,
+        () => projectColour,
         (id) => {
             elec = Number(id);
 

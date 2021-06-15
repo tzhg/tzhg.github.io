@@ -168,6 +168,10 @@ Legend
 	display: inline-block;
 }
 
+.ehr .legend-footer {
+    margin-top: 5px;
+}
+
 /* =============================================================================
 Election selection
 ============================================================================= */
@@ -179,7 +183,6 @@ Election selection
     flex: 1;
     max-width: 80px;
     margin-right: 10px;
-    border: 1px solid var(--election-border-colour);
 }
 
 .ehr .election-button:last-child {
@@ -187,9 +190,7 @@ Election selection
 }
 
 .ehr .election-label {
-    background-color: var(--election-background-colour);
     color: var(--election-colour);
-    padding: 0 4px;
     margin-top: 5px;
     justify-content: center;
 }
@@ -330,7 +331,7 @@ Media queries
         align-items: center;
 	}
 
-	.ehr .density-button-container {
+	.ehr .density-container {
 		flex-flow: row nowrap;
 	}
 
@@ -355,7 +356,7 @@ Media queries
 
 	.ehr .viz-box {
 		flex: 1;
-        margin-bottom: 0;
+        margin-bottom: 15px;
 	}
 
 	.ehr .election-box {
@@ -403,7 +404,7 @@ Media queries
         margin-right: 0;
     }
 
-	.ehr .density-button-container {
+	.ehr .density-container {
 		flex-flow: column nowrap;
 	}
 }
