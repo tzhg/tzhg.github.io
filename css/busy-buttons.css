@@ -18,23 +18,24 @@
 }
 
 .hover-button {
-    border: 1px solid var(--light-grey);
+    border: 1px solid var(--light-medium-grey);
 }
 
 .toggle-button {
-    border: 1px solid var(--light-grey);
+    border: 1px solid var(--light-medium-grey);
 }
 
 .click-button {
-    color: white;
+    color: var(--very-light-grey);
 }
 
 .slide-box {
+    background-color: var(--very-light-grey);
 	touch-action: none;
 	display: flex;
     border-radius: calc(var(--button-border-rad) + var(--slide-box-padding));
     padding: var(--slide-box-padding);
-    border: 1px solid var(--light-grey);
+    border: 1px solid var(--light-medium-grey);
 }
 
 .slide-box > .button {

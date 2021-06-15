@@ -2,9 +2,10 @@ export function busyButtons() {
 	/* Pointer events for mouse and touch devices */
 	/* See busy-buttons-demo.html for demo */
 
+	const veryLightGrey = "#fafafa";
 	const lightGrey = "#e6e6e6";
 	const darkGrey = "#333333";
-	const darkMediumGrey = "#808080";
+	const lightMediumGrey = "#b3b3b3";
 
 	/* Lightens or darkens a colour */
 	/* percent=-1: black */
@@ -141,10 +142,10 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const borderColour = [lightGrey, colour(id), darkMediumGrey, darkMediumGrey];
-			const backgroundColor = ["white", colour(id), "white", shadeColour(colour(id), 0.8)];
-			const textColour = [darkGrey, "white", darkGrey, darkGrey];
-			const iconColour = [colour(id), "white", colour(id), colour(id)];
+			const borderColour = [lightMediumGrey, colour(id), darkGrey, darkGrey];
+			const backgroundColor = [veryLightGrey, colour(id), veryLightGrey, shadeColour(colour(id), 0.8)];
+			const textColour = [darkGrey, veryLightGrey, darkGrey, darkGrey];
+			const iconColour = [colour(id), veryLightGrey, colour(id), colour(id)];
 
 			$elem.css({
 				"border": `1px solid ${borderColour[state]}`,
@@ -276,10 +277,10 @@ export function busyButtons() {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
 			$elem.css({
-				"color": [darkGrey, "white"][state],
-				"background-color": ["white", colour(id)][state],
-				"--icon-colour": [colour(id), "white"][state],
-				"border": `1px solid ${[lightGrey, colour(id)][state]}`
+				"color": [darkGrey, veryLightGrey][state],
+				"background-color": [veryLightGrey, colour(id)][state],
+				"--icon-colour": [colour(id), veryLightGrey][state],
+				"border": `1px solid ${[lightMediumGrey, colour(id)][state]}`
 			});
 		});
 
@@ -444,9 +445,9 @@ export function busyButtons() {
 			const $elem = $(`${sel} > *[data-${dataId}=${id}]`);
 
 			$elem.css({
-				"color": [darkGrey, "white"][state],
-				"background-color": ["white", colour(id)][state],
-				"--icon-colour": [colour(id), "white"][state]
+				"color": [darkGrey, veryLightGrey][state],
+				"background-color": [veryLightGrey, colour(id)][state],
+				"--icon-colour": [colour(id), veryLightGrey][state]
 			});
 		});
 
@@ -495,7 +496,7 @@ export function busyButtons() {
 
 					pointerMoveHandler(evt);
 					$(sel).on("pointermove", pointerMoveHandler);
-					$(sel).css("border", `1px solid ${darkMediumGrey}`);
+					$(sel).css("border", `1px solid ${darkGrey}`);
 				}
 			})
 			.on("pointerup pointerleave", (evt) => {
@@ -512,7 +513,7 @@ export function busyButtons() {
 						slideElem = "";
 					}
 					$(sel).off("pointermove", pointerMoveHandler);
-					$(sel).css("border", `1px solid ${lightGrey}`);
+					$(sel).css("border", `1px solid ${lightMediumGrey}`);
 					f(slideElem);
 					sliding = false;
 				}
