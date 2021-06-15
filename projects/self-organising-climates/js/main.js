@@ -1,12 +1,12 @@
 /* global $ */
 
 "use strict";
-import { pointerEvents } from "../../../js/pointerEvents.js";
+import { busyButtons } from "../../../js/busy-buttons.js";
 import { importData } from "./importData.js";
 
 $(() => {
 
-const bb = pointerEvents();
+const bb = busyButtons();
 
 const lightGrey = "#e6e6e6";
 const lightMediumGrey = "#b3b3b3";
@@ -193,27 +193,14 @@ const createMonthSelection = () => {
         $button.append($textSmall);
     });
 
-    bb.buttons(
-        "hoverToggle",
-        ".soc .month-button",
+    bb.slideBox(
+        ".soc .month-box",
         "month",
-        "",
-        {
-            "background-color": ["white", darkGrey, darkGrey, darkGrey],
-            "color": [darkGrey, lightGrey, lightGrey, lightGrey]
-        },
-        (elem, state) => {
-            if (state === 0) {
-                $(elem).removeClass("selected-month");
-            } else {
-                $(elem).addClass("selected-month");
-            }
-        },
-        (evt, id) => {
-            selectedMonth = Number(evt.target.dataset.month);
+        (id) => {
+            selectedMonth = Number(id);
             draw();
         },
-        true,
+        () => darkGrey,
         "0"
     );
 };
@@ -221,24 +208,15 @@ const createMonthSelection = () => {
 const createVarSelection = () => {
     const varColours = ["#a76e21", "#2c86bd", "#567fc0", "#b6b68f"];
 
-    bb.buttons(
-        "clickToggle",
+    bb.toggleButton(
         ".soc .var-button",
         "var",
         (id) => varColours[id],
-        {
-            "background-color": [1, 0, 1, 0.8],
-            "color": [darkGrey, "white", darkGrey, darkGrey],
-            "--var-icon-color": [0, "white", 0, 0],
-            "--var-border": [lightGrey, 0, darkGrey, darkGrey]
-        },
-        "",
-        (evt, id) => {
-            selectedVar = Number(evt.target.dataset.var);
+        (id) => {
+            selectedVar = Number(id);
             draw();
             drawColourBar();
         },
-        true,
         "0"
     );
 };

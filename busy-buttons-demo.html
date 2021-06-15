@@ -1,0 +1,237 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Busy Buttons demo</title>
+
+        <link rel="stylesheet" href="css/colours.css">
+        <link rel="stylesheet" href="css/busy-buttons.css">
+        <style type="text/css">
+            :root {
+                --border-colour: #404040;
+            }
+
+            body {
+                font-family: "Arial", "Helvetica", sans-serif;
+            }
+
+            .main-col {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                margin-top: 50px;
+            }
+
+            .title {
+                font-size: 36px;
+                margin-bottom: 25px;
+            }
+
+            .square {
+                display: flex;
+                height: 100px;
+                width: 100px;
+                background-color: white;
+                border: 10px solid var(--border-colour);
+                justify-content: center;
+                align-items: center;
+            }
+
+            .square > * {
+                display: none;
+            }
+
+            .row {
+                display: flex;
+                flex-flow: row wrap;
+                margin-bottom: 15px;
+                align-items: center;
+            }
+
+            .row > * {
+                margin-right: 15px;
+            }
+
+            .info {
+                font-size: 24px;
+                margin-top: 40px;
+                margin-bottom: 10px;
+            }
+
+            .slide-box > .button:first-child {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            .slide-box > .button:last-child {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+
+            .tt-square {
+                border: 1px solid var(--light-grey);
+                border-radius: 4px;
+                padding: 4px 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main-col">
+            <div class="title">Busy Buttons demo</div>
+            <div class="square">
+                <div class="date-text"></div>
+                <div class="colour-text"></div>
+                <div class="word-text">Word</div>
+            </div>
+            <div class="info">1. clickButton:</div>
+            <div class="row r1">
+                <div class="button click-button" data-id="0">Change background colour</div>
+                <div class="button click-button" data-id="1">Change border colour</div>
+            </div>
+            <div class="info">2. hoverButton:</div>
+            <div class="row r7">
+                <div class="button hover-button" data-id="0">Change background colour</div>
+                <div class="button hover-button" data-id="1">Change border colour</div>
+            </div>
+            <div class="info">3. Toggle buttons:</div>
+            <div class="row r2">
+                <div class="row-title">Optional:</div>
+                <div class="button toggle-button" data-id="0">Show date</div>
+                <div class="button toggle-button" data-id="1">Show colour</div>
+                <div class="button toggle-button" data-id="2">Show word</div>
+            </div>
+            <div class="row r3">
+                <div class="row-title">Mandatory:</div>
+                <div class="button toggle-button" data-id="0">Square</div>
+                <div class="button toggle-button" data-id="1">Circle</div>
+            </div>
+            <div class="info">4. slideBox:</div>
+            <div class="row r4">
+                <div class="row-title">Optional:</div>
+                <div class="slide-box">
+                    <div class="button" data-id="0">Show date</div>
+                    <div class="button" data-id="1">Show colour</div>
+                    <div class="button" data-id="2">Show word</div>
+                </div>
+            </div>
+            <div class="row r5">
+                <div class="row-title">Mandatory:</div>
+                <div class="slide-box">
+                    <div class="button" data-id="0">Square</div>
+                    <div class="button" data-id="1">Circle</div>
+                </div>
+            </div>
+            <div class="info">5. tooltip:</div>
+            <div class="row r6">
+                <div class="tt-square" data-id="0">?</div>
+                <div class="tt-square" data-id="1">?</div>
+                <div class="tt-square" data-id="2">?</div>
+            </div>
+        </div>
+        <div class="tooltip"></div>
+    </div>
+
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+        </script>
+        <script type="module">
+import { busyButtons } from "./js/busy-buttons.js";
+
+const bb = busyButtons();
+const black = "#333333";
+const lightGrey = "#e6e6e6";
+const pal = ["#3588d1", "#d38f57", "#30766a", "#bf3854", "#846dff", "#749d3c"];
+
+$(".date-text").text(new Date().toISOString().slice(0, 10));
+$(".colour-text").text("#ffffff");
+
+bb.clickButton(
+    ".r1 > .button",
+    "id",
+    () => pal[0],
+    (id) => {
+        const colour = "#" + Math.floor(Math.random() * (1 << 3 * 8)).toString(16).padStart(6, "0");
+        if (id === "0") {
+            $(".square").css("background", colour);
+            $(".colour-text").text(colour);
+        } else if (id === "1") {
+            $(".square").css("--border-colour", colour);
+        }
+    }
+);
+
+bb.hoverButton(
+    ".r7 > .button",
+    "id",
+    () => pal[1],
+    (id) => {
+        const colour = "#" + Math.floor(Math.random() * (1 << 3 * 8)).toString(16).padStart(6, "0")
+        if (id === "0") {
+            $(".square").css("background", colour);
+            $(".colour-text").text(colour);
+        } else if (id === "1") {
+            $(".square").css("--border-colour", colour);
+        }
+    }
+);
+
+bb.toggleButton(
+    ".r2 > .button",
+    "id",
+    () => pal[2],
+    (id) => {
+        $(".square > *").hide();
+        $(`.${["date", "colour", "word"][id]}-text`).show();
+    }
+);
+
+bb.toggleButton(
+    ".r3 > .button",
+    "id",
+    () => pal[3],
+    (id) => {
+        $(".square").css("border-radius", id === "0" ? "0" : "100px");
+    },
+    "0"
+);
+
+bb.slideBox(
+    ".r4 > .slide-box",
+    "id",
+    (id) => {
+        $(".square > *").hide();
+        $(`.${["date", "colour", "word"][id]}-text`).show();
+    },
+    () => pal[4]
+);
+
+bb.slideBox(
+    ".r5 > .slide-box",
+    "id",
+    (id) => {
+        $(".square").css("border-radius", id === "0" ? "0" : "100px");
+    },
+    () => pal[5],
+    "0"
+);
+
+bb.tooltip(
+    ".r6 > .tt-square",
+    "id",
+    (elem, state) => {
+        const $ttElem = $(".tooltip");
+
+        $ttElem.empty();
+
+        $ttElem.text(`Square ${Number(elem.dataset.id) + 1}`);
+
+        $(elem).css("border", `1px solid ${black}`);
+    },
+    (elem, state) => {
+        $(elem).css("border", `1px solid ${lightGrey}`);
+    }
+);
+        </script>
+    </body>
+</html>

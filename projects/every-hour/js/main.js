@@ -2,11 +2,11 @@
 
 "use strict";
 
-import { pointerEvents } from "../../../js/pointerEvents.js";
+import { busyButtons } from "../../../js/busy-buttons.js";
 import { importData } from "./importData.js";
 
 $(() => {
-const bb = pointerEvents();
+const bb = busyButtons();
 
 /* Imported data */
 const dataObj = importData();
@@ -185,37 +185,24 @@ const genLegend = (layoutType) => {
 		$button.append($label);
 
 		$(".eh .legend-container").append($button);
-/*
-		if (layoutType === 0) {
-			$buttonContainer.width(maxWidths[i] + buttonSpace);
-			$(`.eh .legend-row.l${1 + i % 2}`).append($buttonContainer);
-		} else if (layoutType === 1) {
-			$(".eh .legend-container").append($buttonContainer);
-		}*/
 	});
 
-	bb.buttons(
-		"hoverToggle",
-		".eh .legend-button",
+	bb.slideBox(
+		".eh .legend-container",
 		"cat",
-		(id) => categoryInfo[id][1],
-		{
-			"background-color": [1, 0, 0.9, 0],
-			"color": [darkGrey, 1, darkGrey, 1],
-			"--legend-colour": [0, 1, 0, 1],
-		},
-        (elem, state) => {
-            const borderColour = [lightGrey, darkMediumGrey];
-            $(elem).parent().css("border", `1px solid ${borderColour[state]}`);
-        },
-		(evt, id) => {
+		(id) => {
 			if (id === "") {
 				draw();
 			} else {
 				isolate(Number(id));
 			}
-		}
+		},
+		(id) => categoryInfo[id][1]
 	);
+
+	/*
+		"--legend-colour": [0, 1, 0, 1],
+		);*/
 };
 
 (() => {

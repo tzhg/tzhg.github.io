@@ -2,7 +2,7 @@
 
 "use strict";
 
-import { pointerEvents } from "../../../js/pointerEvents.js";
+import { busyButtons } from "../../../js/busy-buttons.js";
 import { importData } from "./importData.js";
 
 $(() => {
@@ -12,7 +12,7 @@ const data = importData();
 /* Active electon */
 let elec = 2;
 
-const bb = pointerEvents();
+const bb = busyButtons();
 
 /* css constants */
 const themeColour = "#1e9664";
@@ -407,6 +407,7 @@ const formatPercent = (n) => {
 
 const initLegend = () => {
     $(".ehr .legend-content").empty();
+    $(".ehr .legend-content").off();
 
     let selectedParty = "";
 
@@ -467,27 +468,16 @@ const initLegend = () => {
         $(".ehr .legend-content").append($legendButton);
     });
 
-    bb.buttons(
-        "hoverToggle",
-        ".ehr .legend-button",
+    bb.slideBox(
+        ".ehr .legend-content",
         "party-id",
-        (id) => data[elec].parties[id].colour,
-        {
-            "background-color": [1, 0, 0.7, 0.8],
-            "color": [darkGrey, 1, darkGrey, 1],
-            "--legend-colour": [0, 1, 0, 0]
-        },
-        (elem, state) => {
-            const borderColour = [lightGrey, darkMediumGrey];
-            $(elem).parent().css("border", `1px solid ${borderColour[state]}`);
-        },
-        (evt, id) => {
+        (id) => {
             selectedPartyGroup = id === "" ?
                 "" :
                 data[elec].parties[id].group_id;
             filter();
         },
-        false,
+        (id) => data[elec].parties[id].colour,
         selectedParty
     );
 
@@ -500,7 +490,7 @@ const initSubregionLabels = () => {
             let $label = $(document.createElement("div"));
             let $container = $(".ehr .viz-box .map-container");
 
-            $label.addClass("subregion-label button");
+            $label.addClass("subregion-label button hover-button");
             $label.html(subregion.name);
             $label.attr("data-subregion-id", subregion.subregion_id);
 
@@ -522,23 +512,14 @@ const initSubregionLabels = () => {
             });
         });
 
-		bb.buttons(
-            "hoverToggle",
+		bb.hoverButton(
 			".ehr .subregion-label",
 			"subregion-id",
-            "",
-            {
-                "background-color": ["white", darkGrey],
-                "color": [darkGrey, "white"],
-                "--subregion-border-colour": [lightGrey, darkGrey]
-            },
-            "",
-            (evt, id) => {
+            () => darkGrey,
+            (id) => {
                 selectedSubregion = id;
-                filter()
-            },
-            false,
-            ""
+                filter();
+            }
 		);
     };
 
@@ -634,124 +615,82 @@ const initToolTip = (elec_id) => {
 
     const ttVSpace = 60;
 
-    /* Updates tool-tip */
-    /* [x, y]: position of pointer in SCS */
-    const toolTip = (constitId) => {
-        const $ttElem = $(".ehr .tool-tip");
-        $ttElem.empty();
-        let dataObj = constitData[constitId];
-
-        let $boxHeader = $(document.createElement("div"));
-		$boxHeader.addClass("tool-tip-mp-box");
-
-        /* Constituency name */
-        let $constitLabel = $(document.createElement("div"));
-        $constitLabel.text(data[elec_id].constits[constitId].name);
-		$constitLabel.addClass("tool-tip-constit-label");
-        $boxHeader.append($constitLabel);
-
-        /* % first preference label */
-        let $pfpLabel= $(document.createElement("div"));
-        $pfpLabel.text("FIRST PREF.");
-		$pfpLabel.addClass("tool-tip-pfp-label table-header");
-        $boxHeader.append($pfpLabel);
-
-        $ttElem.append($boxHeader);
-
-        /* MPs */
-        dataObj.forEach((mp, i) => {
-            let $box = $(document.createElement("div"));
-			$box.addClass("tool-tip-mp-box");
-
-            let $partyLabel = $(document.createElement("div"));
-            let $span = $(document.createElement("span"));
-
-			$partyLabel.addClass("tool-tip-party");
-            $partyLabel.css("background-color", mp.colour);
-			$partyLabel.css("color", "white");
-
-            $span.text(mp.party);
-
-            $partyLabel.append($span);
-            $box.append($partyLabel);
-
-            let $nameLabel = $(document.createElement("span"));
-			$nameLabel.addClass("tool-tip-name");
-            $nameLabel.text(mp.name);
-            $box.append($nameLabel);
-
-            const pfp = Number(mp.percent) > 0 ?
-                formatPercent(mp.percent) :
-                "C.C.";
-
-            let $percentLabel = $(document.createElement("span"));
-			$percentLabel.addClass("tool-tip-percent");
-            $percentLabel.text(pfp);
-            $box.append($percentLabel);
-
-            $ttElem.append($box);
-        });
-    };
-
-    const toolTipPosition = (x, y) => {
-        const ttVSpace = 60;
-
-        const $ttElem = $(".ehr .tool-tip");
-
-        /* Set in middle to measure width */
-        $ttElem.css({
-            "left": "0",
-        });
-
-        let ttWidth = $ttElem[0].getBoundingClientRect().width;
-
-        const screenPad = 5;
-
-        /* Ensures does not go off screen edge */
-        x = Math.max(x, ttWidth / 2 + screenPad);
-        x = Math.min(x, $(window).width() - ttWidth / 2 - screenPad);
-
-        $ttElem.css({
-            "left": `${x - ttWidth / 2}px`,
-            "top": `${y + ttVSpace}px`
-        });
-    }
-
-    bb.buttons(
-        "hoverToggle",
+    bb.tooltip(
         ".ehr .constit-hover-border",
         "constit-id",
-        "",
-        "",
         (elem, state) => {
+            const constitId = elem.dataset.constitId;
+
+            const $ttElem = $(".tooltip");
+            $ttElem.empty();
+            let dataObj = constitData[elem.dataset.constitId];
+
+            let $boxHeader = $(document.createElement("div"));
+    		$boxHeader.addClass("tooltip-mp-box");
+
+            /* Constituency name */
+            let $constitLabel = $(document.createElement("div"));
+            $constitLabel.text(data[elec_id].constits[constitId].name);
+    		$constitLabel.addClass("tooltip-constit-label");
+            $boxHeader.append($constitLabel);
+
+            /* % first preference label */
+            let $pfpLabel= $(document.createElement("div"));
+            $pfpLabel.text("FIRST PREF.");
+    		$pfpLabel.addClass("tooltip-pfp-label table-header");
+            $boxHeader.append($pfpLabel);
+
+            $ttElem.append($boxHeader);
+
+            /* MPs */
+            dataObj.forEach((mp, i) => {
+                let $box = $(document.createElement("div"));
+    			$box.addClass("tooltip-mp-box");
+
+                let $partyLabel = $(document.createElement("div"));
+                let $span = $(document.createElement("span"));
+
+    			$partyLabel.addClass("tooltip-party");
+                $partyLabel.css("background-color", mp.colour);
+    			$partyLabel.css("color", "white");
+
+                $span.text(mp.party);
+
+                $partyLabel.append($span);
+                $box.append($partyLabel);
+
+                let $nameLabel = $(document.createElement("span"));
+    			$nameLabel.addClass("tooltip-name");
+                $nameLabel.text(mp.name);
+                $box.append($nameLabel);
+
+                const pfp = Number(mp.percent) > 0 ?
+                    formatPercent(mp.percent) :
+                    "C.C.";
+
+                let $percentLabel = $(document.createElement("span"));
+    			$percentLabel.addClass("tooltip-percent");
+                $percentLabel.text(pfp);
+                $box.append($percentLabel);
+
+                $ttElem.append($box);
+            });
+
+            const $border = $(document.createElementNS(NS, "path"));
+            $border.attr("fill", "none");
+            $border.attr("pointer-events", "none");
+            $border.attr("class", "hover-border");
+            $border.attr("d", $(elem).attr("d"));
+            $border.attr("stroke", darkGrey);
+            $border.attr("opacity", "1");
+            $border.attr("stroke-width", "0.3");
+            $(".viz-box .map-svg").append($border);
+        },
+        () => {
             $(".ehr .hover-border").remove();
-                $(".ehr .tool-tip").hide();
+        }
 
-            if (state !== 0) {
-                $(".ehr .tool-tip").show();
-                toolTip(elem.dataset.constitId);
-
-                const $border = $(document.createElementNS(NS, "path"));
-                $border.attr("fill", "none");
-                $border.attr("pointer-events", "none");
-                $border.attr("class", "hover-border");
-                $border.attr("d", $(elem).attr("d"));
-                $border.attr("stroke", darkGrey);
-                $border.attr("opacity", "1");
-                $border.attr("stroke-width", "0.3");
-                $(elem).parent().append($border);
-            }
-        },
-        (evt, id) => {
-            toolTipPosition(evt.originalEvent.pageX, evt.originalEvent.pageY);
-        },
-        false,
-        ""
     );
-
-    $(document.body).on("pointerup pointermove", (evt) => {
-        toolTipPosition(evt.originalEvent.pageX, evt.originalEvent.pageY);
-    });
 };
 
 const initDensitySelection = () => {
@@ -764,24 +703,14 @@ const initDensitySelection = () => {
         [2000, 10000]
     ];
 
-    bb.buttons(
-        "hoverToggle",
-        ".ehr .density-button",
+    bb.slideBox(
+        ".ehr .density-container",
         "density",
-        "",
-        {
-            "background-color": ["white", darkGrey],
-            "color": [darkGrey, "white"]
-        },
-        (elem, state) => {
-            const borderColour = [lightGrey, darkMediumGrey];
-            $(elem).parent().css("border", `1px solid ${borderColour[state]}`);
-        },
-        (evt, id) => {
+        (id) => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();
         },
-        false
+        () => darkGrey
     );
 };
 
@@ -799,12 +728,12 @@ const initElectionSelection = () => {
         const $svg = $(document.createElementNS(NS, "svg"));
 
         $mapContainer.addClass("map-container");
-        $electionButton.addClass("election-button button");
-        $buttonLabel.addClass("election-label");
+        $electionButton.addClass("election-button");
+        $buttonLabel.addClass("election-label button");
         $svg.addClass(`map-svg-${elec_id}`);
 
         $buttonLabel.text(obj.name);
-        $electionButton.attr("data-election-id", elec_id);
+        $buttonLabel.attr("data-election-id", elec_id);
 
         $svg.attr("viewBox", svgViewBox);
         $svg.attr("preserveAspectRatio", "none");
@@ -817,29 +746,15 @@ const initElectionSelection = () => {
         draw("small", elec_id);
     });
 
-    bb.buttons(
-        "clickToggle",
-        ".ehr .election-button",
+    bb.toggleButton(
+        ".ehr .election-label",
         "election-id",
-        "",
-        {
-            "background-color": ["white", darkGrey, "white", lightGrey],
-            "color": [darkGrey, "white", darkGrey, darkGrey],
-            "--election-border-colour": [lightGrey, darkGrey, darkMediumGrey, darkMediumGrey]
-        },
-        (elem, state) => {
-            if (state === 1) {
-                $(elem).find(".hexagon").addClass("elec-sel");
-            } else {
-                $(elem).find(".hexagon").removeClass("elec-sel");
-            }
-        },
-        (evt, id) => {
-            elec = Number(evt.target.dataset.electionId);
+        () => darkGrey,
+        (id) => {
+            elec = Number(id);
 
             drawElection();
         },
-        true,
         String(elec)
     );
 

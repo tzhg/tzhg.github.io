@@ -1,0 +1,55 @@
+:root {
+    --button-border-rad: 4px;
+    --slide-box-padding: 2px;
+}
+
+.button {
+	touch-action: none;
+	user-select: none;
+	display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: var(--button-border-rad);
+    padding: 4px 8px;
+}
+
+.button > * {
+    pointer-events: none;
+}
+
+.hover-button {
+    border: 1px solid var(--light-grey);
+}
+
+.toggle-button {
+    border: 1px solid var(--light-grey);
+}
+
+.click-button {
+    color: white;
+}
+
+.slide-box {
+	touch-action: none;
+	display: flex;
+    border-radius: calc(var(--button-border-rad) + var(--slide-box-padding));
+    padding: var(--slide-box-padding);
+    border: 1px solid var(--light-grey);
+}
+
+.slide-box > .button {
+    border-radius: 0;
+}
+
+.tooltip {
+    background-color: white;
+	font-size: 12px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--light-grey);
+    position: absolute;
+    padding: 6px 10px;
+    text-align: left;
+	z-index: 3;
+	display: none;
+    border-radius: 4px;
+}

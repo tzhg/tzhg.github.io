@@ -22,16 +22,8 @@ Month selection
 
 .soc .month-box {
 	width: 100%;
-    display: flex;
     flex-flow: row nowrap;
 	margin-bottom: 10px;
-    border-radius: 6px;
-    padding: 2px;
-    border: 1px solid var(--light-grey);
-}
-
-.soc .month-box:hover {
-    border: 1px solid var(--dark-medium-grey);
 }
 
 .soc .month-button {
@@ -54,33 +46,10 @@ Month selection
 	border-bottom-right-radius: 4px;
 }
 
-.soc .month-button > * {
-	pointer-events: none;
-	user-select: none;
-}
-
 .soc .month-text-big, .soc .month-text-medium {
 	display: none;
 }
-/*
-.soc .month-button::after {
-	content: "";
-	width: 1px;
-	height: calc(100% - 2 * 5px);
-	background-color: var(--light-medium-grey);
-	position: absolute;
-	left: 0;
-	top: 5px;
-}
 
-.soc .selected-month::after, .soc .selected-month + .month-button::after  {
-	display: none;
-}
-
-.soc .month-button:first-child::after {
-	display: none;
-}
-*/
 /* =============================================================================
 Variable selection
 ============================================================================= */
@@ -118,7 +87,7 @@ Variable selection
 }
 
 .soc .var-button > svg * {
-	fill: var(--var-icon-color);
+	fill: var(--icon-color);
 }
 
 /* =============================================================================

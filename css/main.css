@@ -169,20 +169,6 @@ ul {
     margin-top: calc(40px + 2%);
 }
 
-.button {
-	touch-action: none;
-	user-select: none;
-	display: flex;
-    align-items: center;
-    white-space: nowrap;
-    border-radius: 4px;
-    padding: 4px 8px;
-}
-
-.button > * {
-    pointer-events: none;
-}
-
 /* =============================================================================
 Viz headers
 ============================================================================= */

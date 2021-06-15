@@ -43,12 +43,8 @@ Legend
 ============================================================================= */
 
 .eh .legend-container {
-    display: flex;
     flex-flow: row wrap;
 	margin-top: 25px;
-    border-radius: 6px;
-    padding: 2px;
-    border: 1px solid var(--light-grey);
 }
 
 .eh .legend-button {
@@ -68,7 +64,7 @@ Legend
 }
 
 .eh .legend-square {
-	background-color: var(--legend-colour);
+	background-color: var(--icon-colour);
 	width: 15px;
 	height: 15px;
 	margin-right: 4px;

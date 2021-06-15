@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/colours.css">
+    <link rel="stylesheet" href="css/busy-buttons.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="./projects/every-hour/css/main.css">
     <link rel="stylesheet" href="./projects/el-hex-tion-results/css/main.css">
@@ -41,10 +43,10 @@ every-hour
 <div class="desc">Time spent on various activities, smoothed</div>
 <div class="eh">
     <div class="chart-container"></div>
-    <div class="legend-container"></div>
+    <div class="legend-container slide-box"></div>
 </div>
 <div class="info-row">
-    <div class="info-button button" data-project-id="every-hour">More info</div>
+    <div class="info-button button click-button" data-project-id="every-hour">More info</div>
 </div>
 <div class="info-content" data-project-id="every-hour">
     <div>
@@ -85,7 +87,7 @@ el-hextion-results
     <div class="election-box"></div>
     <div class="legend-box">
         <div class="section-title">Parties and numbers of seats:</div>
-        <div class="legend-content"></div>
+        <div class="legend-content slide-box"></div>
         <div class="legend-footer"></div>
     </div>
     <div class="viz-box"></div>
@@ -95,7 +97,7 @@ el-hextion-results
             <div class="dens-units-3">population&nbsp;</div>
             density<div class="dens-units-1">&nbsp;(people/km<sup>2</sup>)</div>:
         </div>
-        <div class="density-button-container">
+        <div class="density-container slide-box">
             <div class="density-button button" data-density="5">
                 &gt;2k
                 <div class="dens-units-2">&nbsp;pp/km<sup>2</sup></div>
@@ -123,11 +125,9 @@ el-hextion-results
             </div>
         </div>
     </div>
-
-    <div class="tool-tip"></div>
 </div>
 <div class="info-row">
-    <div class="info-button button" data-project-id="el-hex-tion-results">More info</div>
+    <div class="info-button button click-button" data-project-id="el-hex-tion-results">More info</div>
 </div>
 <div class="info-content" data-project-id="el-hex-tion-results">
     <div>
@@ -183,7 +183,7 @@ self-organising-climates
 <div class="desc"></div>
 <div class="soc">
     <div class="var-box">
-            <div class="var-button button" data-var="0">
+            <div class="var-button button toggle-button" data-var="0">
                 <svg
                    width="8mm"
                    height="8mm"
@@ -240,7 +240,7 @@ self-organising-climates
                 </svg>
                 Mean daily high (°C)
             </div>
-            <div class="var-button button" data-var="1">
+            <div class="var-button button toggle-button" data-var="1">
                 <svg
                    width="8mm"
                    height="8mm"
@@ -298,7 +298,7 @@ self-organising-climates
 
                 Mean daily low (°C)
             </div>
-            <div class="var-button button" data-var="2">
+            <div class="var-button button toggle-button" data-var="2">
                 <svg
                    width="8mm"
                    height="8mm"
@@ -370,7 +370,7 @@ self-organising-climates
 
                 Mean precipitation (mm)
             </div>
-            <div class="var-button button" data-var="3">
+            <div class="var-button button toggle-button" data-var="3">
                 <svg
                    width="8mm"
                    height="8mm"
@@ -464,14 +464,14 @@ self-organising-climates
                 Mean sunshine hours
         </div>
     </div>
-    <div class="month-box"></div>
+    <div class="month-box slide-box"></div>
     <div class="viz-box">
         <svg class="chart-svg" viewBox="0 0 120 230"></svg>
         <div class="colour-bar"></div>
     </div>
 </div>
 <div class="info-row">
-    <div class="info-button button" data-project-id="self-organising-climates">More info</div>
+    <div class="info-button button click-button" data-project-id="self-organising-climates">More info</div>
 </div>
 <div class="info-content" data-project-id="self-organising-climates">
     <div>
@@ -521,10 +521,12 @@ Modal
     <div class="modal-cover">
         <div class="modal-box">
             <div class="modal-content"></div>
-            <div class="modal-close-button button" data-id="0">OK</div>
+            <div class="modal-close-button button click-button" data-id="0">OK</div>
         </div>
     </div>
 </div>
+
+<div class="tooltip"></div>
 
 <script
     src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
