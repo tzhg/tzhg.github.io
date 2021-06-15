@@ -478,13 +478,12 @@ export function busyButtons() {
 						slideElem = id;
 						f(slideElem);
 						buttonStateId(slideElem, 1);
-						sliding = true;
 					}
 				}
 			});
 		};
 
-		$(sel)
+		$(sel).children()
 			.on("pointerdown pointerover", (evt) => {
 				evt.preventDefault();
 				if (evt.pointerType !== "touch" && evt.type === "pointerdown") {
@@ -497,6 +496,7 @@ export function busyButtons() {
 					pointerMoveHandler(evt);
 					$(sel).on("pointermove", pointerMoveHandler);
 					$(sel).css("border", `1px solid ${darkGrey}`);
+					sliding = true;
 				}
 			})
 			.on("pointerup pointerleave", (evt) => {
