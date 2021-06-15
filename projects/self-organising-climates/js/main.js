@@ -245,7 +245,6 @@ const layout = () => {
     };
 
     const dataIdx = Math.max(Math.round(nHorizCells($(".chart-svg").width()) / 5) - 2, 0);
-    console.log(dataIdx);
 
     mapData = importedData[2][dataIdx];
 
