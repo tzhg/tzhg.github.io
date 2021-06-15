@@ -488,39 +488,39 @@ export function busyButtons() {
 			});
 		};
 
-		$(sel).children()
-			.on("pointerdown pointerover", (evt) => {
-				evt.preventDefault();
-				if (evt.pointerType !== "touch" && evt.type === "pointerdown") {
-					return;
-				}
+		$(sel).children().on("pointerdown pointerover", (evt) => {
+			evt.preventDefault();
+			if (evt.pointerType !== "touch" && evt.type === "pointerdown") {
+				return;
+			}
 
-				if (!sliding) {
-					$(sel)[0].setPointerCapture(evt.pointerId);
+			if (!sliding) {
+				$(sel)[0].setPointerCapture(evt.pointerId);
 
-					pointerMoveHandler(evt);
-					$(sel).on("pointermove", pointerMoveHandler);
-					sliding = true;
-				}
-			})
-			.on("pointerup pointerleave", (evt) => {
-				evt.preventDefault();
-				if (evt.pointerType !== "touch" && evt.type === "pointerup") {
-					return;
-				}
+				pointerMoveHandler(evt);
+				$(sel).on("pointermove", pointerMoveHandler);
+				sliding = true;
+			}
+		});
 
-				if (sliding) {
-					$(sel)[0].releasePointerCapture(evt.pointerId);
+		$(sel).on("pointerup pointerleave", (evt) => {
+			evt.preventDefault();
+			if (evt.pointerType !== "touch" && evt.type === "pointerup") {
+				return;
+			}
 
-					if (mandatoryId === "") {
-						buttonStateId(slideElem, 0);
-						slideElem = "";
-					}
-					$(sel).off("pointermove", pointerMoveHandler);
-					f(slideElem);
-					sliding = false;
+			if (sliding) {
+				$(sel)[0].releasePointerCapture(evt.pointerId);
+
+				if (mandatoryId === "") {
+					buttonStateId(slideElem, 0);
+					slideElem = "";
 				}
-			})
+				$(sel).off("pointermove", pointerMoveHandler);
+				f(slideElem);
+				sliding = false;
+			}
+		});
 	}
 
 	return {
