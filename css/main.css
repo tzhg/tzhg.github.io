@@ -223,6 +223,7 @@ Modal and info row
 
 .modal-box {
     --modal-padding: 25px;
+    --modal-padding-bottom: 50px;
     --modal-height: 90vh;
     --modal-width: 90vw;
     --modal-close-height: 20px;
@@ -233,13 +234,14 @@ Modal and info row
     height: min(var(--modal-height), var(--modal-max-height));
     width: min(var(--modal-width), var(--modal-max-width));
     padding: var(--modal-padding);
+    padding-bottom: var(--modal-padding-bottom);
     border-radius: 6px;
     margin: 10px;
 }
 
 .modal-content {
     --modal-close-height: 20px;
-    height: calc(min(var(--modal-height), var(--modal-max-height)) - 2 * var(--modal-padding) - var(--modal-close-height));
+    height: calc(min(var(--modal-height), var(--modal-max-height)) - var(--modal-padding) - var(--modal-padding-bottom));
     width: calc(min(var(--modal-width), var(--modal-max-width)) - 2 * var(--modal-padding));
     text-align: justify;
     text-justify: inter-word;
