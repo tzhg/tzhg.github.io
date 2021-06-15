@@ -235,9 +235,17 @@ const layout = () => {
             2 * mainContainerPadding, minimumWidth
     );
 
-    /* Desired width of grid */
-    const nHorizCells = $(".chart-svg").width() / 25;
-    const dataIdx = Math.max(Math.round(nHorizCells / 5) - 2, 0);
+    /* w: chart width */
+    /* Returns number of cells horizontally */
+    const nHorizCells = (w) => {
+        if (w > 600) {
+            return w / 25;
+        }
+        return w / 20;
+    };
+
+    const dataIdx = Math.max(Math.round(nHorizCells($(".chart-svg").width()) / 5) - 2, 0);
+    console.log(dataIdx);
 
     mapData = importedData[2][dataIdx];
 
