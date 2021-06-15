@@ -93,7 +93,7 @@ textarea {
    --light-medium-grey: #b3b3b3; /* 70 */
    --light-grey: #e6e6e6; /* 90 */
    --theme-colour: #1e9664;
-   --main-container-padding: 30px;
+   --main-container-padding: 25px;
    --content-max-width: 1000px;
 }
 
@@ -146,7 +146,7 @@ ul {
 .main-container {
 	max-width: var(--content-max-width);
 	padding: 0 var(--main-container-padding);
-    width: calc(100% - 2 * var(--main-container-padding));
+    /*width: calc(100% - 2 * var(--main-container-padding));*/
 	display: flex;
 	flex-flow: column nowrap;
     margin-bottom: 60px;
