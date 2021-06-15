@@ -14,7 +14,7 @@ bb.clickButton(
     ".info-button",
     "project-id",
     () => themeColour,
-    (evt, id) => {
+    (id) => {
         const info = $(`.info-content[data-project-id=${id}]`).html();
         showInfo(info);
     }
