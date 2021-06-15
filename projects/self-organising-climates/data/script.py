@@ -162,7 +162,7 @@ def fit_som(data, r, grid_size, sigma, learning_rate):
         random_seed=r,
         neighborhood_function="gaussian")
 
-    som.train(data, 50000, verbose=True)
+    som.train(data, 20000, verbose=True)
 
     error = [som.topographic_error(data), som.quantization_error(data)]
     max_ar = np.max(som.activation_response(data2))
@@ -241,7 +241,7 @@ def get_map_data(grid_width, seed):
     max_ar = 2
     error = [1, 1]
     count = 0
-    grid_height = round(200 / grid_width)
+    grid_height = round(300 / grid_width)
 
     if seed == 0:
         seed = int(random.random() * 1000000)
@@ -252,7 +252,7 @@ def get_map_data(grid_width, seed):
         som, city_positions, error, max_ar = fit_som(data2, seed, [grid_width, grid_height], 1.5, 2.2)
 
         count += 1
-        if count == 100:
+        if count == 200:
             count = 0
             grid_height += 1
 
@@ -306,7 +306,9 @@ map_data = [
     get_map_data(10, 0),
     get_map_data(15, 0),
     get_map_data(20, 0),
-    get_map_data(25, 0)
+    get_map_data(25, 0),
+    get_map_data(30, 0),
+    get_map_data(35, 0)
 ]
 
 # Prints details of each map

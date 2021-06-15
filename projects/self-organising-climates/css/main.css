@@ -87,7 +87,7 @@ Variable selection
 }
 
 .soc .var-button > svg * {
-	fill: var(--icon-color);
+	fill: var(--icon-colour);
 }
 
 /* =============================================================================
