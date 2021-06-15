@@ -36,8 +36,8 @@
     //box-shadow: inset 0px 0px 2px 0px var(--light-medium-grey);
 	touch-action: none;
 	display: flex;
-    border-radius: calc(var(--button-border-rad) + var(--slide-box-padding));
-    padding: var(--slide-box-padding);
+    border-radius: calc(var(--button-border-rad) + 1px);
+    //padding: var(--slide-box-padding);
     border: 1px solid var(--light-medium-grey);
 }
 

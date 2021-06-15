@@ -178,6 +178,7 @@ const genLegend = (layoutType) => {
 		$label.addClass("legend-label");
 
 		$button.attr("data-cat", String(i));
+		$square.css("background-color", cat[1]);
 
 		$label.text(cat[0]);
 
@@ -196,8 +197,7 @@ const genLegend = (layoutType) => {
 			} else {
 				isolate(Number(id));
 			}
-		},
-		(id) => categoryInfo[id][1]
+		}
 	);
 
 	/*

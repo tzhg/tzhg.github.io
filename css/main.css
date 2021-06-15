@@ -88,11 +88,6 @@ textarea {
    ========================================================================== */
 
 :root {
-   --dark-grey: #333333; /* 20 */
-   --dark-medium-grey: #808080; /* 50 */
-   --light-medium-grey: #b3b3b3; /* 70 */
-   --light-grey: #e6e6e6; /* 90 */
-   --theme-colour: #1e9664;
    --main-container-padding: 25px;
    --content-max-width: 1000px;
 }
@@ -112,7 +107,7 @@ body * {
 }
 
 a {
-    color: var(--theme-colour);
+    color: var(--dark-theme-colour);
 }
 
 a:hover {
@@ -122,21 +117,7 @@ a:hover {
 
 a:active {
     color: white;
-    background-color: var(--theme-colour);
-}
-
-.a-dark {
-    color: white;
-}
-
-.a-dark:hover {
-    text-decoration: underline;
-    background-color: #2ad58e
-}
-
-.a-dark:active {
-    color: var(--theme-colour);
-    background-color: white;
+    background-color: var(--dark-theme-colour);
 }
 
 ul {
@@ -170,7 +151,7 @@ ul {
 }
 
 .about-me {
-    font-size: 20px;
+    margin-top: 50px;
 }
 
 /* =============================================================================
@@ -196,10 +177,6 @@ Viz headers
     width: 100%;
 }
 
-.header .title {
-    margin-bottom: 20px;
-}
-
 .header .text {
     margin-bottom: 0;
 }
@@ -212,11 +189,6 @@ Modal and info row
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
-    border-top: 1px solid var(--dark-grey);
-}
-
-.info-button {
-    margin-top: 10px;
 }
 
 .info-content {

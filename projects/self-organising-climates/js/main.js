@@ -200,18 +200,17 @@ const createMonthSelection = () => {
             selectedMonth = Number(id);
             draw();
         },
-        () => darkGrey,
         "0"
     );
 };
 
 const createVarSelection = () => {
-    const varColours = ["#a76e21", "#2c86bd", "#567fc0", "#b6b68f"];
+    const varColours = ["#d2da8f", "#b7e9ca", "#d2d5d9", "#f6f5a6"];
 
     bb.toggleButton(
         ".soc .var-button",
         "var",
-        (id) => varColours[id],
+        (id) => [varColours[id], darkGrey, darkGrey],
         (id) => {
             selectedVar = Number(id);
             draw();

@@ -9,18 +9,13 @@ $(() => {
 const bb = busyButtons();
 
 const themeColour = "#1e9664";
+const darkThemeColour = "#146141";
 const darkGrey = "#333333";
-
-const projectPalette = {
-    "every-hour": "#805f84",
-    "el-hex-tion-results": "#199bce",
-    "self-organising-climates": "#a76e21"
-};
 
 bb.clickButton(
     ".info-button",
     "project-id",
-    (id) => projectPalette[id],
+    (id) => darkThemeColour,
     (id) => {
         const info = $(`.info-content[data-project-id=${id}]`).html();
         showInfo(info);
@@ -30,7 +25,7 @@ bb.clickButton(
 bb.clickButton(
     ".modal-close-button",
     "id",
-    () => themeColour,
+    () => darkThemeColour,
     () => {
         closeInfo();
     }

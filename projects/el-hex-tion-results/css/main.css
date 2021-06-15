@@ -159,7 +159,6 @@ Legend
 	margin-right: 4px;
 	width: 16px;
 	height: 16px;
-	fill: var(--icon-colour);
 }
 
 .ehr .legend-button-label {
@@ -191,7 +190,7 @@ Election selection
 
 .ehr .election-label {
     color: var(--election-colour);
-    margin-top: 5px;
+    margin-top: 10px;
     justify-content: center;
 }
 

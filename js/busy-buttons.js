@@ -2,8 +2,7 @@ export function busyButtons() {
 	/* Pointer events for mouse and touch devices */
 	/* See busy-buttons-demo.html for demo */
 
-	const veryLightGrey = "#fafafa";
-	const lightGrey = "#e6e6e6";
+	const veryLightThemeColour = "#ebf5f1";
 	const darkGrey = "#333333";
 	const lightMediumGrey = "#b3b3b3";
 
@@ -142,16 +141,16 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const borderColour = [lightMediumGrey, colour(id), darkGrey, darkGrey];
-			const backgroundColor = [veryLightGrey, colour(id), veryLightGrey, shadeColour(colour(id), 0.8)];
-			const textColour = [darkGrey, veryLightGrey, darkGrey, darkGrey];
-			const iconColour = [colour(id), veryLightGrey, colour(id), colour(id)];
+			const col = colour(id);
+
+			const borderColour = [lightMediumGrey, col[2], darkGrey, darkGrey];
+			const backgroundColor = ["white", col[0], "white", shadeColour(col[0], 0.8)];
+			const textColour = [darkGrey, col[1], darkGrey, darkGrey];
 
 			$elem.css({
 				"border": `1px solid ${borderColour[state]}`,
 				"background-color": backgroundColor[state],
-				"color": textColour[state],
-				"--icon-colour": iconColour[state]
+				"color": textColour[state]
 			});
 		});
 
@@ -277,10 +276,8 @@ export function busyButtons() {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
 			$elem.css({
-				"color": [darkGrey, veryLightGrey][state],
-				"background-color": [veryLightGrey, colour(id)][state],
-				"--icon-colour": [colour(id), veryLightGrey][state],
-				"border": `1px solid ${[lightMediumGrey, colour(id)][state]}`
+				"background-color": ["white", veryLightThemeColour][state],
+				"border": `1px solid ${[lightMediumGrey, darkGrey][state]}`
 			});
 		});
 
@@ -438,17 +435,12 @@ export function busyButtons() {
 	/* sel: jQuery selector of container which contains buttons */
 	/* dataId: unique data attribute */
 	/* f: function f(id) which is called when button with id "id" is toggled on ("" if all toggled off)
-	/* colour: colour of toggled-on button */
 	/* mandatoryId: id of initial toggled button if mandatory, "" otherwise */
-	const slideBox = (sel, dataId, f, colour="", mandatoryId="") => {
+	const slideBox = (sel, dataId, f, mandatoryId="") => {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel} > *[data-${dataId}=${id}]`);
 
-			$elem.css({
-				"color": [darkGrey, veryLightGrey][state],
-				"background-color": [veryLightGrey, colour(id)][state],
-				"--icon-colour": [colour(id), veryLightGrey][state]
-			});
+			$elem.css("background-color", ["white", veryLightThemeColour][state]);
 		});
 
 		let slideElem = "";

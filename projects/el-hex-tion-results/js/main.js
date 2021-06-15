@@ -16,7 +16,7 @@ const bb = busyButtons();
 
 /* css constants */
 const themeColour = "#1e9664";
-const projectColour = "#199bce";
+const darkThemeColour = "#146141";
 const lightGrey = "#e6e6e6";
 const lightMediumGrey = "#b3b3b3";
 const darkMediumGrey = "#808080";
@@ -446,9 +446,12 @@ const initLegend = () => {
             )
             .join(" ");
 
-        $hex.attr("points", points);
-        $hex.attr("pointer-events", "none");
-        $hex.attr("stroke-width", "0");
+        $hex.attr({
+            "points": points,
+            "pointer-events": "none",
+            "stroke-width": "0",
+            "fill": data[elec].parties[i].colour
+        });
 
         $hexSvg.append($hex);
 
@@ -476,9 +479,7 @@ const initLegend = () => {
                 "" :
                 data[elec].parties[id].group_id;
             filter();
-        },
-        (id) => data[elec].parties[id].colour,
-        selectedParty
+        }
     );
 
 };
@@ -719,8 +720,7 @@ const initDensitySelection = () => {
         (id) => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();
-        },
-        (id) => densityPalette[id]
+        }
     );
 };
 
@@ -759,7 +759,7 @@ const initElectionSelection = () => {
     bb.toggleButton(
         ".ehr .election-label",
         "election-id",
-        () => projectColour,
+        () => [darkThemeColour, "white", darkThemeColour],
         (id) => {
             elec = Number(id);
 
