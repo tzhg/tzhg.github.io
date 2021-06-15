@@ -200,7 +200,8 @@ const createMonthSelection = () => {
             selectedMonth = Number(id);
             draw();
         },
-        "0"
+        "0",
+        "dark"
     );
 };
 

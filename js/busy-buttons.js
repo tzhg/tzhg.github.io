@@ -3,6 +3,7 @@ export function busyButtons() {
 	/* See busy-buttons-demo.html for demo */
 
 	const veryLightThemeColour = "#ebf5f1";
+	const darkThemeColour = "#146141";
 	const darkGrey = "#333333";
 	const lightMediumGrey = "#b3b3b3";
 
@@ -440,7 +441,19 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel} > *[data-${dataId}=${id}]`);
 
-			$elem.css("background-color", ["white", veryLightThemeColour][state]);
+			if (mandatoryId === "") {
+				$(sel).css("border", `1px solid ${[lightMediumGrey, darkGrey][state]}`);
+				$elem.css({
+					"background-color": ["white", veryLightThemeColour][state],
+					"color": darkGrey
+				});
+			} else {
+				$(sel).css("border", `1px solid ${darkGrey}`);
+				$elem.css({
+					"background-color": ["white", darkThemeColour][state],
+					"color": [darkGrey, "white"][state]
+				});
+			}
 		});
 
 		let slideElem = "";
@@ -487,7 +500,6 @@ export function busyButtons() {
 
 					pointerMoveHandler(evt);
 					$(sel).on("pointermove", pointerMoveHandler);
-					$(sel).css("border", `1px solid ${darkGrey}`);
 					sliding = true;
 				}
 			})
@@ -505,7 +517,6 @@ export function busyButtons() {
 						slideElem = "";
 					}
 					$(sel).off("pointermove", pointerMoveHandler);
-					$(sel).css("border", `1px solid ${lightMediumGrey}`);
 					f(slideElem);
 					sliding = false;
 				}
