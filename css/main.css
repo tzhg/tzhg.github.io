@@ -127,11 +127,10 @@ ul {
 .main-container {
 	max-width: var(--content-max-width);
 	padding: 0 var(--main-container-padding);
-    /*width: calc(100% - 2 * var(--main-container-padding));*/
+    width: calc(100% - 2 * var(--main-container-padding));
 	display: flex;
 	flex-flow: column nowrap;
     margin-bottom: 60px;
-
 }
 
 .title {
