@@ -127,11 +127,7 @@ const isolate = (cat) => {
 			"y": "0",
 			"fill": categoryInfo[cat][1],
 			"width": "10px",
-			"height": "10px",
-			"stroke": "white",
-			"stroke-width": "1.5",
-			"vector-effect": "non-scaling-stroke",
-			"stroke-linejoin": "round"
+			"height": "10px"
 		});
 
 		$svg.append($path);
