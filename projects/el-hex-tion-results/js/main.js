@@ -643,7 +643,7 @@ const initToolTip = (elec_id) => {
 
             /* % first preference label */
             let $pfpLabel= $(document.createElement("div"));
-            $pfpLabel.text("FIRST PREF.");
+            $pfpLabel.html("1<sup>st</sup> pref.");
     		$pfpLabel.addClass("tooltip-pfp-label table-header");
             $boxHeader.append($pfpLabel);
 
