@@ -627,6 +627,11 @@ const initToolTip = (elec_id) => {
             $ttElem.empty();
             let dataObj = constitData[elem.dataset.constitId];
 
+            /* Wrapper allows for custom styling of tooltip */
+            const $ttWrapper = $(document.createElement("div"));
+    		$ttWrapper.addClass("ehr");
+            $ttElem.append($ttWrapper);
+
             let $boxHeader = $(document.createElement("div"));
     		$boxHeader.addClass("tooltip-mp-box");
 
@@ -642,7 +647,7 @@ const initToolTip = (elec_id) => {
     		$pfpLabel.addClass("tooltip-pfp-label table-header");
             $boxHeader.append($pfpLabel);
 
-            $ttElem.append($boxHeader);
+            $ttWrapper.append($boxHeader);
 
             /* MPs */
             dataObj.forEach((mp, i) => {
@@ -675,7 +680,7 @@ const initToolTip = (elec_id) => {
                 $percentLabel.text(pfp);
                 $box.append($percentLabel);
 
-                $ttElem.append($box);
+                $ttWrapper.append($box);
             });
 
             const $border = $(document.createElementNS(NS, "path"));

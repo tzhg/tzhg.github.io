@@ -2,7 +2,7 @@
    Layout boxes
 ============================================================================= */
 
-.ehr {
+.main-container > .ehr {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
@@ -159,6 +159,8 @@ Legend
 	margin-right: 4px;
 	width: 16px;
 	height: 16px;
+    position: relative;
+    top: -1px;
 }
 
 .ehr .legend-button-label {
@@ -266,7 +268,7 @@ Media queries
 ============================================================================= */
 
 @media all and (min-width: 450px) {
-    .ehr {
+    .main-container > .ehr {
         justify-content: flex-start;
     }
 
