@@ -381,6 +381,10 @@ Media queries
 		height: 28px;
 	}
 
+    .ehr .tooltip-mp-box:last-child {
+    	margin-bottom: -2px;
+    }
+
 	.ehr .tooltip-party {
 		font-size: 13px;
 		width: 34px;
