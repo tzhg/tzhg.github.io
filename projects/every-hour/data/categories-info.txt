@@ -1,7 +1,8 @@
 Name,Activities,Colour
-Leisure,it|vi|fi|re,#1f9663
-Social,so|vo,#154e56
-Professional,co|ca,#456fe7
-Intellectual,ic|pg|pi|mu|kn,#3027c8
-Sleep,sl,#b84dab
-Other,ex|wa|pd,#805f84
+Study,ic,#1f9663
+Play,it|vi|fi,#709f0f
+Art,pg|pi|mu|kn|re,#cc4c3e
+Work,co|ca,#c49196
+Social,so|vo,#7d525f
+Other,ex|wa|pd,#3f646e
+Sleep,sl,#7ea4af

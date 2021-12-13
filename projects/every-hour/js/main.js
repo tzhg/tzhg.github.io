@@ -26,17 +26,17 @@ const initDraw = () => {
 	data.forEach((yearArr, d) => {
 		const $vizContainer = $(document.createElement("div"));
 		$vizContainer.addClass("viz-container");
-		$(".eh .chart-container").append($vizContainer)
+		$(".eh .chart-container").append($vizContainer);
 
 		const $svg = $(document.createElementNS(NS, "svg"));
 		$svg.attr("viewBox", "0 0 1 1");
 		$svg.attr("data-year", d);
-		$vizContainer.append($svg)
 
 		const $yearContainer = $(document.createElement("div"));
 		$yearContainer.addClass("year-container");
 		$yearContainer.text(startYear + d);
-		$vizContainer.append($yearContainer)
+		$vizContainer.append($yearContainer);
+		$vizContainer.append($svg);
 	});
 };
 
@@ -151,13 +151,6 @@ const isolate = (cat) => {
 
 const genLegend = (layoutType) => {
 	$(".eh .legend-container").empty();
-
-	/* Widths of labels in legend buttons, rounded up to nearest pixel */
-	const buttonWidths = [50, 40, 84, 76, 37, 35];
-
-	const maxWidths = buttonWidths.map(
-		(_, i) => buttonWidths[2 * Math.floor(i / 2)]
-	);
 
 	/* Determines horizontal padding of buttons */
 	const buttonSpace = 33;

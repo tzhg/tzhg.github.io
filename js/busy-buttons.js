@@ -505,6 +505,7 @@ export function busyButtons() {
 
 		$(sel).on("pointerup pointerleave", (evt) => {
 			evt.preventDefault();
+
 			if (evt.pointerType !== "touch" && evt.type === "pointerup") {
 				return;
 			}
