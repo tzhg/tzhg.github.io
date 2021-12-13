@@ -1,7 +1,0 @@
-Name,Activities,Colour
-Leisure,it|vi|fi|re,#1f9663
-Social,so|vo,#154e56
-Professional,co|ca,#456fe7
-Intellectual,ic|pg|pi|mu|kn,#3027c8
-Sleep,sl,#b84dab
-Other,ex|wa|pd,#805f84

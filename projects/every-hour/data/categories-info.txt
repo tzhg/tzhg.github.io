@@ -1,8 +1,8 @@
 Name,Activities,Colour
 Study,ic,#1f9663
-Play,it|vi|fi,#709f0f
+Play,it|vi,#709f0f
 Art,pg|pi|mu|kn|re,#cc4c3e
-Work,co|ca,#c49196
+Work,co|ca|fi,#c49196
 Social,so|vo,#7d525f
 Other,ex|wa|pd,#3f646e
 Sleep,sl,#7ea4af
