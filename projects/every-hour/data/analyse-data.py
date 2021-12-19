@@ -1,4 +1,7 @@
-import json, datetime
+import json, datetime, os, csv, re, math
+import numpy as np
+import pandas as pd
+
 
 # Input:
 # ==============================================================================
@@ -47,10 +50,6 @@ import json, datetime
 # "_" is for hours with 0 activities (due to moving through time zones etc.)
 # "+" is used to join activities for hours with multiple activities
 #     (due to moving through time zones etc.)
-
-import os, csv, re, math
-import numpy as np
-import pandas as pd
 
 years = [365, 365, 365, 366, 365]
 
