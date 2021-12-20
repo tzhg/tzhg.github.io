@@ -180,6 +180,7 @@ const genLegend = (layoutType) => {
 	bb.slideBox(
 		".eh .legend-container",
 		"cat",
+        (id) => categoryInfo[id][1],
 		(id) => {
 			if (id === "") {
 				draw();

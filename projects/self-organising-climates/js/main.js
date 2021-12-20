@@ -175,6 +175,7 @@ const createMonthSelection = () => {
     bb.slideBox(
         ".soc .month-box",
         "month",
+        (id) => palette[id],
         (id) => {
             selectedMonth = Number(id);
             draw();
@@ -185,12 +186,13 @@ const createMonthSelection = () => {
 };
 
 const createVarSelection = () => {
-    const varColours = ["#d2da8f", "#b7e9ca", "#d2d5d9", "#f6f5a6"];
+    //const varColours = ["#d2da8f", "#b7e9ca", "#d2d5d9", "#f6f5a6"];
+    const varColours = ["#90400d", "#2c86bd", "#3364a1", "#b6b68f"];
 
     bb.toggleButton(
         ".soc .var-button",
         "var",
-        (id) => [lightGrey, darkGrey, themeColour],
+        (id) => [lightGrey, darkGrey, varColours[id]],
         (id) => {
             selectedVar = Number(id);
             draw();

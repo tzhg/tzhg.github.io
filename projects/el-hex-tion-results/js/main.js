@@ -472,6 +472,7 @@ const initLegend = () => {
     bb.slideBox(
         ".ehr .legend-content",
         "party-id",
+        (id) => data[elec].parties[id].colour,
         (id) => {
             selectedPartyGroup = id === "" ?
                 "" :
@@ -720,6 +721,7 @@ const initDensitySelection = () => {
     bb.slideBox(
         ".ehr .density-container",
         "density",
+        (id) => densityPalette[id],
         (id) => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();

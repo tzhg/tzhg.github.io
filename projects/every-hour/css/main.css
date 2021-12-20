@@ -27,9 +27,6 @@ Chart
     width: 40%;
     margin-left: 10px;
     margin-bottom: 10px;
-}
-
-.eh .viz-container > svg {
   	max-width: 300px;
     min-width: 60px;
 }
@@ -49,7 +46,7 @@ Legend
 	margin-top: 0;
 	justify-content: center;
     flex-flow: column nowrap;
-	width: 68px;
+	width: 86px;
 }
 
 .eh .legend-button {
@@ -62,7 +59,6 @@ Legend
 .eh .legend-button span {
     width: 85px;
     width: auto;
-    font-size: 12px;
 }
 
 .eh .legend-square {
@@ -77,17 +73,13 @@ Media queries
 ============================================================================= */
 
 
-@media all and (min-width: 400px) {
-    .eh .viz-container > svg {
+@media all and (min-width: 500px) {
+    .eh .viz-container {
         min-width: 100px;
     }
 
     .eh .legend-container {
-    	width: 171px;
-    }
-
-    .eh .legend-button span {
-        font-size: 14px;
+    	width: 96px;
     }
 
     .eh .legend-square {

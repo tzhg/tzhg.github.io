@@ -99,7 +99,7 @@ body {
     font-family: "Open Sans", sans-serif;
 	font-weight: 400;
     color: var(--dark-grey);
-    font-size: 14px;
+    font-size: 12px;
 }
 
 body * {
@@ -135,24 +135,26 @@ ul {
 }
 
 .title {
-	font-size: 40px;
+	font-size: 24px;
 	font-family: "Cabin", sans-serif;
 	font-weight: 700;
+    text-align: center;
 }
 
 .desc {
     position: relative;
     top: -3px;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 .main-container .title {
     margin-top: calc(40px + 2%);
-    font-size: 24px;
 }
 
 .about-me {
     margin-top: 25px;
+    text-align: center;
 }
 
 /* =============================================================================
@@ -175,7 +177,8 @@ Viz headers
 	max-width: var(--content-max-width);
     display: flex;
     flex-flow: column nowrap;
-    width: 100%;
+    width: calc(100% - 2 * var(--main-container-padding));
+    text-align: center;
 }
 
 .header .text {
@@ -189,7 +192,12 @@ Modal and info row
 .info-row {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-end;
+    justify-content: center;
+}
+
+.info-button {
+    width: 100%;
+    justify-content: center;
 }
 
 .info-content {
@@ -264,8 +272,29 @@ Modal and info row
 Media queries
 ============================================================================= */
 @media all and (min-width: 500px) {
-    .main-container .title {
-        font-size: 32px;
+    body {
+        font-size: 14px;
+    }
+
+    .header-content {
+        text-align: left;
+    }
+
+    .about-me {
+        text-align: left;
+    }
+
+    .title {
+        text-align: left;
+        font-size: 28px;
+    }
+
+    .desc {
+        text-align: left;
+    }
+
+    .info-row {
+        justify-content: flex-end;
     }
 
     .modal-box {
@@ -273,11 +302,16 @@ Media queries
         --modal-height: 75vh;
         --modal-width: 75vw;
     }
+
+    .info-button {
+        width: inherit;
+        justify-content: flex-start;
+    }
 }
 
-@media all and (min-width: 1000px) {
-    .main-container .title {
-        font-size: 40px;
+@media all and (min-width: 800px) {
+    .title {
+        font-size: 36px;
     }
 }
 

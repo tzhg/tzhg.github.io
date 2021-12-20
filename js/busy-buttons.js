@@ -145,7 +145,7 @@ export function busyButtons() {
 
 			const col = colour(id);
 
-			const borderColour = [lightMediumGrey, col[2], lightMediumGrey, darkGrey];
+			const borderColour = [lightMediumGrey, col[2], lightMediumGrey, col[2]];
             const borderWidth = [1, 3, 3, 3];
             const paddingBottom = [
                 oldPaddingBottom,
@@ -447,9 +447,10 @@ export function busyButtons() {
 
 	/* sel: jQuery selector of container which contains buttons */
 	/* dataId: unique data attribute */
+	/* colour: function colour(id) which returns colour of button (border on selection)
 	/* f: function f(id) which is called when button with id "id" is toggled on ("" if all toggled off)
 	/* mandatoryId: id of initial toggled button if mandatory, "" otherwise */
-	const slideBox = (sel, dataId, f, mandatoryId="") => {
+	const slideBox = (sel, dataId, colour, f, mandatoryId="") => {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel} > *[data-${dataId}=${id}]`);
 
@@ -458,14 +459,14 @@ export function busyButtons() {
 				$elem.css({
 					"background-color": ["white", lightGrey][state],
 					"color": darkGrey,
-					"--sel-border": `3px solid ${["#ffffff", themeColour][state]}`
+					"--sel-border": `3px solid ${["#ffffff", colour(id)][state]}`
 				});
 			} else {
 				//$(sel).css("border", `1px solid ${darkGrey}`);
 				$elem.css({
 					"background-color": ["white", lightGrey][state],
 					"color": [darkGrey, darkGrey][state],
-					"--sel-border": `3px solid ${["#ffffff", themeColour][state]}`
+					"--sel-border": `3px solid ${["#ffffff", colour(id)][state]}`
 				});
 			}
 		});

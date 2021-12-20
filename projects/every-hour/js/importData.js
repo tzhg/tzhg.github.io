@@ -7,11 +7,11 @@ export function importData() {
             "#1f9663"
         ],
         [
-            "Entertainment",
+            "Fun",
             "#709f0f"
         ],
         [
-            "Arts & Programming",
+            "Arts",
             "#cc4c3e"
         ],
         [
@@ -19,7 +19,7 @@ export function importData() {
             "#c49196"
         ],
         [
-            "Socialising",
+            "Social",
             "#7d525f"
         ],
         [
