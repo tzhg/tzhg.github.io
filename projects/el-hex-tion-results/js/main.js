@@ -762,7 +762,7 @@ const initElectionSelection = () => {
     bb.toggleButton(
         ".ehr .election-label",
         "election-id",
-        () => [lightGrey, darkGrey, darkGrey],
+        () => [lightGrey, darkGrey, themeColour],
         (id) => {
             elec = Number(id);
 

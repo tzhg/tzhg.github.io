@@ -24,6 +24,8 @@ Month selection
 	width: 100%;
     flex-flow: row nowrap;
 	margin-bottom: 10px;
+    border-left: none;
+    border-bottom: var(--slide-box-border);
 }
 
 .soc .month-button {
@@ -34,16 +36,8 @@ Month selection
 	justify-content: center;
 	border-radius: 0;
 	padding: 4px;
-}
-
-.soc .month-button:first-child {
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-}
-
-.soc .month-button:last-child {
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
+    border-left: none;
+    border-bottom: var(--sel-border);
 }
 
 .soc .month-text-big, .soc .month-text-medium {

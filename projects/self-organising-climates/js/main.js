@@ -10,6 +10,7 @@ const bb = busyButtons();
 
 const lightGrey = "#f2f2f2";
 const darkGrey = "#333333";
+const themeColour = "#1e9664";
 
 let svgShape;
 
@@ -189,7 +190,7 @@ const createVarSelection = () => {
     bb.toggleButton(
         ".soc .var-button",
         "var",
-        (id) => [varColours[id], darkGrey, darkGrey],
+        (id) => [lightGrey, darkGrey, themeColour],
         (id) => {
             selectedVar = Number(id);
             draw();

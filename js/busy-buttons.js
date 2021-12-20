@@ -5,6 +5,7 @@ export function busyButtons() {
 	const darkGrey = "#333333";
 	const lightMediumGrey = "#b3b3b3";
     const lightGrey = "#f2f2f2";
+    const themeColour = "#1e9664";
 
 	/* Lightens or darkens a colour */
 	/* percent=-1: black */
@@ -47,7 +48,7 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const backgroundColor = [colour(id), shadeColour(colour(id), 0.2), shadeColour(colour(id), 0.3)];
+			const backgroundColor = [colour(id), shadeColour(colour(id), -0.1), shadeColour(colour(id), -0.05)];
 
 			$elem.css({
 				"background-color": backgroundColor[state]
@@ -140,15 +141,24 @@ export function busyButtons() {
 
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
+            const oldPaddingBottom = 4;
 
 			const col = colour(id);
 
-			const borderColour = [lightMediumGrey, col[2], darkGrey, darkGrey];
-			const backgroundColor = ["white", col[0], "white", shadeColour(col[0], 0.8)];
+			const borderColour = [lightMediumGrey, col[2], lightMediumGrey, darkGrey];
+            const borderWidth = [1, 3, 3, 3];
+            const paddingBottom = [
+                oldPaddingBottom,
+                oldPaddingBottom + 1 - borderWidth[1],
+                oldPaddingBottom + 1 - borderWidth[1],
+                oldPaddingBottom + 1 - borderWidth[1]
+            ];
+			const backgroundColor = ["white", col[0], "white", "white"];
 			const textColour = [darkGrey, col[1], darkGrey, darkGrey];
 
 			$elem.css({
-				"border": `1px solid ${borderColour[state]}`,
+				"border-bottom": `${borderWidth[state]}px solid ${borderColour[state]}`,
+    			"padding-bottom": paddingBottom[state],
 				"background-color": backgroundColor[state],
 				"color": textColour[state]
 			});
@@ -275,9 +285,12 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
+            const oldPaddingBottom = 4;
+
 			$elem.css({
 				"background-color": ["white", lightGrey][state],
-				"border": `1px solid ${[lightMediumGrey, darkGrey][state]}`
+				"border-bottom": `${[1, 3][state]}px solid ${[lightMediumGrey, themeColour][state]}`,
+				"padding-bottom": [oldPaddingBottom, oldPaddingBottom + 1 - 3][state]
 			});
 		});
 
@@ -441,16 +454,18 @@ export function busyButtons() {
 			const $elem = $(`${sel} > *[data-${dataId}=${id}]`);
 
 			if (mandatoryId === "") {
-				$(sel).css("border", `1px solid ${[lightMediumGrey, darkGrey][state]}`);
+				//$(sel).css("border-left", `1px solid ${[lightMediumGrey, darkGrey][state]}`);
 				$elem.css({
 					"background-color": ["white", lightGrey][state],
-					"color": darkGrey
+					"color": darkGrey,
+					"--sel-border": `3px solid ${["#ffffff", themeColour][state]}`
 				});
 			} else {
-				$(sel).css("border", `1px solid ${darkGrey}`);
+				//$(sel).css("border", `1px solid ${darkGrey}`);
 				$elem.css({
 					"background-color": ["white", lightGrey][state],
-					"color": [darkGrey, darkGrey][state]
+					"color": [darkGrey, darkGrey][state],
+					"--sel-border": `3px solid ${["#ffffff", themeColour][state]}`
 				});
 			}
 		});

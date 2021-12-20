@@ -23,7 +23,11 @@ let horChart = true;
 
 const draw = () => {
     const $svg = $(".ua .chart-svg");
-    const svgShape = [100, 100];
+    const svgShape = [$svg.width(), $svg.height()];
+
+    const gap = 3;
+
+    $svg.attr("viewBox", `0 0 ${svgShape[0]} ${svgShape[1]}`);
 
     /* Current position in svg: */
     /*     (x, y) if vertical chart */
@@ -36,16 +40,16 @@ const draw = () => {
             //$rect.addClass("");
             $rect.attr(`${horChart ? "y" : "x"}`, `${pos[0]}`);
             $rect.attr(`${horChart ? "x" : "y"}`, `${pos[1]}`);
-            $rect.attr(`${horChart ? "height" : "width"}`, `${region.dist[c] * svgShape[0]}`);
-            $rect.attr(`${horChart ? "width" : "height"}`, `${region.pop * svgShape[1]}`);
+            $rect.attr(`${horChart ? "height" : "width"}`, `${region.dist[c] * svgShape[horChart ? 1 : 0]}`);
+            $rect.attr(`${horChart ? "width" : "height"}`, `${region.pop * svgShape[horChart ? 0 : 1]}`);
             $rect.attr("fill", `${classPal[c]}`);
 
             $svg.append($rect);
 
-            pos[0] += region.dist[c] * svgShape[0];
+            pos[0] += region.dist[c] * svgShape[horChart ? 1 : 0];
         }
         pos[0] = 0;
-        pos[1] += region.pop * svgShape[1];
+        pos[1] += region.pop * svgShape[horChart ? 0 : 1] + gap;
     });
 };
 

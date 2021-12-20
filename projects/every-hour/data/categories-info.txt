@@ -1,7 +1,7 @@
 Name,Activities,Colour
 Learning,ic,#1f9663
 Entertainment,it|vi,#709f0f
-Art&nbsp;Programming,pg|pi|mu|kn|re,#cc4c3e
+Arts & Programming,pg|pi|mu|kn|re,#cc4c3e
 Career,co|ca|fi,#c49196
 Socialising,so|vo,#7d525f
 Other,ex|wa|pd,#3f646e

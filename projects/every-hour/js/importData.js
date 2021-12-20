@@ -3,23 +3,23 @@ export function importData() {
     "startYear": 2017,
     "categoryInfo": [
         [
-            "Study",
+            "Learning",
             "#1f9663"
         ],
         [
-            "Play",
+            "Entertainment",
             "#709f0f"
         ],
         [
-            "Art",
+            "Arts & Programming",
             "#cc4c3e"
         ],
         [
-            "Work",
+            "Career",
             "#c49196"
         ],
         [
-            "Social",
+            "Socialising",
             "#7d525f"
         ],
         [

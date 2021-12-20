@@ -3,6 +3,9 @@ Layout boxes
 ============================================================================= */
 
 .ua {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
 	margin-bottom: 25px;
 }
 
@@ -12,4 +15,5 @@ Layout boxes
 
 .ua .chart-svg {
     height: 200px;
+    width: 100%;
 }
