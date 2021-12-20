@@ -33,9 +33,10 @@ const initDraw = () => {
 
 		const $yearContainer = $(document.createElement("div"));
 		$yearContainer.addClass("year-container");
-		$yearContainer.text(startYear + d);
-		$vizContainer.append($yearContainer);
+		$yearContainer.text(`${startYear + d}`);
+
 		$vizContainer.append($svg);
+		$vizContainer.append($yearContainer);
 	});
 };
 
