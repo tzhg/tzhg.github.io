@@ -9,13 +9,12 @@ $(() => {
 const bb = busyButtons();
 
 const themeColour = "#1e9664";
-const darkThemeColour = "#146141";
-const darkGrey = "#333333";
+const lightGrey = "#f2f2f2";
 
 bb.clickButton(
     ".info-button",
     "project-id",
-    (id) => darkThemeColour,
+    (id) => lightGrey,
     (id) => {
         const info = $(`.info-content[data-project-id=${id}]`).html();
         showInfo(info);
@@ -25,7 +24,7 @@ bb.clickButton(
 bb.clickButton(
     ".modal-close-button",
     "id",
-    () => darkThemeColour,
+    () => lightGrey,
     () => {
         closeInfo();
     }

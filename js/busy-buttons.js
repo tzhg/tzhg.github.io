@@ -2,10 +2,9 @@ export function busyButtons() {
 	/* Pointer events for mouse and touch devices */
 	/* See busy-buttons-demo.html for demo */
 
-	const veryLightThemeColour = "#ebf5f1";
-	const darkThemeColour = "#146141";
 	const darkGrey = "#333333";
 	const lightMediumGrey = "#b3b3b3";
+    const lightGrey = "#f2f2f2";
 
 	/* Lightens or darkens a colour */
 	/* percent=-1: black */
@@ -277,7 +276,7 @@ export function busyButtons() {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
 			$elem.css({
-				"background-color": ["white", veryLightThemeColour][state],
+				"background-color": ["white", lightGrey][state],
 				"border": `1px solid ${[lightMediumGrey, darkGrey][state]}`
 			});
 		});
@@ -444,14 +443,14 @@ export function busyButtons() {
 			if (mandatoryId === "") {
 				$(sel).css("border", `1px solid ${[lightMediumGrey, darkGrey][state]}`);
 				$elem.css({
-					"background-color": ["white", veryLightThemeColour][state],
+					"background-color": ["white", lightGrey][state],
 					"color": darkGrey
 				});
 			} else {
 				$(sel).css("border", `1px solid ${darkGrey}`);
 				$elem.css({
-					"background-color": ["white", darkThemeColour][state],
-					"color": [darkGrey, "white"][state]
+					"background-color": ["white", lightGrey][state],
+					"color": [darkGrey, darkGrey][state]
 				});
 			}
 		});

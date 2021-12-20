@@ -1,10 +1,7 @@
 :root {
-   --dark-grey: #333333; /* 20 */
-   --dark-medium-grey: #808080; /* 50 */
-   --light-medium-grey: #b3b3b3; /* 70 */
-   --light-grey: #e6e6e6; /* 90 */
-   --very-light-grey: #ffffff; /* 95 */
-   --theme-colour: #1e9664;
-   --dark-theme-colour: #146141; /* Good contrast with white */
-   --very-light-theme-colour : #ebf5f1;
+    --theme-colour: #1e9664;
+    --dark-grey: #333333; /* 20 */
+    --dark-medium-grey: #808080; /* 50 */
+    --light-medium-grey: #b3b3b3; /* 70 */
+    --light-grey: #f2f2f2; /* 95 */
 }

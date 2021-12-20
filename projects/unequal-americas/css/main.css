@@ -3,13 +3,13 @@ Layout boxes
 ============================================================================= */
 
 .ua {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
 	margin-bottom: 25px;
 }
 
-.ua .construction-box {
-	justify-content: center;
+.ua .viz-box {
 	width: 100%;
+}
+
+.ua .chart-svg {
+    height: 200px;
 }

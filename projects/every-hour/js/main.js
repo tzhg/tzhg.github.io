@@ -16,9 +16,8 @@ const startYear = dataObj.startYear;
 const data = dataObj.data;
 const nCats = categoryInfo.length;
 
-const lightGrey = "#e6e6e6";
+const lightGrey = "#f2f2f2";
 const darkGrey = "#333333";
-const darkMediumGrey = "#808080";
 
 const NS = "http://www.w3.org/2000/svg";
 

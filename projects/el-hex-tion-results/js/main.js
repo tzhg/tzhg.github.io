@@ -16,11 +16,9 @@ const bb = busyButtons();
 
 /* css constants */
 const themeColour = "#1e9664";
-const darkThemeColour = "#146141";
-const lightGrey = "#e6e6e6";
-const lightMediumGrey = "#b3b3b3";
-const darkMediumGrey = "#808080";
+const lightGrey = "#f2f2f2";
 const darkGrey = "#333333";
+
 const viewBoxW = 100;
 const mapPadding = 25;
 
@@ -764,7 +762,7 @@ const initElectionSelection = () => {
     bb.toggleButton(
         ".ehr .election-label",
         "election-id",
-        () => [darkThemeColour, "white", darkThemeColour],
+        () => [lightGrey, darkGrey, darkGrey],
         (id) => {
             elec = Number(id);
 

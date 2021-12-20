@@ -8,10 +8,9 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#e6e6e6";
-const lightMediumGrey = "#b3b3b3";
-const darkMediumGrey = "#808080";
+const lightGrey = "#f2f2f2";
 const darkGrey = "#333333";
+
 let svgShape;
 
 const importedData = importData();
@@ -53,29 +52,7 @@ const drawColourBar = () => {
     });
 };
 
-const chartLayout = () => {/*
-    const $chartBox = $(document.createElement("div"));
-    $chartBox.addClass("chart-box");
-    $(".soc .viz-box").append($chartBox);
-
-    const $chartContainer = $(document.createElement("div"));
-    $chartContainer.addClass("chart-container");
-    $chartBox.append($chartContainer);
-
-    const $chartTop = $(document.createElement("div"));
-    $chartTop.addClass("chart-top");
-    $chartContainer.append($chartTop);
-
-    const $icon = $(document.createElement("img"));
-    $icon.addClass("var-icon");
-    $icon.attr("src", `./projects/self-organising-climates/img/icon-${f}.svg`);
-    $chartTop.append($icon);
-
-    const $chartTitle = $(document.createElement("div"));
-    $chartTitle.text(data[1][f].name);
-    $chartTitle.addClass("chart-title");
-    $chartTop.append($chartTitle);
-*/
+const chartLayout = () => {
     const $svg = $(".soc .chart-svg");
 
     $svg.empty();
@@ -117,6 +94,7 @@ const chartLayout = () => {/*
                 "dominant-baseline": "central",
                 "data-city": c
             });
+
             $svg.append($text);
         });
     });
@@ -244,7 +222,7 @@ const layout = () => {
         return w / 20;
     };
 
-    const dataIdx = Math.max(Math.round(nHorizCells($(".chart-svg").width()) / 5) - 2, 0);
+    const dataIdx = Math.max(Math.round(nHorizCells($(".soc .chart-svg").width()) / 5) - 2, 0);
 
     mapData = importedData[2][dataIdx];
 

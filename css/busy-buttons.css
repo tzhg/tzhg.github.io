@@ -19,25 +19,25 @@
 
 .hover-button {
     border: 1px solid var(--light-medium-grey);
-    background-color: var(--very-light-grey);
+    background-color: "#ffffff";
 }
 
 .toggle-button {
     border: 1px solid var(--light-medium-grey);
-    background-color: var(--very-light-grey);
+    background-color: "#ffffff";
 }
 
 .click-button {
-    color: var(--very-light-grey);
+    color: var(--dark-grey);
+    font-weight: bold;
+    padding: 6px 12px;
 }
 
 .slide-box {
-    background-color: var(--very-light-grey);
-    //box-shadow: inset 0px 0px 2px 0px var(--light-medium-grey);
+    background-color: "#ffffff";
 	touch-action: none;
 	display: flex;
     border-radius: calc(var(--button-border-rad) + 1px);
-    //padding: var(--slide-box-padding);
     border: 1px solid var(--light-medium-grey);
 }
 

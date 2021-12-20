@@ -107,17 +107,18 @@ body * {
 }
 
 a {
-    color: var(--dark-theme-colour);
+    color: var(--dark-grey);
+    //font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
-    background-color: #eafbf4; /* --theme-colour with 90% lightness */
+    background-color: var(--light-grey);
 }
 
 a:active {
     color: white;
-    background-color: var(--dark-theme-colour);
+    background-color: var(--dark-grey);
 }
 
 ul {
