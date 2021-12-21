@@ -24,7 +24,7 @@ const NS = "http://www.w3.org/2000/svg";
 let selCountry;
 let selRegion;
 
-const createVarSelection = () => {
+const createCountrySelection = () => {
     bb.toggleButton(
         ".ua .country-sel-button",
         "country",
@@ -45,17 +45,14 @@ const changeCountry = (country_i) => {
 }
 
 const changeRegion = (reg_i) => {
-    const $name = $(".ua .region-info-name");
-    const $population = $(".ua .region-info-population");
-
     selRegion = reg_i;
 
     let pop = regionData[selCountry][reg_i].population;
 
     let pop_f = new Intl.NumberFormat("en-GB").format(pop);
 
-    $name.text(regionData[selCountry][reg_i].name);
-    $population.text(pop_f);
+    $(".ua .region-info-name").text(regionData[selCountry][reg_i].name);
+    $(".ua .region-info-population").text(pop_f);
 };
 
 const draw = () => {
@@ -133,7 +130,18 @@ const drawMaps = () => {
 
 
     bb.toggleButton(
-        ".ua .region-sel-button",
+        ".ua .map-us .region-sel-button",
+        "region",
+        (id) => [lightGrey, darkGrey, themeColour],
+        (id) => {
+            changeRegion(Number(id));
+            draw();
+        },
+        "0"
+    );
+
+    bb.toggleButton(
+        ".ua .map-mx .region-sel-button",
         "region",
         (id) => [lightGrey, darkGrey, themeColour],
         (id) => {
@@ -145,7 +153,7 @@ const drawMaps = () => {
 };
 
 const init = (() => {
-    createVarSelection();
+    createCountrySelection();
     drawMaps();
     changeCountry(0);
     changeRegion(0);
