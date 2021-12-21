@@ -8,8 +8,8 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#f2f2f2";
-const darkGrey = "#333333";
+const lightGrey = "#f2f7f7";
+const darkGrey = "#3a4d49";
 const themeColour = "#1e9664";
 
 let svgShape;
@@ -175,7 +175,7 @@ const createMonthSelection = () => {
     bb.slideBox(
         ".soc .month-box",
         "month",
-        (id) => palette[id],
+        (id) => themeColour,
         (id) => {
             selectedMonth = Number(id);
             draw();

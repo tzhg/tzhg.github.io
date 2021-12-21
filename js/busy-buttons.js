@@ -2,9 +2,9 @@ export function busyButtons() {
 	/* Pointer events for mouse and touch devices */
 	/* See busy-buttons-demo.html for demo */
 
-	const darkGrey = "#333333";
-	const lightMediumGrey = "#d9d9d9";
-    const lightGrey = "#f2f2f2";
+	const darkGrey = "#3a4d49";
+	const lightMediumGrey = "#dae2e6";
+    const lightGrey = "#f2f7f7";
     const themeColour = "#1e9664";
 
 	/* Lightens or darkens a colour */
@@ -48,7 +48,7 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const backgroundColor = [colour(id), shadeColour(colour(id), -0.1), shadeColour(colour(id), -0.08)];
+			const backgroundColor = [colour(id), shadeColour(colour(id), -0.05), shadeColour(colour(id), -0.03)];
 
 			$elem.css({
 				"background-color": backgroundColor[state]

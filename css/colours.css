@@ -1,7 +1,7 @@
 :root {
     --theme-colour: #1e9664;
-    --dark-grey: #333333; /* 20 */
-    --dark-medium-grey: #808080; /* 50 */
-    --light-medium-grey: #d9d9d9; /* 85 */
-    --light-grey: #f2f2f2; /* 95 */
+    --dark-grey: #3a4d49;
+    --dark-medium-grey: #808080;
+    --light-medium-grey: #dae2e6;
+    --light-grey: #f2f7f7;
 }

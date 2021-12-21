@@ -8,9 +8,9 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#f2f2f2";
-const darkGrey = "#333333";
-const lightMediumGrey = "#d9d9d9";
+const lightGrey = "#f2f7f7";
+const darkGrey = "#3a4d49";
+const lightMediumGrey = "#dae2e6";
 const themeColour = "#1e9664";
 
 const data = importData();
@@ -137,7 +137,6 @@ const drawMaps = () => {
         "region",
         (id) => [lightGrey, darkGrey, themeColour],
         (id) => {
-            console.log(id);
             changeRegion(Number(id));
             draw();
         },

@@ -8,7 +8,7 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#f2f2f2";
+const lightGrey = "#f2f7f7";
 
 bb.clickButton(
     ".info-button",

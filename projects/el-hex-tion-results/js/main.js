@@ -16,8 +16,8 @@ const bb = busyButtons();
 
 /* css constants */
 const themeColour = "#1e9664";
-const lightGrey = "#f2f2f2";
-const darkGrey = "#333333";
+const lightGrey = "#f2f7f7";
+const darkGrey = "#3a4d49";
 
 const viewBoxW = 100;
 const mapPadding = 25;
