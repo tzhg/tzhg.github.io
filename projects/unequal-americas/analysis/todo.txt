@@ -1,0 +1,50 @@
+1. Find data
+- Brazil
+- Other countries
+- Exchange rates
+
+2. Put data into CSVs by country
+
+3. Fit all models
+
+4. Put income band data and region data into javascript
+
+5. Design chart
+
+5a. Design map using SVG?
+
+6. Implement interactivity
+
+7. Ensure responsive design
+
+Representative people
+In order to summarise the income distribution in a simple and accessible way,
+I decided to compare the incomes of 3 "representative" people.
+I chose the three quantiles for alpha=1/6, alpha=1/2, and alpha=5/6.
+
+
+Challenges
+
+- Different number formats
+- Sensitive to outliers - quantiles of population
+
+
+Sources:
+
+UN population
+US census 2020
+Mexico census
+
+- Data
+
+Mexico - 2020-
+US - 2019
+
+USD-MXN: 20.682 (average 90 days to 19 Dec)
+
+Disclaimers
+Model
+PPP
+Pre tax
+Pensions
+Income vs Inequality

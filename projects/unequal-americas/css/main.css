@@ -4,9 +4,22 @@ Layout boxes
 
 .ua {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     align-items: flex-start;
 	margin-bottom: 25px;
+}
+
+.ua .col-1 {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.ua .col-2 {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    margin-left: 25px;
 }
 
 .ua .viz-box {
@@ -14,6 +27,51 @@ Layout boxes
 }
 
 .ua .chart-svg {
+    height: 130px;
+    width: 700px;
+    border-bottom: 2px solid var(--dark-grey);
+    box-shadow: 0px -8px 15px 1px var(--dark-grey);
+    clip-path: inset(2px 2px -10px 2px);
+}
+
+.ua .country-sel-box {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.ua .country-sel-box > .button:first-child {
+    margin-right: 10px;
+}
+
+.ua .region-info-box span:first-child {
+    font-weight: bold;
+}
+
+.ua .axis-box {
+    position: relative;
+}
+
+.ua .zero-tick {
+    position: absolute;
+    top: -10px;
+    border-left: 2px solid var(--dark-grey);
+    height: 18px;
+    width: 2px;
+}
+
+.ua .map-box {
     height: 200px;
+    width: 100%;
+}
+
+.ua .map-box > div {
+    display: none;
+}
+
+.ua .map-box svg {
+    height: 100%;
     width: 100%;
 }

@@ -223,8 +223,8 @@ Chart
 }
 
 .ehr .grey-hex {
-    fill: var(--light-grey);
-    stroke: var(--light-grey);
+    fill: var(--light-medium-grey);
+    stroke: var(--light-medium-grey);
     stroke-width: 0.1;
 }
 

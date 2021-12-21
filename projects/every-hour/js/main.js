@@ -18,6 +18,7 @@ const nCats = categoryInfo.length;
 
 const lightGrey = "#f2f2f2";
 const darkGrey = "#333333";
+const lightMediumGrey = "#d9d9d9";
 
 const NS = "http://www.w3.org/2000/svg";
 
@@ -82,7 +83,7 @@ const draw = () => {
 			$rect.attr({
 				"x": lastX,
 				"y": -0.01,
-				"fill": lightGrey,
+				"fill": lightMediumGrey,
 				"width": 1 - lastX + 0.01,
 				"height": 1.02
 			});
@@ -98,7 +99,7 @@ const isolate = (cat) => {
 	data.forEach((yearArr, d) => {
 		const $svg = $(`.eh .viz-container > svg[data-year=${d}]`);
 		$svg.empty();
-		$svg.css("background-color", "white");
+		$svg.css("background-color", lightGrey);
 
 		const $path = $(document.createElementNS(NS, "path"));
 
@@ -138,7 +139,7 @@ const isolate = (cat) => {
 			$rect.attr({
 				"x": lastX,
 				"y": -0.01,
-				"fill": lightGrey,
+				"fill": lightMediumGrey,
 				"width": 1 - lastX + 0.01,
 				"height": 1.02
 			});

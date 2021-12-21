@@ -3,7 +3,7 @@ export function busyButtons() {
 	/* See busy-buttons-demo.html for demo */
 
 	const darkGrey = "#333333";
-	const lightMediumGrey = "#b3b3b3";
+	const lightMediumGrey = "#d9d9d9";
     const lightGrey = "#f2f2f2";
     const themeColour = "#1e9664";
 
@@ -48,7 +48,7 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const backgroundColor = [colour(id), shadeColour(colour(id), -0.1), shadeColour(colour(id), -0.05)];
+			const backgroundColor = [colour(id), shadeColour(colour(id), -0.1), shadeColour(colour(id), -0.08)];
 
 			$elem.css({
 				"background-color": backgroundColor[state]
@@ -155,12 +155,14 @@ export function busyButtons() {
             ];
 			const backgroundColor = ["white", col[0], "white", "white"];
 			const textColour = [darkGrey, col[1], darkGrey, darkGrey];
+            const iconColour = [lightMediumGrey, col[2], shadeColour(col[2], 0.5), shadeColour(col[2], 0.55)];
 
 			$elem.css({
 				"border-bottom": `${borderWidth[state]}px solid ${borderColour[state]}`,
     			"padding-bottom": paddingBottom[state],
 				"background-color": backgroundColor[state],
-				"color": textColour[state]
+				"color": textColour[state],
+				"fill": iconColour[state]
 			});
 		});
 
