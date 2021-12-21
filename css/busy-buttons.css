@@ -1,8 +1,7 @@
 :root {
     --button-border-rad: 4px;
     --slide-box-padding: 2px;
-    --sel-border: none;
-    --slide-box-border: 1px solid var(--light-medium-grey);
+    --sel-border: 2px solid var(--light-medium-grey);
 }
 
 .button {
@@ -19,12 +18,12 @@
 }
 
 .hover-button {
-    border-bottom: 1px solid var(--light-medium-grey);
+    border-bottom: 2px solid var(--light-medium-grey);
     background-color: "#ffffff";
 }
 
 .toggle-button {
-    border-bottom: 1px solid var(--light-medium-grey);
+    border-bottom: 2px solid var(--light-medium-grey);
     background-color: "#ffffff";
 }
 
@@ -38,10 +37,10 @@
     background-color: "#ffffff";
 	touch-action: none;
 	display: flex;
-    border-left: var(--slide-box-border);
 }
 
 .slide-box > .button {
+    position: relative;
     border-radius: 0;
     border-left: var(--sel-border);
 }

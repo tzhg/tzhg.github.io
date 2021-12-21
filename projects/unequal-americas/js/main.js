@@ -17,7 +17,7 @@ const data = importData();
 const nReps = data[0];
 const regionData = data[1];
 const maxY = data[2];
-const repPalette = ["#6462ad", "#2a586a", "#1f9663"];
+const repPalette = ["#208eb7", "#6d7d4c", "#a03a58"];
 
 const NS = "http://www.w3.org/2000/svg";
 

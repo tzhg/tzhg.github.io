@@ -57,15 +57,16 @@ Legend
 }
 
 .eh .legend-button span {
-    width: 85px;
+    width: 82px;
     width: auto;
 }
 
 .eh .legend-square {
-	width: 13px;
-	height: 13px;
-	margin-right: 4px;
+	width: 11px;
+	height: 11px;
+	margin-right: 5px;
 	position: relative;
+    top: -0.5px;
 }
 
 /* =============================================================================
@@ -79,12 +80,12 @@ Media queries
     }
 
     .eh .legend-container {
-    	width: 96px;
+    	width: 93px;
     }
 
     .eh .legend-square {
-    	width: 15px;
-    	height: 15px;
-        left: -1px;
+    	width: 13px;
+    	height: 13px;
+        top: 0;
     }
 }

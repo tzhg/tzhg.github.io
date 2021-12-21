@@ -141,25 +141,16 @@ export function busyButtons() {
 
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
-            const oldPaddingBottom = 4;
 
 			const col = colour(id);
 
 			const borderColour = [lightMediumGrey, col[2], lightMediumGrey, col[2]];
-            const borderWidth = [1, 3, 3, 3];
-            const paddingBottom = [
-                oldPaddingBottom,
-                oldPaddingBottom + 1 - borderWidth[1],
-                oldPaddingBottom + 1 - borderWidth[1],
-                oldPaddingBottom + 1 - borderWidth[1]
-            ];
-			const backgroundColor = ["white", col[0], "white", "white"];
+			const backgroundColor = ["white", col[0], col[0], "white"];
 			const textColour = [darkGrey, col[1], darkGrey, darkGrey];
             const iconColour = [lightMediumGrey, col[2], shadeColour(col[2], 0.5), shadeColour(col[2], 0.55)];
 
 			$elem.css({
-				"border-bottom": `${borderWidth[state]}px solid ${borderColour[state]}`,
-    			"padding-bottom": paddingBottom[state],
+				"border-bottom": `2px solid ${borderColour[state]}`,
 				"background-color": backgroundColor[state],
 				"color": textColour[state],
 				"fill": iconColour[state]
@@ -287,12 +278,9 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-            const oldPaddingBottom = 4;
-
 			$elem.css({
 				"background-color": ["white", lightGrey][state],
-				"border-bottom": `${[1, 3][state]}px solid ${[lightMediumGrey, themeColour][state]}`,
-				"padding-bottom": [oldPaddingBottom, oldPaddingBottom + 1 - 3][state]
+				"border-bottom": `2px solid ${[lightMediumGrey, themeColour][state]}`,
 			});
 		});
 
@@ -461,14 +449,14 @@ export function busyButtons() {
 				$elem.css({
 					"background-color": ["white", lightGrey][state],
 					"color": darkGrey,
-					"--sel-border": `3px solid ${["#ffffff", colour(id)][state]}`
+					"--sel-border": `2px solid ${[lightMediumGrey, colour(id)][state]}`
 				});
 			} else {
 				//$(sel).css("border", `1px solid ${darkGrey}`);
 				$elem.css({
 					"background-color": ["white", lightGrey][state],
 					"color": [darkGrey, darkGrey][state],
-					"--sel-border": `3px solid ${["#ffffff", colour(id)][state]}`
+					"--sel-border": `2px solid ${[lightMediumGrey, colour(id)][state]}`
 				});
 			}
 		});

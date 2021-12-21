@@ -721,7 +721,7 @@ const initDensitySelection = () => {
     bb.slideBox(
         ".ehr .density-container",
         "density",
-        (id) => densityPalette[id],
+        (id) => themeColour,
         (id) => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();

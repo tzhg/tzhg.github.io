@@ -239,9 +239,8 @@ Misc.
 
 .ehr .section-title {
     font-weight: 600;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
     white-space: nowrap;
-    border-bottom: 1px solid var(--dark-grey);
     width: 100%;
     text-align: center;
 }
@@ -340,7 +339,6 @@ Media queries
     .ehr .density-box .section-title {
         padding-bottom: 0;
         padding-right: 10px;
-        border-bottom: none;
     }
 
 }
@@ -413,6 +411,5 @@ Media queries
     .ehr .density-box .section-title {
         padding-bottom: 3px;
         padding-right: 0;
-        border-bottom: 1px solid var(--dark-grey);
     }
 }
