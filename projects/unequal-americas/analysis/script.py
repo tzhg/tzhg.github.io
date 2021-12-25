@@ -1,10 +1,9 @@
 import csv, json, os
 import numpy as np
 import pandas as pd
-import bisect
+import matplotlib.pyplot as plt
 from scipy.stats import beta
 from scipy.special import beta as beta_f
-import matplotlib.pyplot as plt
 from scipy.optimize import least_squares
 from scipy.optimize import root_scalar
 from scipy.stats import uniform

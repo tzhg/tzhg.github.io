@@ -19,6 +19,17 @@ const regionData = data[1];
 const maxY = data[2];
 const repPalette = ["#208eb7", "#6d7d4c", "#a03a58"];
 
+/* Determines tick positions and labels in x-axis */
+const regionAxis = [
+    { ticks: [0, 50000, 100000, 150000], currency: "USD" },
+    { ticks: [0, 100000, 200000, 300000], currency: "MXN" }
+];
+
+const currency = [
+    "USD",
+    "MXN"
+];
+
 const NS = "http://www.w3.org/2000/svg";
 
 let selCountry;
@@ -41,10 +52,18 @@ const createCountrySelection = () => {
 
 const changeCountry = (countryIdx) => {
     selCountry = countryIdx;
-    $(".ua .map-box > div").hide();
+    $(".ua .map-box > div").css("display", "none");
     $(`.ua .map-box > div:nth-child(${countryIdx + 1})`).css("display", "flex");
 
+    /* Prevents flickering */
+    $(`.ua .map-box > div:nth-child(${countryIdx + 1})`).css("visibility", "visible");
+
     $(".ua .region-info-box > div").css("display", "none");
+
+    const nRegions = regionData[selCountry].length;
+
+    $(".ua .region-info-box > div").css("height", `${100 / nRegions}%`);
+    $(".ua .map-box object").css("height", `${100 / nRegions}%`);
 
     regionData[selCountry].forEach((region, i) => {
         const regionIdx = regionOrder[selCountry][i];
@@ -52,23 +71,19 @@ const changeCountry = (countryIdx) => {
         let pop = regionData[selCountry][i].population;
         pop = new Intl.NumberFormat("en-GB").format(pop);
 
-        $(`.ua .region-info-box > div:nth-child(${regionIdx + 1})`).css("display", "flex");
         $(`.ua .region-info-box > div:nth-child(${regionIdx + 1}) .region-info-name`).text(regionData[selCountry][i].name);
         $(`.ua .region-info-box > div:nth-child(${regionIdx + 1}) .region-info-population`).text(pop);
+        $(`.ua .region-info-box > div:nth-child(${regionIdx + 1})`).css("display", "flex");
     });
-
-    const nRegions = regionData[selCountry].length;
-
-    $(".ua .region-info-box > div").css("height", `${100 / nRegions}%`);
-    $(".ua .map-box object").css("height", `${100 / nRegions}%`);
 }
 
 const draw = () => {
     const $svg = $(".ua .chart-svg");
 
     /* Income line parameters */
-    const iLPadRight = 25;
+    const iLPadRight = 20;
     const iLPadTop = 5;
+    const iLPadLeft = 25;
     const iLThickness = 2;
     const iLTickHeight = 8;
     const iLYProp = 0.5;
@@ -112,36 +127,61 @@ const draw = () => {
         $svg.append($icon);
     };
 
+    const drawTick = (zeroTick, x, y, label) => {
+        const $tick = $(document.createElementNS(NS, "line"));
+        const $label = $(document.createElementNS(NS, "text"));
+
+        $tick.attr("x1", `${x}`);
+        $tick.attr("x2", `${x}`);
+        $tick.attr("y1", `${y + iLTickHeight}`);
+        $tick.attr("y2", `${y - (zeroTick ? iLTickHeight : 0)}`);
+        $tick.attr("stroke", `${darkGrey}`);
+        $tick.attr("stroke-width", `${iLThickness}`);
+
+        $label.attr("x", `${x}`);
+        $label.attr("y", `${y + iLTickHeight}`);
+        $label.attr("text-anchor", "middle");
+        $label.attr("dominant-baseline", "hanging");
+        $label.text(label);
+
+        $svg.append($tick);
+        $svg.append($label);
+    };
+
     regionData[selCountry].forEach((region, i) => {
         const regionIdx = regionOrder[selCountry][i];
 
-        const $incomeLine = $(document.createElementNS(NS, "g"));
-        const $line = $(document.createElementNS(NS, "line"));
-        const $zeroTick = $(document.createElementNS(NS, "line"));
-
         const y = (regionIdx + iLYProp) / regionData[selCountry].length * svgShape[1];
 
+        const xPos = (income) => {
+            return iLPadLeft + (svgShape[0] - iLPadLeft - iLPadRight - iLThickness / 2) * income / maxY[selCountry];
+        };
+
         for (let j = 0; j < nReps; ++j) {
-            const x = iLThickness / 2 + (svgShape[0] - iLPadRight - iLThickness / 2) * region.reps[j] / maxY[selCountry];
-            drawPerson(regionData[selCountry].length, y, x, repPalette[j], 1);
+            drawPerson(regionData[selCountry].length, y, xPos(region.reps[j]), repPalette[j], 1);
         }
 
-        $line.attr("x1", "0");
+        regionAxis[selCountry].ticks.forEach((val, j) => {
+            const opt = {
+                style: "currency",
+                currency: regionAxis[selCountry].currency,
+                maximumFractionDigits: "0"
+            };
+            const label = new Intl.NumberFormat("en-GB", opt).format(val);
+            drawTick(j === 0, xPos(val), y, label);
+        })
+
+        const $incomeLine = $(document.createElementNS(NS, "g"));
+        const $line = $(document.createElementNS(NS, "line"));
+
+        $line.attr("x1", `${iLPadLeft}`);
         $line.attr("x2", `${svgShape[0]}`);
         $line.attr("y1", `${y}`);
         $line.attr("y2", `${y}`);
         $line.attr("stroke", `${darkGrey}`);
         $line.attr("stroke-width", `${iLThickness}`);
 
-        $zeroTick.attr("x1", `${iLThickness / 2}`);
-        $zeroTick.attr("x2", `${iLThickness / 2}`);
-        $zeroTick.attr("y1", `${y - iLTickHeight}`);
-        $zeroTick.attr("y2", `${y + iLTickHeight}`);
-        $zeroTick.attr("stroke", `${darkGrey}`);
-        $zeroTick.attr("stroke-width", `${iLThickness}`);
-
         $incomeLine.append($line);
-        $incomeLine.append($zeroTick);
         $svg.append($incomeLine);
     });
 };

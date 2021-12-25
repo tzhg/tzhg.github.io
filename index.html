@@ -40,7 +40,7 @@
 unequal-americas
 ============================================================================!-->
 
-<div class="title">How unequal North America is</div>
+<div class="title">Visualising inequality</div>
 <div style="color:red; font-weight:bold">Work in progress!</div>
 <div class="desc">Median income of poorest, middle, and richest thirds of population</div>
 <div class="ua">
@@ -95,21 +95,53 @@ unequal-americas
     <div class="info-button button click-button" data-project-id="unequal-americas">More information</div>
     <div class="info-panel" data-project-id="unequal-americas">
         <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            This visualisation compares income inequality between regions of
+            various countries (more countries may be added later).
+            I constructed the regions by combining administrative subdivisions (states)
+            with similar culture, ensuring that the regions have similar populations.
+            I gathered income distribution data for the states of each country,
+            specifically for household pre-tax income in 2019 or 2020.
+            I followed the method in Chotikapanich et. al to fit beta-2 distributions
+            from the limited income distribution data available,
+            and subsequently estimate regional income distributions.
         </div>
         <div>
-
+            Common measures of income inequality include the Gini coefficient,
+            and ratios involving quantiles such as P90/P10 or S90/S10.
+            I chose to visualise quantiles, as they are not affected by the extreme wealth
+            which my fitted model cannot estimate.
+            I chose the quantiles 1/6, 1/2, and 5/6, which can be interpreted as the median of the
+            0&ndash;1/3, 1/3&ndash;2/3, and 2/3&ndash;1 quantile intervals respectively.
+        </div>
+        <div>
+            There are a number of considerations to take into account before
+            making any conclusions from this visualisation.
+            Firstly, I make no guarantee on the accuracy of my estimates.
+            Secondly, the income distributions do not take into account wealth inequality, taxes and transfers, pensions or cost of living.
+            Regardless of these limitations, I hope that this project can serve as an educational and thought-provoking introduction to
+            this serious issue.
+        </div>
+        <div>
+            <div class="modal-title">Data sources:</div>
+            <ul>
+                <li><a href="https://www.inegi.org.mx/temas/ingresoshog/">Instituto Nacional de Estadística y Geografía (Mexico income data)</a></li>
+                <li><a href="https://data.census.gov/cedsci/table">United States Census Bureau (US income data)</a></li>
+                <li><a href="https://wikipedia.org">Wikipedia (population data)</a></li>
+            </ul>
         </div>
         <div>
             <div class="modal-title">Made using:</div>
             <ul>
                 <li><a href="https://jquery.com">jQuery</a></li>
                 <li><a href="https://numpy.org">NumPy</a></li>
+                <li><a href="https://scipy.org">SciPy</a></li>
                 <li><a href="https://pandas.pydata.org">pandas</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="modal-title">References:</div>
+            <ul>
+                <li>Chotikapanich, Duangkamon & Griffiths, William E. & Rao, D.S. Prasada & Karunarathne, Wasana, 2014, <a href="http://dx.doi.org/10.2139/ssrn.2410735">"Income Distributions, Inequality, and Poverty in Asia, 1992–2010"</a>, ADBI Working Papers 468, Asian Development Bank Institute.</li>
             </ul>
         </div>
     </div>
@@ -119,7 +151,7 @@ unequal-americas
 every-hour
 ============================================================================!-->
 
-<div class="title">How I've spent my time</div>
+<div class="title">Visualising my time</div>
 <div class="desc">Time spent on various activities, smoothed</div>
 <div class="eh">
     <div class="chart-container"></div>
@@ -159,7 +191,7 @@ every-hour
 el-hextion-results
 ============================================================================!-->
 
-<div class="title">How Ireland voted</div>
+<div class="title">Visualising Irish elections</div>
 <div class="desc">One hexagon = one seat</div>
 <div class="ehr">
     <div class="election-box"></div>
@@ -215,7 +247,7 @@ el-hextion-results
             of the 2017 UK general election.
         </div>
         <div>
-            Ireland's general elections use multi-member constituencies to elect TDs, members of parliament, to Dáil Éireann, its national assembly.
+            Ireland's general elections (GEs) use multi-member constituencies to elect TDs, members of parliament, to Dáil Éireann, its national assembly.
             Cartograms for this type of election can be trickier to make,
             as there may be additional constraints due to seats being grouped by constituency.
             I constructed my map projections by hand, aiming to preserve the
@@ -253,7 +285,7 @@ el-hextion-results
 self-organising-climates
 ============================================================================!-->
 
-<div class="title">How city climates compare</div>
+<div class="title">Visualising climates</div>
 <div class="desc">Major cities arranged by climate similarity</div>
 <div class="soc">
     <div class="var-box">
