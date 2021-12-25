@@ -81,9 +81,9 @@ const draw = () => {
     const $svg = $(".ua .chart-svg");
 
     /* Income line parameters */
-    const iLPadRight = 20;
-    const iLPadTop = 5;
+    const iLPadRight = 25;
     const iLPadLeft = 25;
+    const iLPadTop = 5;
     const iLThickness = 2;
     const iLTickHeight = 8;
     const iLYProp = 0.5;
