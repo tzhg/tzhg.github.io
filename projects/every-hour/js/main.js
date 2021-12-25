@@ -39,6 +39,13 @@ const initDraw = () => {
 		$yearContainer.addClass("year-container");
 		$yearContainer.text(`${startYear + d}`);
 
+        if (d === data.length - 1) {
+            const $yearContainer2 = $(document.createElement("div"));
+            $yearContainer2.addClass("year-container next-year");
+            $yearContainer2.text(`${startYear + d + 1}`);
+    		$axis.append($yearContainer2);
+        }
+
 		const $tick = $(document.createElement("div"));
 		$tick.addClass("tick");
 
