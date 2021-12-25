@@ -1,11 +1,17 @@
 1. More tooltips
 2. button sel-border padding and slide box line
+3. Every-hour smooth then split
 
 Representative people
 In order to summarise the income distribution in a simple and accessible way,
 I decided to compare the incomes of 3 "representative" people.
 I chose the three quantiles for alpha=1/6, alpha=1/2, and alpha=5/6.
 
+p90/p50
+p50/p10
+
+
+family/households
 
 Challenges
 
