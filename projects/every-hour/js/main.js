@@ -32,12 +32,20 @@ const initDraw = () => {
 		$svg.attr("viewBox", "0 0 1 1");
 		$svg.attr("data-year", d);
 
+		const $axis = $(document.createElement("div"));
+		$axis.addClass("x-axis");
+
 		const $yearContainer = $(document.createElement("div"));
 		$yearContainer.addClass("year-container");
 		$yearContainer.text(`${startYear + d}`);
 
+		const $tick = $(document.createElement("div"));
+		$tick.addClass("tick");
+
 		$vizContainer.append($svg);
-		$vizContainer.append($yearContainer);
+		$axis.append($yearContainer);
+		$axis.append($tick);
+		$vizContainer.append($axis);
 	});
 };
 

@@ -106,24 +106,29 @@ def process_data(cat_regex_list):
 
     Y_all = []
 
-    for year_range in year_ranges:
-        num_pts = 150
+    num_pts = 1000
+    Y = np.linspace(0, sum(years) - 1, num=num_pts)
 
-        Y = np.linspace(*year_range, num=num_pts)
+    Y_smooth = np.array([
+        smooth(hours_seq, Y[Y < len(hours)])
+        for hours_seq in np.transpose(hours)])
 
-        Y_smooth = np.array([
-            smooth(hours_seq, Y[Y < len(hours)])
-            for hours_seq in np.transpose(hours)])
+    for y in range(len(years)):
+        yearIndices = [
+            round(y * num_pts / len(years)),
+            round((y + 1) * num_pts / len(years))]
 
-        Y_smooth = Y_smooth.clip(min=0)
+        # This adds some overlap to the years
+        yearIndices[1] = min(sum(years), yearIndices[1] + 2)
+        Y_smooth_y = Y_smooth[:, yearIndices[0]:yearIndices[1]]
 
-        # Normalise the columns
-        #Y_smooth = np.transpose([row / sum(row) for row in np.transpose(Y_smooth)])
-        Y_smooth = Y_smooth / Y_smooth.sum(axis=0)
+        Y_smooth_y = Y_smooth_y.clip(min=0)
 
-        Y_smooth = np.cumsum(Y_smooth, axis=0)[:-1,:]
+        Y_smooth_y = Y_smooth_y / Y_smooth_y.sum(axis=0)
 
-        Y_all.append(Y_smooth.tolist())
+        Y_smooth_y = np.cumsum(Y_smooth_y, axis=0)[:-1,:]
+
+        Y_all.append(Y_smooth_y.tolist())
 
     return Y_all
 

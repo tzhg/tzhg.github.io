@@ -16,7 +16,7 @@ Chart
 .eh .chart-container {
     display: flex;
     flex-flow: row wrap;
-    margin-left: -10px;
+    //margin-left: -10px;
   	flex: 1;
 }
 
@@ -25,16 +25,32 @@ Chart
     flex-flow: column nowrap;
 	flex: 1;
     width: 40%;
-    margin-left: 10px;
+    margin-left: -0.1%;
     margin-bottom: 10px;
   	max-width: 300px;
     min-width: 60px;
 }
 
+.eh .x-axis {
+    position: relative;
+    border-top: 1px solid var(--dark-medium-grey);
+    top: 5px;
+}
+
+.eh .tick {
+    border-left: 1px solid var(--dark-medium-grey);
+    height: 10px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
 .eh .year-container {
-    font-weight: bold;
-    border-left: 1px solid var(--dark-grey);
-    padding-left: 5px;
+    text-align: center;
+}
+
+.eh .viz-container:last-child .tick {
+    border-right: 1px solid var(--dark-medium-grey);
 }
 
 /* =============================================================================
