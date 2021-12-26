@@ -19,23 +19,25 @@ const regionData = data[1];
 const maxY = data[2];
 const repPalette = ["#208eb7", "#6d7d4c", "#a03a58"];
 
+let screenSize;
+
 /* Determines tick positions and labels in x-axis */
 const regionAxis = [
-    { ticks: [0, 50000, 100000, 150000], currency: "USD" },
-    { ticks: [0, 100000, 200000, 300000], currency: "MXN" }
+    { ticks: [0, 25000, 50000, 75000, 100000, 125000, 150000, 175000], currency: "USD" },
+    { ticks: [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000], currency: "MXN" },
+    { ticks: [0, 25000, 50000, 75000, 100000, 125000], currency: "BRL" }
 ];
 
-const currency = [
-    "USD",
-    "MXN"
+const regionOrder = [
+    [1, 3, 2, 4, 0],
+    [0, 1, 2, 3],
+    [3, 4, 2, 0, 1]
 ];
 
 const NS = "http://www.w3.org/2000/svg";
 
 let selCountry;
 let svgShape;
-
-const regionOrder = [[1, 3, 2, 4, 0], [0, 1, 2, 3]];
 
 const createCountrySelection = () => {
     bb.toggleButton(
@@ -165,10 +167,13 @@ const draw = () => {
             const opt = {
                 style: "currency",
                 currency: regionAxis[selCountry].currency,
+                currencyDisplay: "narrowSymbol",
                 maximumFractionDigits: "0"
             };
-            const label = new Intl.NumberFormat("en-GB", opt).format(val);
-            drawTick(j === 0, xPos(val), y, label);
+
+            let label = new Intl.NumberFormat("en-GB", screenSize < 2 ? {} : opt).format(screenSize < 1 ? val / 1000 : val);
+
+            drawTick(j === 0, xPos(val), y, screenSize < 1 ? label + "k" : label);
         })
 
         const $incomeLine = $(document.createElementNS(NS, "g"));
@@ -192,17 +197,25 @@ const drawAxis = () => {
     $(".ua .viz-box").append($tick);
 };
 
+const layout = () => {
+    const winWidth = $(window).width();
+    const thresholds = [800, 850];
+    screenSize = 0;
+    while (screenSize < thresholds.length && winWidth > thresholds[screenSize]) {
+        ++screenSize;
+    }
+
+    svgShape = [$(".ua .chart-svg").width(), $(".ua .chart-svg").height()];
+    draw();
+};
+
 const init = (() => {
     createCountrySelection();
     changeCountry(0);
 
-    svgShape = [$(".ua .chart-svg").width(), $(".ua .chart-svg").height()];
-    draw();
+    layout();
 
-    window.addEventListener("resize", () => {
-        svgShape = [$(".ua .chart-svg").width(), $(".ua .chart-svg").height()];
-        draw();
-    });
+    window.addEventListener("resize", layout);
 })();
 
 });

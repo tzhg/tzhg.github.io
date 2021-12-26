@@ -8,6 +8,30 @@ from scipy.optimize import least_squares
 from scipy.optimize import root_scalar
 from scipy.stats import uniform
 
+
+# Input files:
+# ==============================================================================
+#
+# countries.csv:
+#     name: name of country
+#
+# regions.csv:
+#     name: name of region
+#     country: id (row number) of containing country
+#
+# unit.csv:
+#     name: name of unit
+#     population: population (absolute)
+#     region: id (row number) of containing country
+#     months: number of months income data is taken
+#     c_i: class population shares
+#     y_i: class income means
+#     a_i: class income boundaries
+#
+# Output file:
+# ==============================================================================
+# ../js/importData.js
+
 # Current directory
 dirname = os.path.dirname(os.path.abspath(__file__))
 
