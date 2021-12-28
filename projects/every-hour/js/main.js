@@ -227,7 +227,9 @@ const initToolTip = () => {
                     ++catIdx;
                 }
 
-                const date = new Date(startYear + Number(year), 0, x * 365);
+                const yearLengths = [365, 365, 365, 366, 365];
+
+                const date = new Date(startYear + Number(year), 0, x * yearLengths[year]);
                 const dateStr = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric"}).format(date);
 
                 const val = ((catIdx < nCats - 1 ? dayArr[catIdx] : 1) - (catIdx > 0 ? dayArr[catIdx - 1] : 0)) * 24;
