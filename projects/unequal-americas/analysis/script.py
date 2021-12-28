@@ -6,7 +6,6 @@ from scipy.stats import beta
 from scipy.special import beta as beta_f
 from scipy.optimize import least_squares
 from scipy.optimize import root_scalar
-from scipy.stats import uniform
 
 
 # Input files:
@@ -59,6 +58,10 @@ def resid(b, p, q, c, y, a):
     w0 = b2_F(a, b, p, q)
     w = np.append(w0, 1) - np.append(0, w0)
 
+    # Prevents divide by zero
+    if 0 in w:
+        return np.inf
+
     z0 = b2_F(a, b, p + 1, q - 1)
     z = (np.append(z0, 1) - np.append(0, z0)) / w
 
@@ -67,11 +70,19 @@ def resid(b, p, q, c, y, a):
     eps1 = (w - c) / c
     eps2 = (b * p / (q - 1) * z - y) / y
 
-    return(np.append(eps1, eps2))
+    return np.append(eps1, eps2)
 
 
 # Fits model using least squares
 def fit_model(c, y, a, name):
+    def g(mu, m, sd):
+        b = (mu ** 2 * (mu - m) - (3 * m - mu) * sd ** 2) / (sd ** 2 - mu ** 2 + mu * m)
+        p = mu / b * (2 * m + b) / (mu - m)
+        q = (mu + m + b) / (mu - m)
+
+        return [b, p, q]
+
+
     if y is None:
         missing_y = True
         y = (np.append(a, a[-1] + a[-2]) - np.append(0, a)) / 2
@@ -83,21 +94,19 @@ def fit_model(c, y, a, name):
     m = mu
     sd = np.std(y)
 
-    def g(mu, m, sd):
-        b = (mu ** 2 * (mu - m) - (3 * m - mu) * sd ** 2) / (sd ** 2 - mu ** 2 + mu * m)
-        p = mu / b * (2 * m + b) / (mu - m)
-        q = (mu + m + b) / (mu - m)
+    # Number of medians to try in initialisation
+    N_medians = 100
 
-        return [b, p, q]
-
-    for i in range(10):
-        b_init, p_init, q_init = g(mu, m * i / 10, sd)
+    for i in range(N_medians):
+        b_init, p_init, q_init = g(mu, m * i / N_medians, sd)
 
         if b_init > 0 and p_init > 1 and q_init > 1:
             break
 
+    # Initial variables
     theta_init = np.append([b_init, p_init, q_init], y if missing_y else a)
 
+    # Least squares
     res = least_squares(
         lambda x: resid(*x[:3], c, *[x[3:], a] if missing_y else [y, x[3:]]),
         theta_init)
@@ -108,8 +117,9 @@ def fit_model(c, y, a, name):
     else:
         a = res.x[3:]
 
-    print(f"Cost: {res.cost}")
+    print(f"Unit: {name}, Cost: {res.cost}")
 
+    # Plots to test fit graphically
     if False:
         fig, axs = plt.subplots(1, 2)
 
@@ -145,7 +155,7 @@ def fit_model(c, y, a, name):
     return(np.array([b, p, q]))
 
 
-# Takes unit id, returns the income of representatives of that unit
+# Takes unit id, returns the income of desired quantiles of that unit
 def unit_parameters(id):
     if str(id) in fitted_pars:
         b, p, q = fitted_pars[str(id)]
@@ -182,6 +192,7 @@ def unit_parameters(id):
     return [b, p, q]
 
 
+# Calculates desired quantiles
 def region_reps(list_unit_parameters):
     u0 = list_unit_parameters[0]
     mode0 = (u0["p"] - 1) * u0["b"] / (u0["q"] + 1)
@@ -190,7 +201,7 @@ def region_reps(list_unit_parameters):
         return np.sum([b2_F(x, unit["b"], unit["p"], unit["q"]) * unit["population"] for unit in list_unit_parameters])
 
     quantiles = [
-        root_scalar(lambda x: obj(x) - ((i + 1) / n_reps + i / n_reps) / 2, bracket=[0.01, 100 * mode0]).root
+        root_scalar(lambda x: obj(x) - ((i + 1) / n_reps + i / n_reps) / 2, bracket=[0.005, 300 * mode0]).root
         for i in range(n_reps)]
 
     return quantiles
@@ -200,17 +211,19 @@ def region_reps(list_unit_parameters):
 #==============================================================================#
 #==============================================================================#
 
-# Number of representatives
-n_reps = 3
 
+# Number of representatives (desired quantiles)
+n_reps = 3
 
 # rep1, rep2, ..., rep{n_reps} refer to the income of the representatives
 rep_labels = [f"rep{i + 1}" for i in range(n_reps)]
 
+# Loads data
 units_df = pd.read_csv("units.csv")
 regions_df = pd.read_csv("regions.csv")
 countries_df = pd.read_csv("countries.csv")
 
+# Calculates population proportion for each unit
 regions_df2 = units_df.groupby(units_df["region"]).aggregate({"population": "sum"})
 units_df["population"] = units_df.apply(lambda row: row["population"] / regions_df2.at[row["region"], "population"], axis=1)
 
@@ -218,32 +231,23 @@ units_N = units_df.shape[0]
 regions_N = regions_df.shape[0]
 countries_N = countries_df.shape[0]
 
-#X_N = 100
-#X_lim = 200000
+# Loads parameters from file
+fitted_pars = json.load(open("parameters.json"))
 
-#X = np.linspace(0, X_lim, X_N)
-
-if False:
-    fitted_pars = {}
-else:
-    fitted_pars = json.load(open("parameters.json"))
-
+# Estimates missing parameters
 units_df[["b", "p", "q"]] = [*units_df.index.map(unit_parameters)]
 
-json.dump(fitted_pars, open("parameters.json",'w'))
+# Saves parameters in file
+json.dump(fitted_pars, open("parameters.json", "w"))
 
+# All representatives
 region_reps = [region_reps(units_df[units_df["region"] == i][["population", "b", "p", "q"]].to_dict("records")) for i in range(regions_N)]
 
-print(region_reps)
+# Full dataframe of regions
 regions_df[rep_labels] = [*region_reps]
-#regions_df2 = units_df.groupby(units_df["region"]).aggregate({"population": "sum", **{label: "sum" for label in class_pop_labels}})
-
 regions_df = pd.concat([regions_df2, regions_df], axis=1)
 
-# Converts the income class populations from proportions of total regions, to proportion of current region
-#for label in class_pop_labels:
-#    regions_df2[label] = regions_df2[label] / regions_df["population"]
-
+# Calculates max representative income of each region
 reps_max = regions_df.groupby(regions_df["country"]).aggregate({rep_labels[-1]: "max"})[rep_labels[-1]].tolist()
 
 reps_data = [
@@ -255,35 +259,5 @@ reps_data = [
         for d in regions_df[regions_df["country"] == c].to_dict("records")]
     for c in range(countries_N)]
 
+# Saves data in js
 save_data(n_reps, reps_data, reps_max)
-
-
-
-
-#Y_units = [unit_class_pop(i, X) for i in range(units_N)]
-
-#Y_regions = [
-#    np.sum([Y_units[j] for j in units_df.index[units_df["region"] == i].tolist()], axis=0)
-#    for i in range(regions_N)]
-
-#fig, ax = plt.subplots(1, 1)
-
-#palette = ["#6a45c2", "#96a467", "#803e4c", "#48abb8", "#d18c84", "#154e56", "#8f8ac5", "#b51d49", "#05b56f", "#df72ef"]
-
-#for i in range(units_N):
-#    ax.plot(X, Y_units[i], color=palette[units_df.at[i, "region"]], lw=1, label=units_df.at[i, "name"], alpha=0.5)
-
-#for i in range(regions_N):
-#    ax.plot(X, Y_regions[i], color=palette[i], lw=2, label=regions_df.at[i, "name"])
-
-#plt.stackplot(X, *Y_regions, labels=regions_df["name"].tolist())
-
-
-#for r in range(regions_N):
-#    i_x = 0
-#    a_aug = np.concatenate(([0], a_star, [a_star[-1] * 2]))
-#    for i in range(len(a_aug) - 1):
-#        ax.plot([a_aug[i], a_aug[i + 1]], [Y_regions[r][i]] * 2, color=palette[r], lw=2, label=regions_df.at[r, "name"])
-
-#plt.legend()
-#plt.show()
