@@ -288,7 +288,7 @@ variable_info = get_variable_info()
 # Loads city climate data
 with open(os.path.join(dirname, f"./data.csv")) as f:
     data_list = np.array(
-        [[x.split(",") for x in line.split(";")[1:]]
+        [[x.split(",") for x in line.split(";")[2:]]
             for i, line in enumerate(f) if i > 0],
         dtype="float")
 
@@ -322,8 +322,9 @@ saved_var_info = [
         "legend_label_colours": var["legend_label_colours"]}
     for var in variable_info]
 
-# Loads city names
+# Loads city names, for tooltips (1) and svg cell labels (2)
 with open(os.path.join(dirname, f"./data.csv")) as f:
-    city_names = [line.split(";")[0] for i, line in enumerate(f) if i > 0]
+    city_names_1 = [line.split(";")[0] for i, line in enumerate(f) if i > 0]
+    city_names_2 = [line.split(";")[1] for i, line in enumerate(f) if i > 0]
 
-save_data(saved_var_info, city_names, [x[1:] for x in map_data])
+save_data(saved_var_info, city_names_1, city_names_2, [x[1:] for x in map_data])

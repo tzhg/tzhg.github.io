@@ -16,7 +16,8 @@ let svgShape;
 
 const importedData = importData();
 let varData = importedData[0];
-let cityNames = importedData[1];
+let cityNames1 = importedData[1];
+let cityNames2 = importedData[2];
 let mapData;
 
 const nVar = 4;
@@ -80,7 +81,7 @@ const chartLayout = () => {
         }
     }
 
-    cityNames.forEach((name, c) => {
+    cityNames2.forEach((name, c) => {
         name = name.split("|");
 
         name.forEach((text, i) => {
@@ -229,7 +230,7 @@ const initToolTip = () => {
             let $span11 = $(document.createElement("span"));
 
             $span10.text("City:");
-            $span10.text(cityNames[city].split("|").join(""));
+            $span10.text(cityNames1[city]);
 
             $row1.append($span10);
             $row1.append($span11);
@@ -265,7 +266,7 @@ const layout = () => {
 
     const dataIdx = Math.max(Math.round(nHorizCells($(".soc .chart-svg").width()) / 5) - 2, 0);
 
-    mapData = importedData[2][dataIdx];
+    mapData = importedData[3][dataIdx];
 
     svgShape = [mapData[1][0][0].length * 10, mapData[1][0][0][0].length * 10];
 

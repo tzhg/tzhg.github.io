@@ -94,6 +94,7 @@ Chart
 .soc .city-label {
 	font-size: 3.285px;
 	font-weight: 600;
+    user-select: none;
 }
 
 .soc .colour-bar {
