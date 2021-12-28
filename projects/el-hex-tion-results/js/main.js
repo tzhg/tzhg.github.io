@@ -614,8 +614,6 @@ const initToolTip = (elec_id) => {
         });
     });
 
-    const ttVSpace = 60;
-
     bb.tooltip(
         ".ehr .constit-hover-border",
         "constit-id",
@@ -690,7 +688,7 @@ const initToolTip = (elec_id) => {
             $border.attr("stroke", darkGrey);
             $border.attr("opacity", "1");
             $border.attr("stroke-width", "0.3");
-            $(".viz-box .map-svg").append($border);
+            $(".ehr .viz-box .map-svg").append($border);
         },
         () => {
             $(".ehr .hover-border").remove();

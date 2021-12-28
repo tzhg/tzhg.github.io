@@ -194,6 +194,7 @@ Modal and info row
     flex-flow: column nowrap;
     align-items: end;
     justify-content: center;
+    margin-top: 15px;
 }
 
 .info-button {

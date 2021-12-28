@@ -13,6 +13,8 @@ const darkGrey = "#3a4d49";
 const lightMediumGrey = "#dae2e6";
 const themeColour = "#1e9664";
 
+const countries = ["United States", "Mexico", "Brazil"];
+
 const data = importData();
 const nReps = data[0];
 const regionData = data[1];
@@ -94,11 +96,12 @@ const draw = () => {
 
     $svg.attr("viewBox", `0 0 ${svgShape[0]} ${svgShape[1]}`);
 
-    const drawPerson = (nRegions, y, x, colour, opacity) => {
+    const drawPerson = (dataId, nRegions, y, x, colour) => {
         const $icon = $(document.createElementNS(NS, "g"));
         const $rect = $(document.createElementNS(NS, "rect"));
         const $pent = $(document.createElementNS(NS, "path"));
         const $head = $(document.createElementNS(NS, "circle"));
+        const $padding = $(document.createElementNS(NS, "rect"));
 
         $rect.attr("x", "-10");
         $rect.attr("y", "-45");
@@ -119,14 +122,32 @@ const draw = () => {
         $icon.append($head);
 
         $icon.attr("fill", colour);
-        $icon.attr("opacity", opacity);
+        $icon.attr("pointer-events", "none");
+
+        /* Height of icon */
+        const h = iLYProp * svgShape[1] / nRegions;
+
+        /* Width of icon (3.1 is ratio of height to width) */
+        const w = h / 3.1;
+
+        /* Ensures padding is wide enough */
+        const pad_w = Math.max(20, w)
+
+        $padding.attr("x", `${x - pad_w / 2}`);
+        $padding.attr("y", `${y - h}`);
+        $padding.attr("width", `${pad_w}`);
+        $padding.attr("height", `${h}`);
+        $padding.addClass("rep-icon");
+        $padding.attr("data-rep-id", String(dataId));
+        $padding.attr("opacity", 0);
 
         /* Height of icon is 62 px */
-        const scale = (iLYProp * svgShape[1] / nRegions) / (62 + iLPadTop);
+        const scale = h / (62 + iLPadTop);
 
         $icon.attr("transform", `translate(${x}, ${y}) scale(${scale})`);
 
         $svg.append($icon);
+        $svg.append($padding);
     };
 
     const drawTick = (zeroTick, x, y, label) => {
@@ -160,7 +181,7 @@ const draw = () => {
         };
 
         for (let j = 0; j < nReps; ++j) {
-            drawPerson(regionData[selCountry].length, y, xPos(region.reps[j]), repPalette[j], 1);
+            drawPerson(nReps * i + j, regionData[selCountry].length, y, xPos(region.reps[j]), repPalette[j]);
         }
 
         regionAxis[selCountry].ticks.forEach((val, j) => {
@@ -191,10 +212,108 @@ const draw = () => {
     });
 };
 
-const drawAxis = () => {
-    const $tick = $(document.createElement("div"));
-    $tick.addClass("tick");
-    $(".ua .viz-box").append($tick);
+const initToolTip = () => {
+    const $svg = $(".ua .chart-svg");
+
+    bb.tooltip(
+        ".ua .rep-icon",
+        "rep-id",
+        (elem, state) => {
+            const regionIdx = Math.floor(elem.dataset.repId / nReps);
+            const repIdx = Number(elem.dataset.repId % nReps);
+
+            const $ttElem = $(".tooltip");
+            $ttElem.empty();
+
+            /* Wrapper allows for custom styling of tooltip */
+            const $ttWrapper = $(document.createElement("div"));
+
+    		$ttWrapper.addClass("ua");
+            $ttElem.append($ttWrapper);
+
+            /* Country label */
+            let $row0 = $(document.createElement("div"));
+            $row0.addClass("tt-row");
+
+            let $span00 = $(document.createElement("span"));
+            let $span01 = $(document.createElement("span"));
+            $span00.text("Country:");
+            $span01.text(`${countries[selCountry]}`);
+
+            $row0.append($span00);
+            $row0.append($span01);
+            $ttWrapper.append($row0);
+
+            /* Region label */
+            let $row1 = $(document.createElement("div"));
+            $row1.addClass("tt-row");
+
+            let $span10 = $(document.createElement("span"));
+            let $span11 = $(document.createElement("span"));
+
+            $span10.text("Region:");
+            $span11.text(`${regionData[selCountry][regionIdx].name}`);
+
+            $row1.append($span10);
+            $row1.append($span11);
+            $ttWrapper.append($row1);
+
+            const opt = {
+                style: "currency",
+                currency: regionAxis[selCountry].currency,
+                currencyDisplay: "narrowSymbol",
+                maximumFractionDigits: "0"
+            };
+
+            /* Quantile label */
+            let $row2 = $(document.createElement("div"));
+            $row2.addClass("tt-row");
+
+            let $span20 = $(document.createElement("span"));
+            let $span21 = $(document.createElement("span"));
+
+            const income = regionData[selCountry][regionIdx].reps[repIdx];
+            const incomeFormat = new Intl.NumberFormat("en-GB", opt).format(income);
+
+            const repLabel = ["Poorest", "Middle", "Richest"][repIdx];
+            $span20.text("Class:");
+            $span21.text(`${repLabel} third`);
+
+            $row2.append($span20);
+            $row2.append($span21);
+            $ttWrapper.append($row2);
+
+            /* Income label */
+            let $row3 = $(document.createElement("div"));
+            $row3.addClass("tt-row");
+
+            let $span30 = $(document.createElement("span"));
+            let $span31 = $(document.createElement("span"));
+
+            $span30.text("Median income:");
+            $span31.text(`${incomeFormat}`);
+
+            $row3.append($span30);
+            $row3.append($span31);
+            $ttWrapper.append($row3);
+
+            /*
+
+            const $border = $(document.createElementNS(NS, "path"));
+            $border.attr("fill", "none");
+            $border.attr("pointer-events", "none");
+            $border.attr("class", "hover-border");
+            $border.attr("d", $(elem).attr("d"));
+            $border.attr("stroke", darkGrey);
+            $border.attr("opacity", "1");
+            $border.attr("stroke-width", "0.3");
+            $(".viz-box .map-svg").append($border);*/
+        },
+        () => {/*
+            $(".ehr .hover-border").remove();*/
+        }
+
+    );
 };
 
 const layout = () => {
@@ -214,6 +333,7 @@ const init = (() => {
     changeCountry(0);
 
     layout();
+    initToolTip();
 
     window.addEventListener("resize", layout);
 })();

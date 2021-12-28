@@ -5,7 +5,6 @@ Layout boxes
 .eh {
     display: flex;
     flex-flow: row nowrap;
-  	margin-bottom: 25px;
     align-items: flex-start;
 }
 

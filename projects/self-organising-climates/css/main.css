@@ -6,7 +6,6 @@ Layout boxes
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
-	margin-bottom: 25px;
 }
 
 .soc .viz-box {

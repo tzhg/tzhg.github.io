@@ -2,7 +2,6 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
-	margin-bottom: 25px;
 }
 
 .ua .main-box {
@@ -100,6 +99,11 @@
 
 .ua .legend-box object {
     height: 25px;
+}
+
+.ua .tt-row span:first-child {
+    font-weight: bold;
+    margin-right: 2px;
 }
 
 @media all and (min-width: 500px) {
