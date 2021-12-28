@@ -2,7 +2,7 @@
 Layout boxes
 ============================================================================= */
 
-.soc {
+.soc .outer {
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;

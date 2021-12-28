@@ -617,7 +617,7 @@ const initToolTip = (elec_id) => {
     bb.tooltip(
         ".ehr .constit-hover-border",
         "constit-id",
-        (elem, state) => {
+        (elem) => {
             const constitId = elem.dataset.constitId;
 
             const $ttElem = $(".tooltip");

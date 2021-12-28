@@ -163,8 +163,6 @@ const isolate = (cat) => {
 	});
 };
 
-
-
 const genLegend = (layoutType) => {
 	$(".eh .legend-container").empty();
 
@@ -205,16 +203,99 @@ const genLegend = (layoutType) => {
 			}
 		}
 	);
+};
 
-	/*
-		"--legend-colour": [0, 1, 0, 1],
-		);*/
+const initToolTip = () => {
+    const $svg = $(".eh .viz-container svg");
+
+    bb.tooltip(
+        ".eh .viz-container > svg",
+        "year",
+        (elem) => {
+            const year = elem.dataset.year;
+            const size = $(elem).height();
+
+            $(elem).on("pointermove", (evt) => {
+                const x = evt.offsetX / size;
+                const y = evt.offsetY / size;
+
+                const dayIdx = Math.round(x * (data[year][0].length - 1));
+                const dayArr = data[year].map((arr) => arr[dayIdx]);
+
+                let catIdx = 0;
+                while (dayArr[catIdx] < y) {
+                    ++catIdx;
+                }
+
+                const date = new Date(startYear + Number(year), 0, x * 365);
+                const dateStr = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric"}).format(date);
+
+                const val = ((catIdx < nCats - 1 ? dayArr[catIdx] : 1) - (catIdx > 0 ? dayArr[catIdx - 1] : 0)) * 24;
+                const valStr = `${val.toFixed(2)} hours`;
+
+                $(".eh .tt-row:first-child span:last-child").text(dateStr);
+                $(".eh .tt-row:nth-child(2) span:last-child").text(categoryInfo[catIdx][0]);
+                $(".eh .tt-row:nth-child(3) span:last-child").text(valStr);
+            })
+
+            const $ttElem = $(".tooltip");
+            $ttElem.empty();
+
+            /* Wrapper allows for custom styling of tooltip */
+            const $ttWrapper = $(document.createElement("div"));
+
+    		$ttWrapper.addClass("eh");
+            $ttElem.append($ttWrapper);
+
+            /* Date label */
+            let $row1 = $(document.createElement("div"));
+            $row1.addClass("tt-row");
+
+            let $span10 = $(document.createElement("span"));
+            let $span11 = $(document.createElement("span"));
+
+            $span10.text("Date:");
+
+            $row1.append($span10);
+            $row1.append($span11);
+            $ttWrapper.append($row1);
+
+            /* Category label */
+            let $row2 = $(document.createElement("div"));
+            $row2.addClass("tt-row");
+
+            let $span20 = $(document.createElement("span"));
+            let $span21 = $(document.createElement("span"));
+
+            $span20.text("Category:");
+
+            $row2.append($span20);
+            $row2.append($span21);
+            $ttWrapper.append($row2);
+
+            /* Value label */
+            let $row3 = $(document.createElement("div"));
+            $row3.addClass("tt-row");
+
+            let $span30 = $(document.createElement("span"));
+            let $span31 = $(document.createElement("span"));
+
+            $span30.text("Time:");
+
+            $row3.append($span30);
+            $row3.append($span31);
+            $ttWrapper.append($row3);
+        },
+        (elem) => {}
+
+    );
 };
 
 (() => {
 	initDraw();
 	draw();
 	genLegend();
+    initToolTip();
 })();
 
 });

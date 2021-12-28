@@ -2,7 +2,7 @@
    Layout boxes
 ============================================================================= */
 
-.main-container > .ehr {
+.ehr .outer {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;

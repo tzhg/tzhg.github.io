@@ -74,6 +74,7 @@ const chartLayout = () => {
             $rect.attr("fill", mat[i][j]);
             $rect.attr("data-x", i);
             $rect.attr("data-y", j);
+            $rect.attr("pointer-events", "none");
 
             $svg.append($rect);
         }
@@ -202,6 +203,43 @@ const createVarSelection = () => {
     );
 };
 
+const initToolTip = () => {
+    const $svg = $(".eh .viz-container svg");
+
+    bb.tooltip(
+        ".soc .city-label",
+        "city",
+        (elem) => {
+            const city = elem.dataset.city;
+
+            const $ttElem = $(".tooltip");
+            $ttElem.empty();
+
+            /* Wrapper allows for custom styling of tooltip */
+            const $ttWrapper = $(document.createElement("div"));
+
+    		$ttWrapper.addClass("soc");
+            $ttElem.append($ttWrapper);
+
+            /* Date label */
+            let $row1 = $(document.createElement("div"));
+            $row1.addClass("tt-row");
+
+            let $span10 = $(document.createElement("span"));
+            let $span11 = $(document.createElement("span"));
+
+            $span10.text("City:");
+            $span10.text(cityNames[city].split("|").join(""));
+
+            $row1.append($span10);
+            $row1.append($span11);
+            $ttWrapper.append($row1);
+        },
+        (elem) => {}
+
+    );
+};
+
 const layout = () => {
     let layoutType = 0;
 
@@ -238,6 +276,7 @@ const init = (() => {
     createMonthSelection();
     createVarSelection();
     layout();
+    initToolTip();
     window.addEventListener("resize", layout);
 })();
 

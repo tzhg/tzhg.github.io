@@ -221,7 +221,7 @@ const initToolTip = () => {
     bb.tooltip(
         ".ua .rep-icon",
         "rep-id",
-        (elem, state) => {
+        (elem) => {
             const regionIdx = Math.floor(elem.dataset.repId / nReps);
             const repIdx = Number(elem.dataset.repId % nReps);
 
@@ -287,21 +287,7 @@ const initToolTip = () => {
             $row3.append($span31);
             $ttWrapper.append($row3);
 
-            //$(elem).next().attr("stroke", "2");
-            //console.log($(elem).prev().children("rect")[0].setAttribute("opacity", "0.5"));
-            $(elem).prev().children().attr("fill", bb.shadeColour(repPalette[repIdx], 0.5));
-
-            /*
-
-            const $border = $(document.createElementNS(NS, "path"));
-            $border.attr("fill", "none");
-            $border.attr("pointer-events", "none");
-            $border.attr("class", "hover-border");
-            $border.attr("d", $(elem).attr("d"));
-            $border.attr("stroke", darkGrey);
-            $border.attr("opacity", "1");
-            $border.attr("stroke-width", "0.3");
-            $(".viz-box .map-svg").append($border);*/
+            $(elem).prev().children().attr("fill", bb.shadeColour(repPalette[repIdx], 0.3));
         },
         (elem) => {
             $(elem).prev().children().attr("fill", repPalette[elem.dataset.repId % nReps]);
