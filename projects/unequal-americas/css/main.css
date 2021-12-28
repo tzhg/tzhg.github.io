@@ -103,7 +103,7 @@
 
 .ua .tt-row span:first-child {
     font-weight: bold;
-    margin-right: 2px;
+    margin-right: 3px;
 }
 
 @media all and (min-width: 500px) {

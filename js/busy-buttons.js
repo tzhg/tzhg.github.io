@@ -530,6 +530,7 @@ export function busyButtons() {
 	}
 
 	return {
+        shadeColour,
 		clickButton,
 		toggleButton,
 		hoverButton,

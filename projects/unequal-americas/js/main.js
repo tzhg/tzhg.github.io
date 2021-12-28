@@ -20,6 +20,7 @@ const nReps = data[0];
 const regionData = data[1];
 const maxY = data[2];
 const repPalette = ["#208eb7", "#6d7d4c", "#a03a58"];
+const repPaletteLight = ["#24a3d1", "#83965c", "#ba4367"];
 
 let screenSize;
 
@@ -210,6 +211,8 @@ const draw = () => {
         $incomeLine.append($line);
         $svg.append($incomeLine);
     });
+
+    initToolTip();
 };
 
 const initToolTip = () => {
@@ -230,19 +233,6 @@ const initToolTip = () => {
 
     		$ttWrapper.addClass("ua");
             $ttElem.append($ttWrapper);
-
-            /* Country label */
-            let $row0 = $(document.createElement("div"));
-            $row0.addClass("tt-row");
-
-            let $span00 = $(document.createElement("span"));
-            let $span01 = $(document.createElement("span"));
-            $span00.text("Country:");
-            $span01.text(`${countries[selCountry]}`);
-
-            $row0.append($span00);
-            $row0.append($span01);
-            $ttWrapper.append($row0);
 
             /* Region label */
             let $row1 = $(document.createElement("div"));
@@ -297,6 +287,10 @@ const initToolTip = () => {
             $row3.append($span31);
             $ttWrapper.append($row3);
 
+            //$(elem).next().attr("stroke", "2");
+            //console.log($(elem).prev().children("rect")[0].setAttribute("opacity", "0.5"));
+            $(elem).prev().children().attr("fill", bb.shadeColour(repPalette[repIdx], 0.5));
+
             /*
 
             const $border = $(document.createElementNS(NS, "path"));
@@ -309,8 +303,8 @@ const initToolTip = () => {
             $border.attr("stroke-width", "0.3");
             $(".viz-box .map-svg").append($border);*/
         },
-        () => {/*
-            $(".ehr .hover-border").remove();*/
+        (elem) => {
+            $(elem).prev().children().attr("fill", repPalette[elem.dataset.repId % nReps]);
         }
 
     );
@@ -333,7 +327,6 @@ const init = (() => {
     changeCountry(0);
 
     layout();
-    initToolTip();
 
     window.addEventListener("resize", layout);
 })();
