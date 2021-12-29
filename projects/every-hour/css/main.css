@@ -13,21 +13,19 @@ Chart
 ============================================================================= */
 
 .eh .chart-container {
-    display: flex;
-    flex-flow: row wrap;
-    //margin-left: -10px;
-  	flex: 1;
+    width: 100%;
+    display: grid;
+    grid-template-areas:
+      "year-0 year-1"
+      "year-2 year-3"
+      "year-4 year-5";
 }
 
 .eh .viz-container {
     display: flex;
     flex-flow: column nowrap;
-	flex: 1;
-    width: 40%;
     margin-left: -0.1%;
     margin-bottom: 10px;
-  	max-width: 300px;
-    min-width: 60px;
 }
 
 .eh .viz-container > svg * {
@@ -103,12 +101,12 @@ Legend
 Tooltips
 ============================================================================= */
 
-.eh .tt-row span:first-child{
+.eh .tt-row span:first-child {
     margin-right: 3px;
     font-weight: bold;
 }
 
-.eh .tt-row span:first-child{
+.eh .tt-row span:first-child {
     margin-right: 3px;
     font-weight: bold;
 }
@@ -119,8 +117,10 @@ Media queries
 
 
 @media all and (min-width: 500px) {
-    .eh .viz-container {
-        min-width: 100px;
+    .eh .chart-container {
+        grid-template-areas:
+            "year-0 year-1 year-2"
+            "year-3 year-4 year-5";
     }
 
     .eh .legend-container {
@@ -131,5 +131,21 @@ Media queries
     	width: 13px;
     	height: 13px;
         top: 0;
+    }
+}
+
+@media all and (min-width: 700px) {
+    .eh .chart-container {
+        grid-template-areas:
+            "year-0 year-1 year-2 year-3"
+            "year-4 year-5 . .";
+    }
+}
+
+
+@media all and (min-width: 900px) {
+    .eh .chart-container {
+        grid-template-areas:
+            "year-0 year-1 year-2 year-3 year-4 year-5";
     }
 }

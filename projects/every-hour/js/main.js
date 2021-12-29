@@ -26,6 +26,7 @@ const initDraw = () => {
 	data.forEach((yearArr, d) => {
 		const $vizContainer = $(document.createElement("div"));
 		$vizContainer.addClass("viz-container");
+		$vizContainer.attr("grid-area", `year-${d}`);
 		$(".eh .chart-container").append($vizContainer);
 
 		const $svg = $(document.createElementNS(NS, "svg"));

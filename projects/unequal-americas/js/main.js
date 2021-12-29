@@ -40,7 +40,7 @@ const regionOrder = [
 const NS = "http://www.w3.org/2000/svg";
 
 let selCountry;
-let svgShape;
+let svgShape = [1, 1];
 
 const createCountrySelection = () => {
     bb.toggleButton(
@@ -57,18 +57,16 @@ const createCountrySelection = () => {
 
 const changeCountry = (countryIdx) => {
     selCountry = countryIdx;
-    $(".ua .map-box > div").css("display", "none");
-    $(`.ua .map-box > div:nth-child(${countryIdx + 1})`).css("display", "flex");
-
-    /* Prevents flickering */
-    $(`.ua .map-box > div:nth-child(${countryIdx + 1})`).css("visibility", "visible");
-
-    $(".ua .region-info-box > div").css("display", "none");
+    $(".ua .map-cell > object").css("display", "none");
+    $(`.ua .map-cell > .map-${countryIdx}`).css("display", "flex");
+    $(`.ua .map-cell > .map-${countryIdx}`).css("visibility", "visible");
 
     const nRegions = regionData[selCountry].length;
 
-    $(".ua .region-info-box > div").css("height", `${100 / nRegions}%`);
-    $(".ua .map-box object").css("height", `${100 / nRegions}%`);
+    $(".ua .main-box > *").css("visibility", "hidden");
+    for (let i = 0; i < nRegions; ++i) {
+        $(`.ua .main-box .row-${i}`).css("visibility", "visible");
+    }
 
     regionData[selCountry].forEach((region, i) => {
         const regionIdx = regionOrder[selCountry][i];
@@ -76,113 +74,94 @@ const changeCountry = (countryIdx) => {
         let pop = regionData[selCountry][i].population;
         pop = new Intl.NumberFormat("en-GB").format(pop);
 
-        $(`.ua .region-info-box > div:nth-child(${regionIdx + 1}) .region-info-name`).text(regionData[selCountry][i].name);
-        $(`.ua .region-info-box > div:nth-child(${regionIdx + 1}) .region-info-population`).text(pop);
-        $(`.ua .region-info-box > div:nth-child(${regionIdx + 1})`).css("display", "flex");
+        $(`.ua .desc-cell.row-${regionIdx} .region-info-name`).text(regionData[selCountry][i].name);
+        $(`.ua .desc-cell.row-${regionIdx} .region-info-population`).text(pop);
+        $(`.ua .desc-cell.row-${regionIdx}`).css("display", "block");
     });
-}
+};
+
+const drawAxes = () => {
+
+};
 
 const draw = () => {
-    const $svg = $(".ua .chart-svg");
-
     /* Income line parameters */
     const iLPadRight = 25;
-    const iLPadLeft = 25;
     const iLPadTop = 5;
-    const iLThickness = 2;
-    const iLTickHeight = 8;
-    const iLYProp = 0.5;
 
-    $svg.empty();
+    const axisHeight = 25;
+    const tickHeight = 5;
 
-    $svg.attr("viewBox", `0 0 ${svgShape[0]} ${svgShape[1]}`);
-
-    const drawPerson = (dataId, nRegions, y, x, colour) => {
-        const $icon = $(document.createElementNS(NS, "g"));
-        const $rect = $(document.createElementNS(NS, "rect"));
-        const $pent = $(document.createElementNS(NS, "path"));
-        const $head = $(document.createElementNS(NS, "circle"));
-        const $padding = $(document.createElementNS(NS, "rect"));
-
-        $rect.attr("x", "-10");
-        $rect.attr("y", "-45");
-        $rect.attr("width", "20");
-        $rect.attr("height", "28");
-        $rect.attr("ry", "8");
-        $rect.attr("transform", "scale(-1, 1)");
-
-        $pent.attr("d", "m 163.47374,158.08382 c -42.02989,0 -46.66625,-3.36852 -59.6542,-43.34131 -12.987949,-39.972802 -11.217017,-45.423172 22.78588,-70.127721 34.00289,-24.704549 39.73375,-24.704549 73.73664,-2e-6 34.00289,24.704547 35.77383,30.154917 22.78588,70.127713 -12.98795,39.9728 -17.62431,43.34132 -59.6542,43.34132 z");
-        $pent.attr("transform", "matrix(0.11172678, 0, 0, 0.26515666, -18.264395, -41.916977)");
-
-        $head.attr("cx", "0");
-        $head.attr("cy", "-54.5");
-        $head.attr("r", "7.5");
-
-        $icon.append($rect);
-        $icon.append($pent);
-        $icon.append($head);
-
-        $icon.attr("fill", colour);
-        $icon.attr("pointer-events", "none");
-
-        /* Height of icon */
-        const h = iLYProp * svgShape[1] / nRegions;
-
-        /* Width of icon (3.1 is ratio of height to width) */
-        const w = h / 3.1;
-
-        /* Ensures padding is wide enough */
-        const pad_w = Math.max(20, w)
-
-        $padding.attr("x", `${x - pad_w / 2}`);
-        $padding.attr("y", `${y - h}`);
-        $padding.attr("width", `${pad_w}`);
-        $padding.attr("height", `${h}`);
-        $padding.addClass("rep-icon");
-        $padding.attr("data-rep-id", String(dataId));
-        $padding.attr("opacity", 0);
-
-        /* Height of icon is 62 px */
-        const scale = h / (62 + iLPadTop);
-
-        $icon.attr("transform", `translate(${x}, ${y}) scale(${scale})`);
-
-        $svg.append($icon);
-        $svg.append($padding);
+    const xPos = (income) => {
+        return (svgShape[0] - iLPadRight) * income / maxY[selCountry];
     };
 
-    const drawTick = (zeroTick, x, y, label) => {
-        const $tick = $(document.createElementNS(NS, "line"));
-        const $label = $(document.createElementNS(NS, "text"));
-
-        $tick.attr("x1", `${x}`);
-        $tick.attr("x2", `${x}`);
-        $tick.attr("y1", `${y + iLTickHeight}`);
-        $tick.attr("y2", `${y - (zeroTick ? iLTickHeight : 0)}`);
-        $tick.attr("stroke", `${darkGrey}`);
-        $tick.attr("stroke-width", `${iLThickness}`);
-
-        $label.attr("x", `${x}`);
-        $label.attr("y", `${y + iLTickHeight}`);
-        $label.attr("text-anchor", "middle");
-        $label.attr("dominant-baseline", "hanging");
-        $label.text(label);
-
-        $svg.append($tick);
-        $svg.append($label);
-    };
+    $(".ua .viz-cell .tick, .ua .viz-cell .tick-label").remove();
 
     regionData[selCountry].forEach((region, i) => {
         const regionIdx = regionOrder[selCountry][i];
+        const $vizCell = $(`.ua .viz-cell.row-${regionIdx}`);
+        const $svg = $(`.ua .viz-cell.row-${regionIdx} > svg`);
+        $svg.empty();
 
-        const y = (regionIdx + iLYProp) / regionData[selCountry].length * svgShape[1];
-
-        const xPos = (income) => {
-            return iLPadLeft + (svgShape[0] - iLPadLeft - iLPadRight - iLThickness / 2) * income / maxY[selCountry];
-        };
+        //const $svg = $(document.createElementNS(NS, "svg"));
+        //$svg.attr("viewBox", `0 0 ${svgShape[0]} ${svgShape[1]}`);
+        //$vizCell.append($svg);
 
         for (let j = 0; j < nReps; ++j) {
-            drawPerson(nReps * i + j, regionData[selCountry].length, y, xPos(region.reps[j]), repPalette[j]);
+            const $icon = $(document.createElementNS(NS, "g"));
+            const $rect = $(document.createElementNS(NS, "rect"));
+            const $pent = $(document.createElementNS(NS, "path"));
+            const $head = $(document.createElementNS(NS, "circle"));
+            const $padding = $(document.createElementNS(NS, "rect"));
+
+            const x = xPos(region.reps[j]);
+
+            $rect.attr("x", "-10");
+            $rect.attr("y", "-45");
+            $rect.attr("width", "20");
+            $rect.attr("height", "28");
+            $rect.attr("ry", "8");
+            $rect.attr("transform", "scale(-1, 1)");
+
+            $pent.attr("d", "m 163.47374,158.08382 c -42.02989,0 -46.66625,-3.36852 -59.6542,-43.34131 -12.987949,-39.972802 -11.217017,-45.423172 22.78588,-70.127721 34.00289,-24.704549 39.73375,-24.704549 73.73664,-2e-6 34.00289,24.704547 35.77383,30.154917 22.78588,70.127713 -12.98795,39.9728 -17.62431,43.34132 -59.6542,43.34132 z");
+            $pent.attr("transform", "matrix(0.11172678, 0, 0, 0.26515666, -18.264395, -41.916977)");
+
+            $head.attr("cx", "0");
+            $head.attr("cy", "-54.5");
+            $head.attr("r", "7.5");
+
+            $icon.append($rect);
+            $icon.append($pent);
+            $icon.append($head);
+
+            $icon.attr("fill", repPalette[j]);
+            $icon.attr("pointer-events", "none");
+
+            /* Height of icon */
+            const h = svgShape[1] - axisHeight - iLPadTop;
+
+            /* Width of icon (3.1 is ratio of height to width) */
+            const w = h / 3.1;
+
+            /* Ensures padding is wide enough */
+            const pad_w = Math.max(20, w)
+
+            $padding.attr("x", `${x - pad_w / 2}`);
+            $padding.attr("y", `${iLPadTop}`);
+            $padding.attr("width", `${pad_w}`);
+            $padding.attr("height", `${h}`);
+            $padding.addClass("rep-icon");
+            $padding.attr("data-rep-id", String(nReps * i + j));
+            $padding.attr("opacity", "0");
+
+            /* Height of icon is 62 px */
+            const scale = h / (62 + iLPadTop);
+
+            $icon.attr("transform", `translate(${x}, ${svgShape[1] - axisHeight}) scale(${scale})`);
+
+            $svg.append($icon);
+            $svg.append($padding);
         }
 
         regionAxis[selCountry].ticks.forEach((val, j) => {
@@ -195,29 +174,37 @@ const draw = () => {
 
             let label = new Intl.NumberFormat("en-GB", screenSize < 2 ? {} : opt).format(screenSize < 1 ? val / 1000 : val);
 
-            drawTick(j === 0, xPos(val), y, screenSize < 1 ? label + "k" : label);
+            const $tick = $(document.createElement("div"));
+            const $label = $(document.createElement("div"));
+
+            $tick.addClass("tick");
+            $label.addClass("tick-label");
+
+            $tick.css("bottom", `${axisHeight - tickHeight}px`);
+            $tick.css("height", `${j === 0 ? tickHeight * 2 + 2 : tickHeight}px`);
+
+            $label.text(screenSize < 1 && val > 0 ? label + "k" : label);
+
+            $vizCell.append($tick);
+            $vizCell.append($label);
+
+            $tick.css("left", `${xPos(val)}px`);
+            $label.css("left", `${xPos(val) - $label.width() / 2}px`);
         })
 
-        const $incomeLine = $(document.createElementNS(NS, "g"));
-        const $line = $(document.createElementNS(NS, "line"));
+        const $line = $(document.createElement("div"));
 
-        $line.attr("x1", `${iLPadLeft}`);
-        $line.attr("x2", `${svgShape[0]}`);
-        $line.attr("y1", `${y}`);
-        $line.attr("y2", `${y}`);
-        $line.attr("stroke", `${darkGrey}`);
-        $line.attr("stroke-width", `${iLThickness}`);
+        $line.addClass("income-line");
 
-        $incomeLine.append($line);
-        $svg.append($incomeLine);
+        $line.css("bottom", `${axisHeight}px`);
+
+        $vizCell.append($line);
     });
 
     initToolTip();
 };
 
 const initToolTip = () => {
-    const $svg = $(".ua .chart-svg");
-
     bb.tooltip(
         ".ua .rep-icon",
         "rep-id",
@@ -298,14 +285,16 @@ const initToolTip = () => {
 
 const layout = () => {
     const winWidth = $(window).width();
-    const thresholds = [800, 850];
+    const thresholds = [500, 850];
     screenSize = 0;
     while (screenSize < thresholds.length && winWidth > thresholds[screenSize]) {
         ++screenSize;
     }
 
-    svgShape = [$(".ua .chart-svg").width(), $(".ua .chart-svg").height()];
-    draw();
+    for (let i = 0; i < 10; ++i) {
+        svgShape = [$(`.ua .viz-cell.row-0 > svg`).width(), $(`.ua .viz-cell.row-0 > svg`).height()];
+        $(".ua .viz-cell > svg").attr("viewBox", `0 0 ${svgShape[0]} ${svgShape[1]}`);
+    }
 };
 
 const init = (() => {
@@ -313,8 +302,14 @@ const init = (() => {
     changeCountry(0);
 
     layout();
+    draw();
 
-    window.addEventListener("resize", layout);
+    $(".ua .outer").css("visibility", "visible");
+
+    window.addEventListener("resize", () => {
+        layout();
+        draw();
+    });
 })();
 
 });
