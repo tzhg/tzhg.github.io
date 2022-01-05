@@ -24,7 +24,6 @@ Chart
 .eh .viz-container {
     display: flex;
     flex-flow: column nowrap;
-    margin-left: -0.1%;
     margin-bottom: 10px;
 }
 
@@ -42,7 +41,7 @@ Chart
 
 .eh .tick {
     border-left: 2px solid var(--dark-grey);
-    height: 10px;
+    height: 5px;
     position: absolute;
     top: 0px;
     width: 100%;
@@ -52,7 +51,7 @@ Chart
     font-weight: bold;
     position: absolute;
     left: -15px;
-    top: 8px;
+    top: 3px;
 }
 
 .eh .next-year {

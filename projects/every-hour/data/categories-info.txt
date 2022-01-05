@@ -1,7 +1,7 @@
 Name,Activities,Colour
 Learning,ic,#1f9663
-Fun,it|vi,#709f0f
-Arts,pg|pi|mu|kn|re,#cc4c3e
+Leisure,it|vi,#709f0f
+Creative,pg|pi|mu|kn|re,#cc4c3e
 Career,co|ca|fi,#c49196
 Social,so|vo,#7d525f
 Other,ex|wa|pd,#3f646e

@@ -209,6 +209,8 @@ const genLegend = (layoutType) => {
 const initToolTip = () => {
     const $svg = $(".eh .viz-container svg");
 
+    let ttUpdate;
+
     bb.tooltip(
         ".eh .viz-container > svg",
         "year",
@@ -216,11 +218,24 @@ const initToolTip = () => {
             const year = elem.dataset.year;
             const size = $(elem).height();
 
-            $(elem).on("pointermove", (evt) => {
-                const x = evt.offsetX / size;
-                const y = evt.offsetY / size;
+            ttUpdate = (evt) => {
+                let x = evt.offsetX / size;
+                let y = evt.offsetY / size;
 
-                const dayIdx = Math.round(x * (data[year][0].length - 1));
+                x = Math.min(x, 1);
+                x = Math.max(x, 0);
+                y = Math.min(y, 1);
+                y = Math.max(y, 0);
+
+                const dayIdx = Math.round(x * (data[0][0].length - 1));
+
+                /* If day in future */
+                if (dayIdx >= data[year][0].length) {
+                    $(elem).off("pointermove", ttUpdate);
+                    $(".tooltip").hide();
+                    return;
+                }
+
                 const dayArr = data[year].map((arr) => arr[dayIdx]);
 
                 let catIdx = 0;
@@ -228,18 +243,20 @@ const initToolTip = () => {
                     ++catIdx;
                 }
 
-                const yearLengths = [365, 365, 365, 366, 365];
+                const yearLengths = [365, 365, 365, 366, 365, 365];
 
                 const date = new Date(startYear + Number(year), 0, x * yearLengths[year]);
-                const dateStr = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric"}).format(date);
+                const dateStr = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric"}).format(date);
 
-                const val = ((catIdx < nCats - 1 ? dayArr[catIdx] : 1) - (catIdx > 0 ? dayArr[catIdx - 1] : 0)) * 24;
-                const valStr = `${val.toFixed(2)} hours`;
+                const prop = (catIdx < nCats - 1 ? dayArr[catIdx] : 1) - (catIdx > 0 ? dayArr[catIdx - 1] : 0);
+                const valStr = `${(prop * 100).toFixed(0)}% (${(prop * 24).toFixed(1)} hrs/day)`;
 
                 $(".eh .tt-row:first-child span:last-child").text(dateStr);
                 $(".eh .tt-row:nth-child(2) span:last-child").text(categoryInfo[catIdx][0]);
                 $(".eh .tt-row:nth-child(3) span:last-child").text(valStr);
-            })
+            };
+
+            $(elem).on("pointermove", ttUpdate);
 
             const $ttElem = $(".tooltip");
             $ttElem.empty();
@@ -289,7 +306,9 @@ const initToolTip = () => {
             $row3.append($span31);
             $ttWrapper.append($row3);
         },
-        (elem) => {}
+        (elem) => {
+            $(elem).off("pointermove", ttUpdate);
+        }
 
     );
 };

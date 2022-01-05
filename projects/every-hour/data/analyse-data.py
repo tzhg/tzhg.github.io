@@ -51,7 +51,7 @@ import pandas as pd
 # "+" is used to join activities for hours with multiple activities
 #     (due to moving through time zones etc.)
 
-years = [365, 365, 365, 366, 365]
+years = [365, 365, 365, 366, 365, 365]
 
 # Range of days for each year
 year_ranges = np.transpose(
@@ -106,20 +106,17 @@ def process_data(cat_regex_list):
 
     Y_all = []
 
-    num_pts = 1000
-    Y = np.linspace(0, sum(years) - 1, num=num_pts)
+    # Number of points to divide each year into
+    num_pts = 300
+    Y = np.linspace(0, sum(years) - 1, num=num_pts * len(years))
 
     Y_smooth = np.array([
         smooth(hours_seq, Y[Y < len(hours)])
         for hours_seq in np.transpose(hours)])
 
     for y in range(len(years)):
-        yearIndices = [
-            round(y * num_pts / len(years)),
-            round((y + 1) * num_pts / len(years))]
+        yearIndices = (y + np.array([0, 1])) * num_pts
 
-        # This adds some overlap to the years
-        yearIndices[1] = min(sum(years), yearIndices[1] + 2)
         Y_smooth_y = Y_smooth[:, yearIndices[0]:yearIndices[1]]
 
         Y_smooth_y = Y_smooth_y.clip(min=0)
