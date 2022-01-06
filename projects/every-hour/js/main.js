@@ -16,7 +16,7 @@ const startYear = dataObj.startYear;
 const data = dataObj.data;
 const nCats = categoryInfo.length;
 
-const lightGrey = "#f2f7f7";
+const lightGrey = "#f0f5f5";
 const darkGrey = "#3a4d49";
 const lightMediumGrey = "#dae2e6";
 
@@ -99,7 +99,7 @@ const draw = () => {
 			$rect.attr({
 				"x": lastX,
 				"y": -0.01,
-				"fill": lightMediumGrey,
+				"fill": "white",
 				"width": 1 - lastX + 0.01,
 				"height": 1.02
 			});
@@ -115,7 +115,7 @@ const isolate = (cat) => {
 	data.forEach((yearArr, d) => {
 		const $svg = $(`.eh .viz-container > svg[data-year=${d}]`);
 		$svg.empty();
-		$svg.css("background-color", lightGrey);
+		$svg.css("background-color", lightMediumGrey);
 
 		const $path = $(document.createElementNS(NS, "path"));
 
@@ -155,7 +155,7 @@ const isolate = (cat) => {
 			$rect.attr({
 				"x": lastX,
 				"y": -0.01,
-				"fill": lightMediumGrey,
+				"fill": "white",
 				"width": 1 - lastX + 0.01,
 				"height": 1.02
 			});
@@ -195,7 +195,6 @@ const genLegend = (layoutType) => {
 	bb.slideBox(
 		".eh .legend-container",
 		"cat",
-        (id) => categoryInfo[id][1],
 		(id) => {
 			if (id === "") {
 				draw();
@@ -300,7 +299,7 @@ const initToolTip = () => {
             let $span30 = $(document.createElement("span"));
             let $span31 = $(document.createElement("span"));
 
-            $span30.text("Time:");
+            $span30.text("Time spent:");
 
             $row3.append($span30);
             $row3.append($span31);

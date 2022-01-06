@@ -8,12 +8,12 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#f2f7f7";
+const lightGrey = "#f0f5f5";
 
 bb.clickButton(
     ".info-button",
     "project-id",
-    (id) => lightGrey,
+    (id) => "#ffffff",
     (id) => { $(`.info-panel[data-project-id=${id}]`).toggle("slow"); }
 );
 

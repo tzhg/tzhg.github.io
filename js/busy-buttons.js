@@ -3,8 +3,9 @@ export function busyButtons() {
 	/* See busy-buttons-demo.html for demo */
 
 	const darkGrey = "#3a4d49";
+	const darkMediumGrey = "#abbab2";
 	const lightMediumGrey = "#dae2e6";
-    const lightGrey = "#f2f7f7";
+    const lightGrey = "#f0f5f5";
     const themeColour = "#1e9664";
 
 	/* Lightens or darkens a colour */
@@ -35,6 +36,8 @@ export function busyButtons() {
 		return `#${(0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1)}`;
 	}
 
+    const lightGreyFocus = shadeColour(lightGrey, -0.03);
+
 	/* Creates events for multiple buttons which are activated by
 	/*     mouse click or touch tap
 	/*
@@ -48,7 +51,7 @@ export function busyButtons() {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const backgroundColor = [colour(id), shadeColour(colour(id), -0.05), shadeColour(colour(id), -0.03)];
+			const backgroundColor = [colour(id), shadeColour(colour(id), -0.06), shadeColour(colour(id), -0.04)];
 
 			$elem.css({
 				"background-color": backgroundColor[state]
@@ -124,7 +127,7 @@ export function busyButtons() {
 	/*     mouse click or touch tap
 	/*
 	/* sel: jQuery selector returning all buttons
-	/* colour: colour of button
+	/* colour: colour of button when selected (border)
 	/* dataId: The buttons should have a distinct data attribute data-${id}
 	/*     (non-CamelCase string)
 	/* f: function(id) called when button with id "id" (string) is
@@ -135,60 +138,99 @@ export function busyButtons() {
 	const toggleButton = (
 		sel,
 		dataId,
-		colour,
+		colour=() => themeColour,
 		f=() => {},
 		mandatoryId="") => {
 
+        /* state = 0: unselected */
+        /* state = 1: selected */
+        /* state = 2: mouse over */
+        /* state = 3: mouse down */
+        /* state = 4: selected and mouse over */
+        /* state = 5: selected and mouse down */
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
-			const col = colour(id);
+			const borderColour = [
+                "transparent",
+                colour(id),
+                lightGrey,
+                lightGreyFocus,
+                colour(id),
+                colour(id)
+            ];
 
-			const borderColour = [lightMediumGrey, col[2], lightMediumGrey, col[2]];
-			const backgroundColor = ["white", col[0], col[0], "white"];
-			const textColour = [darkGrey, col[1], darkGrey, darkGrey];
-            const iconColour = [lightMediumGrey, col[2], shadeColour(col[2], 0.5), shadeColour(col[2], 0.55)];
+			const backgroundColour = [
+                "#ffffff",
+                "#ffffff",
+                lightGrey,
+                lightGreyFocus,
+                lightGrey,
+                lightGreyFocus
+            ];
+
+			const fontWeight = [
+                "400",
+                "700",
+                "400",
+                "400",
+                "700",
+                "700"
+            ];
+
+            const textColor = [
+                `${mandatoryId === "" ? darkGrey : darkMediumGrey}`,
+                darkGrey,
+                `${mandatoryId === "" ? darkGrey : darkMediumGrey}`,
+                `${mandatoryId === "" ? darkGrey : darkMediumGrey}`,
+                darkGrey,
+                darkGrey
+            ];
+
+            const iconColour = [
+                `${mandatoryId === "" ? darkGrey : darkMediumGrey}`,
+                colour(id),
+                `${mandatoryId === "" ? darkGrey : darkMediumGrey}`,
+                `${mandatoryId === "" ? darkGrey : darkMediumGrey}`,
+                colour(id),
+                colour(id)
+            ];
 
 			$elem.css({
 				"border-bottom": `2px solid ${borderColour[state]}`,
-				"background-color": backgroundColor[state],
-				"color": textColour[state],
-				"fill": iconColour[state]
+				"background-color": backgroundColour[state],
+                "color": textColor[state],
+                "--icon-colour": iconColour[state],
+                "font-weight": fontWeight[state]
 			});
 		});
 
 		let toggledOnId = "";
 		let touchedElem = "";
 
-		$(sel).each((_, elem) => {
-			const id = $(elem).attr(`data-${dataId}`);
-			if (mandatoryId === "" || mandatoryId !== id) {
-				buttonStateId(id, 0);
-			} else {
-				toggledOnId = mandatoryId;
-				buttonStateId(mandatoryId, 1);
-			}
-		});
+        if (mandatoryId !== "") {
+            $(sel).addClass("bb-mand");
+            toggledOnId = mandatoryId;
+        }
 
 		const hover = (evt) => {
 			const id = $(evt.target).attr(`data-${dataId}`);
 
 			$(sel).css("cursor", "pointer");
 
-			/* If not hovering over a toggled-on button */
-			if (toggledOnId !== id) {
-				buttonStateId(id, 2);
-			}
+            buttonStateId(id, toggledOnId === id ? 4 : 2);
 		};
 
 		const unhover = (id) => {
 			$(sel).css("cursor", "auto");
-			buttonStateId(id, 0);
+
+            buttonStateId(id, toggledOnId === id ? 1 : 0);
 		};
 
 		const toggle = (id, evt, on="") => {
 			/* We cannot toggle off a button if it is mandatory */
 			if (mandatoryId !== "" && toggledOnId === id) {
+                buttonStateId(id, 4);
 				return;
 			}
 
@@ -199,7 +241,7 @@ export function busyButtons() {
 
 			if ((on === "" || on) && toggledOnId !== id) {
 				/* Toggle different button */
-				buttonStateId(id, 1);
+				buttonStateId(id, 4);
 				toggledOnId = id;
 				f(toggledOnId);
 			} else {
@@ -219,7 +261,9 @@ export function busyButtons() {
 
 				if (mandatoryId === "" || toggledOnId !== id) {
 					buttonStateId(id, 3);
-				}
+				} else {
+                    buttonStateId(id, 5);
+                }
 			})
 			.on("pointerup keypress", (evt) => {
 				evt.preventDefault();
@@ -236,7 +280,7 @@ export function busyButtons() {
 
 					toggle(id, evt);
 
-					$(sel).css("cursor", "auto");
+					//$(sel).css("cursor", "auto");
 					if (mandatoryId === "" && evt.pointerType !== "touch") {
 						hover(evt);
 					}
@@ -248,9 +292,7 @@ export function busyButtons() {
 				const id = $(evt.target).attr(`data-${dataId}`);
 
 				if (evt.pointerType !== "touch") {
-					if (mandatoryId === "" || toggledOnId !== id) {
-						hover(evt);
-					}
+					hover(evt);
 				}
 			})
 			.on("pointerleave", (evt) => {
@@ -261,26 +303,23 @@ export function busyButtons() {
 				if (evt.pointerType !== "touch") {
 					touchedElem = "";
 
-					if (toggledOnId !== id) {
-						unhover(id);
-					}
+					unhover(id);
 				}
 			});
 	};
 
 	/* sel: jQuery selector returning all buttons
-	/* colour: colour of button
 	/* dataId: The buttons should have a distinct data attribute data-${id}
 	/*     (non-CamelCase string)
 	/* f: function(id) called when button with id "id" (string) is
 	/*     clicked on or toggled on. */
-	const hoverButton = (sel, dataId, colour, f) => {
+	const hoverButton = (sel, dataId, f) => {
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel}[data-${dataId}=${id}]`);
 
 			$elem.css({
-				"background-color": ["white", lightGrey][state],
-				"border-bottom": `2px solid ${[lightMediumGrey, themeColour][state]}`,
+				"background-color": ["#ffffff", lightGrey][state],
+                "font-weight": ["400", "700"][state]
 			});
 		});
 
@@ -437,46 +476,51 @@ export function busyButtons() {
 
 	/* sel: jQuery selector of container which contains buttons */
 	/* dataId: unique data attribute */
-	/* colour: function colour(id) which returns colour of button (border on selection)
-	/* f: function f(id) which is called when button with id "id" is toggled on ("" if all toggled off)
+	/* f: function f(id) which is called when button with id "id" is toggled on ("" if all toggled off) */
 	/* mandatoryId: id of initial toggled button if mandatory, "" otherwise */
-	const slideBox = (sel, dataId, colour, f, mandatoryId="") => {
+	const slideBox = (
+        sel,
+        dataId,
+        f,
+        mandatoryId="") => {
+
+        /* state = 0: unselected */
+        /* state = 1: selected, mouse over */
+        /* state = 2: selected, mouse not over */
 		const buttonStateId = ((id, state) => {
 			const $elem = $(`${sel} > *[data-${dataId}=${id}]`);
 
-			if (mandatoryId === "") {
-				//$(sel).css("border-left", `1px solid ${[lightMediumGrey, darkGrey][state]}`);
-				$elem.css({
-					"background-color": ["white", lightGrey][state],
-					"color": darkGrey,
-					"--sel-border": `2px solid ${[lightMediumGrey, colour(id)][state]}`
-				});
-			} else {
-				//$(sel).css("border", `1px solid ${darkGrey}`);
-				$elem.css({
-					"background-color": ["white", lightGrey][state],
-					"color": [darkGrey, darkGrey][state],
-					"--sel-border": `2px solid ${[lightMediumGrey, colour(id)][state]}`
-				});
-			}
+            if (mandatoryId === "") {
+                $(sel).children().css({
+                    "color": [darkGrey, darkMediumGrey, darkMediumGrey][state],
+                });
+            }
+
+            $elem.css({
+                "background-color": ["#ffffff", lightGrey, "#ffffff"][state],
+                "color": [`${mandatoryId === "" ? darkGrey : darkMediumGrey}`, darkGrey, darkGrey][state],
+                "font-weight": ["400", "700", "700"][state]
+            });
+
+            if (mandatoryId !== "") {
+                $elem.css({
+                    "border-bottom": `2px solid ${["transparent", themeColour, themeColour][state]}`
+                });
+            }
 		});
 
 		let slideElem = "";
 		let sliding = false;
 
-		$(sel).children().each((_, elem) => {
-			const id = $(elem).attr(`data-${dataId}`);
-			if (mandatoryId === "" || mandatoryId !== id) {
-				buttonStateId(id, 0);
-			} else {
-				slideElem = mandatoryId;
-				buttonStateId(mandatoryId, 1);
-			}
-		});
+        if (mandatoryId !== "") {
+            slideElem = mandatoryId;
+            $(sel).children().addClass("bb-mand");
+        }
 
 		const pointerMoveHandler = (evt) => {
 			const x = evt.clientX;
 			const y = evt.clientY;
+
 			$(sel).children().each((_, elem) => {
 				const box = elem.getBoundingClientRect();
 				if (x > box.x && x < box.x + box.width && y > box.y && y < box.y + box.height) {
@@ -487,8 +531,13 @@ export function busyButtons() {
 						}
 						slideElem = id;
 						f(slideElem);
+
+                        /* Show hover effects on unselected button */
 						buttonStateId(slideElem, 1);
-					}
+					} else {
+                        /* Show hover effects on selected button */
+                        buttonStateId(slideElem, 1);
+                    }
 				}
 			});
 		};
@@ -521,13 +570,16 @@ export function busyButtons() {
 				if (mandatoryId === "") {
 					buttonStateId(slideElem, 0);
 					slideElem = "";
-				}
+				} else {
+    				buttonStateId(slideElem, 2);
+                }
+
 				$(sel).off("pointermove", pointerMoveHandler);
 				f(slideElem);
 				sliding = false;
 			}
 		});
-	}
+	};
 
 	return {
         shadeColour,

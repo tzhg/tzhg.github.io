@@ -142,7 +142,7 @@ Region descriptions and maps
 }
 
 .ua .desc-cell span:first-child {
-    font-weight: bold;
+    font-weight: 550;
 }
 
 /*
@@ -160,10 +160,18 @@ Country selection
     align-items: flex-end;
     width: 100%;
     margin-bottom: 10px;
+    justify-content: center;
 }
 
 .ua .country-sel-box > .button {
     margin-right: 10px;
+    padding-bottom: 0;
+}
+
+.ua .country-sel-box > .button:first-child {
+    color: var(--dark-grey);
+	border-bottom: 2px solid var(--theme-colour);
+    font-weight: 700;
 }
 
 .ua .country-sel-box > .button:last-child {
@@ -196,7 +204,7 @@ Legend
 }
 
 .ua .legend-box object {
-    height: 30px;
+    height: 20px;
     margin-right: 1px;
 }
 
@@ -209,7 +217,7 @@ Tooltip
 ============================================================================= */
 
 .ua .tt-row span:first-child {
-    font-weight: bold;
+    font-weight: 550;
     margin-right: 3px;
 }
 
@@ -218,6 +226,15 @@ Media queries
 ============================================================================= */
 
 @media all and (min-width: 500px) {
+    .ua .country-sel-box {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-end;
+        width: 100%;
+        margin-bottom: 10px;
+        justify-content: flex-start;
+    }
+
     .ua .legend-box {
         flex-flow: row nowrap;
         align-items: flex-start;
@@ -226,6 +243,11 @@ Media queries
 
     .ua .legend-box > div {
         margin-bottom: 0;
+    }
+
+    .ua .legend-box object {
+        height: 30px;
+        margin-right: 1px;
     }
 }
 

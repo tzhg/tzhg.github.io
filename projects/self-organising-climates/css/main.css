@@ -22,9 +22,8 @@ Month selection
 .soc .month-box {
 	width: 100%;
     flex-flow: row nowrap;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
     border-left: none;
-    border-bottom: var(--slide-box-border);
 }
 
 .soc .month-button {
@@ -34,9 +33,13 @@ Month selection
 	align-items: center;
 	justify-content: center;
 	border-radius: 0;
-	padding: 4px;
-    border-left: none;
-    border-bottom: var(--sel-border);
+    padding-bottom: 0;
+}
+
+.soc .month-button:first-child {
+    color: var(--dark-grey);
+	border-bottom: 2px solid var(--theme-colour);
+    font-weight: 700;
 }
 
 .soc .month-text-big, .soc .month-text-medium {
@@ -48,22 +51,43 @@ Variable selection
 ============================================================================= */
 
 .soc .var-box {
-	display: flex;
-	flex-flow: column nowrap;
 	width: 100%;
 	margin-bottom: 10px;
-	justify-content: space-between;
+    display: grid;
+    justify-items: center;
+    row-gap: 10px;
+    column-gap: 10px;
+    grid-template-areas:
+      "var-0"
+      "var-1"
+      "var-2"
+      "var-3";
 }
 
 .soc .var-button {
-	justify-content: center;
-	flex: 1;
-    border: 1px solid var(--var-border);
-    margin-bottom: 10px;
+    min-width: 170px;
+    padding-bottom: 0;
+}
+
+.soc .var-button:first-child {
+    color: var(--dark-grey);
+	border-bottom: 2px solid #90400d;
+    --icon-colour: #90400d;
+    font-weight: 700;
+    grid-area: var-0;
+}
+
+.soc .var-button:nth-child(2) {
+    grid-area: var-1;
+}
+
+.soc .var-button:nth-child(3) {
+    grid-area: var-2;
 }
 
 .soc .var-button:last-child {
     margin-bottom: 0;
+    grid-area: var-3;
 }
 
 .soc .var-button-container {
@@ -93,7 +117,7 @@ Chart
 
 .soc .city-label {
 	font-size: 3.285px;
-	font-weight: 600;
+	font-weight: 550;
     user-select: none;
 }
 
@@ -103,7 +127,7 @@ Chart
 	height: 15px;
 	width: 100%;
 	margin-top: 10px;
-    font-weight: 600;
+    font-weight: 550;
 }
 
 .soc .legend-cell {
@@ -111,7 +135,7 @@ Chart
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 11px;
+	font-size: 10px;
 }
 
 /* =============================================================================
@@ -119,38 +143,22 @@ Media queries
 ============================================================================= */
 
 @media all and (min-width: 500px) {
-	.soc .var-button-container {
-		width: 50%;
-		justify-content: space-between;
-	}
-
 	.soc .var-button {
-		flex: 40%;
-    	margin-bottom: 0;
-	}
-
-	.soc .var-button:first-child, .soc .var-button:nth-child(3) {
-		margin-right: 10px;
-	}
-
-	.soc .var-button:first-child, .soc .var-button:nth-child(2) {
-    	margin-bottom: 10px;
-	}
-
-	.soc .month-button {
-		padding: 8px;
-	}
-
-	.soc .var-box {
-		flex-flow: row wrap;
-	}
-
-	.soc .legend-cell {
-		font-size: 12px;
+        min-width: 200px;
 	}
 }
 
 @media all and (min-width: 600px) {
+    .soc .var-box {
+        grid-template-areas:
+          "var-0 var-1"
+          "var-2 var-3";
+    }
+
+	.soc .legend-cell {
+		font-size: 12px;
+	}
+
 	.soc .viz-box {
 		flex-flow: row nowrap;
 	}
@@ -162,14 +170,6 @@ Media queries
 		margin-top: 0;
 		margin-left: 15px;
 	}
-
-	.soc .var-box {
-	    margin-bottom: 10px;
-	}
-
-    .soc .month-box {
-	    margin-bottom: 10px;
-    }
 
 	.soc .month-button {
 		font-size: 14px;
@@ -186,24 +186,16 @@ Media queries
 	}
 }
 
-@media all and (min-width: 850px) {
-	.soc .var-box {
-		flex-flow: row nowrap;
-		justify-content: flex-start;
-	}
-
+@media all and (min-width: 900px) {
 	.soc .var-button {
-		margin-right: 10px;
-		flex: 0;
+        min-width: auto;
 	}
 
-	.soc .var-button:first-child, .soc .var-button:nth-child(3) {
-		margin-right: 10px;
-	}
-
-	.soc .var-button:first-child, .soc .var-button:nth-child(2) {
-    	margin-bottom: 0;
-	}
+    .soc .var-box {
+        justify-content: space-between;
+        grid-template-areas:
+          "var-0 var-1 var-2 var-3";
+    }
 }
 
 @media all and (min-width: 1050px) {

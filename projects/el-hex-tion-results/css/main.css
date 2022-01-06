@@ -59,7 +59,7 @@ Tooltip
 }
 
 .ehr .tooltip-constit-label {
-	font-weight: 600;
+	font-weight: 550;
 	margin-right: 15px;
 }
 
@@ -81,7 +81,7 @@ Tooltip
 
 .ehr .tooltip-party > span {
 	font-size: 10px;
-	font-weight: 600;
+	font-weight: 550;
 }
 
 .ehr .tooltip-name {
@@ -130,7 +130,7 @@ Legend
 
 .ehr .legend-content {
     flex-flow: column nowrap;
-    align-items: stretch;
+    align-items: center;
     flex: 1 1;
     white-space: nowrap;
     width: 100%;
@@ -180,9 +180,15 @@ Election selection
 }
 
 .ehr .election-label {
-    color: var(--election-colour);
-    margin-top: 10px;
+    margin-top: 5px;
     justify-content: center;
+    padding-bottom: 0;
+}
+
+.ehr .election-button:last-child .election-label {
+    color: var(--dark-grey);
+	border-bottom: 2px solid var(--theme-colour);
+    font-weight: 700;
 }
 
 /* =============================================================================
@@ -192,11 +198,13 @@ Density selection
 .ehr .density-button {
     justify-content: center;
     border-radius: 0;
+    min-width: 125px;
 }
 
 .ehr .density-container {
     flex-flow: column nowrap;
     width: 100%;
+    align-items: center;
 }
 
 .ehr .dens-units-1, .ehr .dens-units-2 {
@@ -217,14 +225,11 @@ Chart
 	width: 100%;
 }
 
-.ehr .map-svg .grey-hex {
-    stroke-width: 1.4;
-}
-
 .ehr .grey-hex {
     fill: var(--light-medium-grey);
     stroke: var(--light-medium-grey);
     stroke-width: 0.1;
+    stroke-width: 1.4;
 }
 
 /* =============================================================================
@@ -233,11 +238,10 @@ Misc.
 
 .ehr .subregion-label {
 	position: absolute;
-	padding: 2px 4px;
 }
 
 .ehr .section-title {
-    font-weight: 600;
+    font-weight: 550;
     padding-bottom: 5px;
     white-space: nowrap;
     width: 100%;
@@ -270,25 +274,36 @@ Media queries
         flex: 0;
         align-items: flex-start;
         order: 3;
+        font-size: 12px;
     }
 
     .ehr .density-button {
         width: auto;
         justify-content: left;
+        min-width: 105px;
     }
 
     .ehr .viz-box {
         order: 1;
     }
 
+    .ehr .density-container, .ehr .legend-content {
+        align-items: stretch;
+    }
+
     .ehr .legend-box {
         flex: 0;
         margin-bottom: 0;
-        margin-right: 25px;
+        margin-right: 10px;
         text-align: left;
         justify-content: flex-start;
         align-items: stretch;
         order: 2;
+        font-size: 12px;
+    }
+
+    .ehr .legend-button {
+        min-width: 180px;
     }
 
     .ehr .dens-units-2 {
@@ -297,6 +312,26 @@ Media queries
 
     .ehr .dens-units-3 {
         display: none;
+    }
+}
+
+
+@media all and (min-width: 550px) {
+    .ehr .legend-box {
+        font-size: 14px;
+        margin-right: 25px;
+    }
+
+    .ehr .density-box {
+        font-size: 14px;
+    }
+
+    .ehr .legend-button {
+        min-width: 225px;
+    }
+
+    .ehr .density-button {
+        min-width: 125px;
     }
 }
 
@@ -316,15 +351,8 @@ Media queries
         align-items: center;
 	}
 
-    .ehr .density-button {
-        border-left: none;
-        border-bottom: var(--sel-border);
-    }
-
 	.ehr .density-container {
 		flex-flow: row nowrap;
-        border-left: none;
-        border-bottom: var(--slide-box-border);
 	}
 
     .ehr .dens-units-1 {
@@ -338,6 +366,10 @@ Media queries
     .ehr .density-box .section-title {
         padding-bottom: 0;
         padding-right: 10px;
+    }
+
+    .ehr .density-button {
+        min-width: auto;
     }
 
 }
@@ -363,6 +395,7 @@ Media queries
     .ehr .election-button {
         margin-right: 0;
         margin-bottom: 10px;
+        width: 80px;
     }
 
     .ehr .tooltip {
@@ -388,15 +421,8 @@ Media queries
         align-items: stretch;
 	}
 
-    .ehr .density-button {
-        border-bottom: none;
-        border-left: var(--sel-border);
-    }
-
 	.ehr .density-container {
 		flex-flow: column nowrap;
-        border-bottom: none;
-        border-left: var(--slide-box-border);
 	}
 
     .ehr .dens-units-1 {

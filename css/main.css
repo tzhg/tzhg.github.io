@@ -96,10 +96,11 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Recursive', sans-serif;
 	font-weight: 400;
     color: var(--dark-grey);
     font-size: 12px;
+    min-width: 350px;
 }
 
 body * {
@@ -108,7 +109,7 @@ body * {
 
 a {
     color: var(--dark-grey);
-    //font-weight: bold;
+    font-weight: 550;
 }
 
 a:hover {
@@ -135,7 +136,7 @@ ul {
 }
 
 .title {
-	font-size: 24px;
+	font-size: 22px;
 	font-family: "Cabin", sans-serif;
 	font-weight: 700;
     text-align: center;
@@ -148,13 +149,18 @@ ul {
     text-align: center;
 }
 
-.main-container .title {
-    margin-top: calc(40px + 2%);
+.main-container > div {
+    margin: 50px 0;
+}
+
+.main-container > div:first-child {
+    margin-top: 25px;
+    margin-bottom: 0;
 }
 
 .about-me {
-    margin-top: 25px;
     text-align: center;
+    font-family: "Open Sans", sans-serif;
 }
 
 /* =============================================================================
@@ -200,13 +206,16 @@ Modal and info row
 .info-button {
     width: 100%;
     justify-content: center;
+    text-decoration: underline;
+    background: white;
+    font-weight: 550;
 }
 
 .info-panel {
-    background: var(--light-grey);
     width: 100%;
-    padding: 10px;
     display: none;
+    margin-top: 15px;
+    font-family: "Open Sans", sans-serif;
 }
 
 .info-panel > div {
@@ -221,6 +230,11 @@ Modal and info row
 Media queries
 ============================================================================= */
 @media all and (min-width: 500px) {
+    :root {
+       --main-container-padding: 40px;
+    }
+
+
     body {
         font-size: 14px;
     }
@@ -235,7 +249,7 @@ Media queries
 
     .title {
         text-align: left;
-        font-size: 28px;
+        font-size: 27px;
     }
 
     .desc {
@@ -249,10 +263,6 @@ Media queries
     .info-button {
         width: inherit;
         justify-content: flex-start;
-    }
-
-    .info-panel {
-        padding: 25px;
     }
 }
 

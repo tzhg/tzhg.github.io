@@ -8,7 +8,7 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#f2f7f7";
+const lightGrey = "#f0f5f5";
 const darkGrey = "#3a4d49";
 const themeColour = "#1e9664";
 
@@ -154,7 +154,6 @@ const createMonthSelection = () => {
     months.forEach((month, m) => {
         const $button = $(document.createElement("div"));
         $button.addClass("month-button button");
-        $button.css("background-color", lightGrey);
         $button.attr("data-month", m);
         $(".soc .month-box").append($button);
 
@@ -177,13 +176,11 @@ const createMonthSelection = () => {
     bb.slideBox(
         ".soc .month-box",
         "month",
-        (id) => themeColour,
         (id) => {
             selectedMonth = Number(id);
             draw();
         },
-        "0",
-        "dark"
+        "0"
     );
 };
 
@@ -194,7 +191,7 @@ const createVarSelection = () => {
     bb.toggleButton(
         ".soc .var-button",
         "var",
-        (id) => [lightGrey, darkGrey, varColours[id]],
+        (id) => varColours[id],
         (id) => {
             selectedVar = Number(id);
             draw();
@@ -242,42 +239,28 @@ const initToolTip = () => {
 };
 
 const layout = () => {
-    let layoutType = 0;
-
-    const thr = [380, 450, 600, 600, 750, 950, 1100];
-
-    const mainContainerMaxW = 1100;
-    const mainContainerPadding = 25;
-    const minimumWidth = 100;
-
-    const chartWidth = Math.max(
-        Math.min($(window).width(), mainContainerMaxW) -
-            2 * mainContainerPadding, minimumWidth
-    );
+    const chartWidth = $(".soc .chart-svg").width();
 
     /* w: chart width */
     /* Returns number of cells horizontally */
     const nHorizCells = (w) => {
-        if (w > 600) {
-            return w / 25;
-        }
-        return w / 20;
+        return Math.round((w / (w > 600 ? 25 : 20)) / 5);
     };
 
-    const dataIdx = Math.max(Math.round(nHorizCells($(".soc .chart-svg").width()) / 5) - 2, 0);
+    const dataIdx = Math.max(nHorizCells(chartWidth) - 2, 0);
 
     mapData = importedData[3][dataIdx];
 
     svgShape = [mapData[1][0][0].length * 10, mapData[1][0][0][0].length * 10];
 
     chartLayout();
+    initToolTip();
 }
 
 const init = (() => {
     createMonthSelection();
     createVarSelection();
     layout();
-    initToolTip();
     window.addEventListener("resize", layout);
 })();
 

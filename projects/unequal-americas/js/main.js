@@ -8,7 +8,7 @@ $(() => {
 
 const bb = busyButtons();
 
-const lightGrey = "#f2f7f7";
+const lightGrey = "#f0f5f5";
 const darkGrey = "#3a4d49";
 const lightMediumGrey = "#dae2e6";
 const themeColour = "#1e9664";
@@ -22,7 +22,10 @@ const maxY = data[2];
 const repPalette = ["#208eb7", "#6d7d4c", "#a03a58"];
 const repPaletteLight = ["#24a3d1", "#83965c", "#ba4367"];
 
+const screenThresh = [450, 500, 550, 700, 799, 850, 1000];
 let screenSize;
+let showThousands = [false, false, false, false, true, false, false, true];
+let showCurrency = [false, true, false, true, true, false, true, true];
 
 /* Determines tick positions and labels in x-axis */
 const regionAxis = [
@@ -42,11 +45,12 @@ const NS = "http://www.w3.org/2000/svg";
 let selCountry;
 let svgShape = [1, 1];
 
+
 const createCountrySelection = () => {
     bb.toggleButton(
         ".ua .country-sel-button",
         "country",
-        (id) => [lightGrey, darkGrey, themeColour],
+        (id) => themeColour,
         (id) => {
             changeCountry(Number(id));
             draw();
@@ -71,11 +75,15 @@ const changeCountry = (countryIdx) => {
     regionData[selCountry].forEach((region, i) => {
         const regionIdx = regionOrder[selCountry][i];
 
-        let pop = regionData[selCountry][i].population;
-        pop = new Intl.NumberFormat("en-GB").format(pop);
+        let pop = regionData[selCountry][i].population / 10**6;
+
+        pop = new Intl.NumberFormat("en-GB", {
+           minimumFractionDigits: 1,
+           maximumFractionDigits: 1,
+        }).format(pop);
 
         $(`.ua .desc-cell.row-${regionIdx} .region-info-name`).text(regionData[selCountry][i].name);
-        $(`.ua .desc-cell.row-${regionIdx} .region-info-population`).text(pop);
+        $(`.ua .desc-cell.row-${regionIdx} .region-info-population`).text(`${pop} million`);
         $(`.ua .desc-cell.row-${regionIdx}`).css("display", "block");
     });
 };
@@ -172,7 +180,7 @@ const draw = () => {
                 maximumFractionDigits: "0"
             };
 
-            let label = new Intl.NumberFormat("en-GB", screenSize < 2 ? {} : opt).format(screenSize < 1 ? val / 1000 : val);
+            let label = new Intl.NumberFormat("en-GB", showCurrency[screenSize] ? opt : {}).format(showThousands[screenSize] ? val : val / 1000);
 
             const $tick = $(document.createElement("div"));
             const $label = $(document.createElement("div"));
@@ -183,7 +191,7 @@ const draw = () => {
             $tick.css("bottom", `${axisHeight - tickHeight}px`);
             $tick.css("height", `${j === 0 ? tickHeight * 2 + 2 : tickHeight}px`);
 
-            $label.text(screenSize < 1 && val > 0 ? label + "k" : label);
+            $label.text(showThousands[screenSize] || val === 0 ? label : label + "k");
 
             $vizCell.append($tick);
             $vizCell.append($label);
@@ -284,10 +292,10 @@ const initToolTip = () => {
 };
 
 const layout = () => {
-    const winWidth = $(window).width();
-    const thresholds = [500, 850];
+    const winWidth = $(window).width() + 17;
+
     screenSize = 0;
-    while (screenSize < thresholds.length && winWidth > thresholds[screenSize]) {
+    while (screenSize < screenThresh.length && winWidth > screenThresh[screenSize]) {
         ++screenSize;
     }
 

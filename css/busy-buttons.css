@@ -1,48 +1,33 @@
-:root {
-    --button-border-rad: 4px;
-    --slide-box-padding: 2px;
-    --sel-border: 2px solid var(--light-medium-grey);
-}
-
 .button {
 	touch-action: none;
 	user-select: none;
 	display: flex;
     align-items: center;
     white-space: nowrap;
-    padding: 4px 8px;
+    padding: 2px 4px;
 }
 
 .button > * {
     pointer-events: none;
 }
 
-.hover-button {
-    border-bottom: 2px solid var(--light-medium-grey);
-    background-color: "#ffffff";
-}
-
-.toggle-button {
-    border-bottom: 2px solid var(--light-medium-grey);
-    background-color: "#ffffff";
-}
-
 .click-button {
     color: var(--dark-grey);
-    font-weight: bold;
-    padding: 8px 16px;
 }
 
 .slide-box {
-    background-color: "#ffffff";
 	touch-action: none;
 	display: flex;
 }
 
+.bb-mand {
+    color: var(--dark-medium-grey);
+    --icon-colour: var(--dark-medium-grey);
+    border-bottom: 2px solid white;
+}
+
 .slide-box > .button {
     position: relative;
-    border-radius: 0;
-    border-left: var(--sel-border);
 }
 
 .tooltip {

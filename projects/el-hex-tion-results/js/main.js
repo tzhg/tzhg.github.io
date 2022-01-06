@@ -16,7 +16,7 @@ const bb = busyButtons();
 
 /* css constants */
 const themeColour = "#1e9664";
-const lightGrey = "#f2f7f7";
+const lightGrey = "#f0f5f5";
 const darkGrey = "#3a4d49";
 
 const viewBoxW = 100;
@@ -244,7 +244,7 @@ const draw = (() => {
     };
 
     /* Hexagons */
-    const drawMP = ($svg, elec_id, mp, hexGapWidth) => {
+    const drawMP = ($svg, elec_id, mp, hexGapWidth, className) => {
         let hexShape = Array.from(Array(6))
             .map((_, i) => {
                 return hexVertex(mp.hex_coords, i, l).join(", ");
@@ -253,7 +253,7 @@ const draw = (() => {
 
         const $hex = $(document.createElementNS(NS, "polygon"));
         $hex.attr("points", hexShape);
-        $hex.attr("class", "hexagon");
+        $hex.attr("class", className);
         $hex.attr("stroke-width", "0.1");
         $hex.attr("pointer-events", "none");
         $hex.attr("fill", mp.colour);
@@ -348,45 +348,51 @@ const draw = (() => {
     };
 
     return (type, elec_id) => {
-        const hexGapWidth = type === "big" ? 1.3 : 0;
+        const fullWidth = 1.3;
+        const hexGapWidth = type === "big" ? fullWidth : 0;
 
-        const $svg = $(`.ehr .map-svg${type === "big" ? "" : "-" + elec_id}`);
+        const sfx = type === "big" ? "" : "-" + elec_id;
+        const $svg = $(`.ehr .map-svg${sfx}`);
+        const $svgGrey = $(`.ehr .map-svg-grey${sfx}`);
+        const $svgWhite = $(`.ehr .map-svg-white${sfx}`);
 
         $svg.empty();
+        $svgGrey.empty();
+        $svgWhite.empty();
 
+        /* Draws MP hexagons */
         Object.entries(data[elec_id].mps).forEach(([_, mp]) => {
-            drawMP($svg, elec_id, mp, hexGapWidth);
+            drawMP($svg, elec_id, mp, hexGapWidth, "hexagon");
         });
 
+        /* Draws grey hexagons */
+        Object.entries(data[elec_id].mps).forEach(([_, mp]) => {
+            drawMP($svgGrey, elec_id, mp, fullWidth, "grey-hex");
+        });
+
+        /* Draws interhexagon whitespace and hover border */
         if (type === "big") {
-            const $hexGap = $(document.createElementNS(NS, "g"));
+            Object.entries(data[elec_id].constits).forEach(([_, constit]) => {
+                drawHexGap($svgWhite, elec_id, constit, hexGapWidth);
+            });
 
             Object.entries(data[elec_id].constits).forEach(([_, constit]) => {
                 drawConstitEvtArea(
-                    $svg,
+                    $svgWhite,
                     elec_id,
                     constit
                 );
             });
 
-            $hexGap.attr("class", "hex-gap");
-
-            Object.entries(data[elec_id].constits).forEach(([_, constit]) => {
-                drawHexGap($hexGap, elec_id, constit, hexGapWidth);
-            });
-
+            /* Draws subregion boundaries */
             Object.entries(data[elec_id].subregions).forEach(([_, subregion]) => {
-                drawSubregion($hexGap, elec_id, subregion, hexGapWidth);
+                drawSubregion($svgWhite, elec_id, subregion, hexGapWidth);
             });
-
-            $svg.append($hexGap);
         } else {
-            const $hexGap = $(document.createElementNS(NS, "g"));
-
+            /* Draws subregion boundaries */
             Object.entries(data[elec_id].subregions).forEach(([_, subregion]) => {
-                drawSubregion($hexGap, elec_id, subregion, hexGapWidth);
+                drawSubregion($svgWhite, elec_id, subregion, fullWidth);
             });
-            $svg.append($hexGap);
         }
     };
 })();
@@ -472,7 +478,6 @@ const initLegend = () => {
     bb.slideBox(
         ".ehr .legend-content",
         "party-id",
-        (id) => data[elec].parties[id].colour,
         (id) => {
             selectedPartyGroup = id === "" ?
                 "" :
@@ -493,12 +498,6 @@ const initSubregionLabels = () => {
             $label.addClass("subregion-label button hover-button");
             $label.html(subregion.name);
             $label.attr("data-subregion-id", subregion.subregion_id);
-
-            $label.css({
-                "font-size": $(".ehr .map-svg").width() > 400 ? "14px" : "12px",
-                "padding": $(".ehr .map-svg").width() > 400 ? "4px 8px" : "2px 4px"
-            });
-
             $container.append($label);
 
             let mapWidth = $container[0].getBoundingClientRect().width;
@@ -516,7 +515,6 @@ const initSubregionLabels = () => {
 		bb.hoverButton(
 			".ehr .subregion-label",
 			"subregion-id",
-            () => projectColour,
             (id) => {
                 selectedSubregion = id;
                 filter();
@@ -532,7 +530,9 @@ const initSubregionLabels = () => {
 };
 
 const filterMap = (type, elec_id) => {
-    const $svg = $(`.ehr .map-svg${type === "big" ? "" : "-" + elec_id}`);
+    const sfx = type === "big" ? "" : "-" + elec_id;
+    const $svg = $(`.ehr .map-svg${sfx}`);
+    const $svgGrey = $(`.ehr .map-svg-grey${sfx}`);
 
     let partyCounts;
     if (type === "big") {
@@ -540,58 +540,63 @@ const filterMap = (type, elec_id) => {
     }
 
     $svg.find(".hexagon").each((_, hex) => {
+        /* This function assumes that only filter can be active at a time */
+
         const mp = data[elec_id].mps[hex.dataset.mpId];
 
-        let d = Number(data[elec_id].constits[mp.constit_id].density);
-        let filterDensity = selectedDensityRange === "" ||
-            (d >= selectedDensityRange[0] && d <= selectedDensityRange[1]);
-
-        let filterParty = selectedPartyGroup === "" ||
-            mp.party_group_id === Number(selectedPartyGroup);
-
-        let s = data[elec_id].constits[mp.constit_id].subregion_id;
-        let filterSubregion = selectedSubregion === "" ||
-            s === Number(selectedSubregion);
-
-        if (filterDensity && filterParty && filterSubregion) {
-            if (type === "big") {
-                ++partyCounts[mp.party_id];
-            }
-        } else {
-            $(hex).addClass("grey-hex");
-            $(hex).appendTo($(hex).parents("svg"));
+        if (selectedPartyGroup !== "" &&
+            mp.party_group_id !== Number(selectedPartyGroup)) {
+            return
         }
 
+        let d = Number(data[elec_id].constits[mp.constit_id].density)
+        if (selectedDensityRange !== "" &&
+            (d < selectedDensityRange[0] || d > selectedDensityRange[1])) {
+                return;
+        }
+
+        let s = data[elec_id].constits[mp.constit_id].subregion_id;
+        if (selectedSubregion !== "" &&
+            s !== Number(selectedSubregion)) {
+                return;
+        }
+
+        $svgGrey.children(`.grey-hex[data-mp-id=${hex.dataset.mpId}]`).css("visibility", "hidden");
+        if (type === "big") {
+            ++partyCounts[mp.party_id];
+        }
     });
 
     if (type === "big") {
-        $(".ehr .hex-gap").appendTo($svg);
         return partyCounts;
     }
 };
 
 /* Applies filters and draws map */
 const filter = () => {
-    $(".ehr .hexagon").removeClass("grey-hex");
+    $(".ehr .grey-hex").css("visibility", "visible");
 
     Object.entries(data).forEach(([elec_id, _]) => {
         filterMap("small", elec_id)
     });
 
     const partyCounts = filterMap("big", elec);
-
-    /* Updates party seat count */
-
     const totalSeats = partyCounts.reduce((a, b) => a + b, 0);
 
-    $(".ehr .legend-button").each((_, legendButton) => {
-        const i = Number($(legendButton).attr("data-party-id"));
-        const percent = totalSeats === 0 ?
-            "n/a" :
-            formatPercent(100 * partyCounts[i] / totalSeats);
+    if (selectedPartyGroup === "") {
+        /* Updates party seat count */
+        $(".ehr .legend-button").each((_, legendButton) => {
+            const i = Number($(legendButton).attr("data-party-id"));
+            let str;
 
-        $(legendButton).find(".legend-seat-count").text(`${partyCounts[i]} (${percent})`);
-    });
+            const percent = totalSeats === 0 ?
+                "n/a" :
+                formatPercent(100 * partyCounts[i] / totalSeats);
+            str = `${partyCounts[i]} (${percent})`;
+
+            $(legendButton).find(".legend-seat-count").text(str);
+        });
+    }
 
     /* Updates total seat count */
 
@@ -688,7 +693,7 @@ const initToolTip = (elec_id) => {
             $border.attr("stroke", darkGrey);
             $border.attr("opacity", "1");
             $border.attr("stroke-width", "0.3");
-            $(".ehr .viz-box .map-svg").append($border);
+            $(".ehr .viz-box .map-svg-white").append($border);
         },
         () => {
             $(".ehr .hover-border").remove();
@@ -719,7 +724,6 @@ const initDensitySelection = () => {
     bb.slideBox(
         ".ehr .density-container",
         "density",
-        (id) => themeColour,
         (id) => {
             selectedDensityRange = id === "" ? "" : densityRanges[id];
             filter();
@@ -739,19 +743,36 @@ const initElectionSelection = () => {
         const $electionButton = $(document.createElement("div"));
         const $buttonLabel = $(document.createElement("div"));
         const $svg = $(document.createElementNS(NS, "svg"));
+        const $svgGrey = $(document.createElementNS(NS, "svg"));
+        const $svgWhite = $(document.createElementNS(NS, "svg"));
 
         $mapContainer.addClass("map-container");
         $electionButton.addClass("election-button");
         $buttonLabel.addClass("election-label button toggle-button");
         $svg.addClass(`map-svg-${elec_id}`);
-
-        $buttonLabel.text(`GE ${obj.name}`);
+        $svgGrey.addClass(`map-svg-grey-${elec_id}`);
+        $svgWhite.addClass(`map-svg-white-${elec_id}`);
+        $buttonLabel.text(`${obj.name}`);
         $buttonLabel.attr("data-election-id", elec_id);
 
         $svg.attr("viewBox", svgViewBox);
         $svg.attr("preserveAspectRatio", "none");
 
+        $svgGrey.attr("viewBox", svgViewBox);
+        $svgGrey.attr("preserveAspectRatio", "none");
+
+        $svgWhite.attr("viewBox", svgViewBox);
+        $svgWhite.attr("preserveAspectRatio", "none");
+
+        $svgGrey.css("position", "absolute");
+        $svgGrey.css("left", "0");
+
+        $svgWhite.css("position", "absolute");
+        $svgWhite.css("left", "0");
+
         $mapContainer.append($svg);
+        $mapContainer.append($svgGrey);
+        $mapContainer.append($svgWhite);
         $electionButton.append($mapContainer);
         $electionButton.append($buttonLabel);
         $(".ehr .election-box").append($electionButton);
@@ -762,7 +783,7 @@ const initElectionSelection = () => {
     bb.toggleButton(
         ".ehr .election-label",
         "election-id",
-        () => [lightGrey, darkGrey, themeColour],
+        undefined,
         (id) => {
             elec = Number(id);
 
@@ -772,15 +793,36 @@ const initElectionSelection = () => {
     );
 
     const $mapContainer = $(document.createElement("div"));
+    /* svg contains colourful hexagons for each MP */
     const $svg = $(document.createElementNS(NS, "svg"));
+    /* svgGrey contains grey hexagons for filtering */
+    const $svgGrey = $(document.createElementNS(NS, "svg"));
+    /* svgWhite contains whitespace in between and around hexagons */
+    const $svgWhite = $(document.createElementNS(NS, "svg"));
 
     $mapContainer.addClass("map-container");
     $svg.addClass("map-svg");
+    $svgGrey.addClass("map-svg-grey");
+    $svgWhite.addClass("map-svg-white");
 
     $svg.attr("viewBox", svgViewBox);
     $svg.attr("preserveAspectRatio", "none");
 
+    $svgGrey.attr("viewBox", svgViewBox);
+    $svgGrey.attr("preserveAspectRatio", "none");
+    $svgGrey.css("position", "absolute");
+    $svgGrey.css("left", "0");
+    $svgGrey.css("pointer-events", "none");
+
+    $svgWhite.attr("viewBox", svgViewBox);
+    $svgWhite.attr("preserveAspectRatio", "none");
+    $svgWhite.css("position", "absolute");
+    $svgWhite.css("left", "0");
+    $svgWhite.css("pointer-events", "none");
+
     $mapContainer.append($svg);
+    $mapContainer.append($svgGrey);
+    $mapContainer.append($svgWhite);
     $(".ehr .viz-box").append($mapContainer);
 
     drawElection()
