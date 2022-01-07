@@ -230,13 +230,30 @@ every-hour
         <div>
             In order to preserve a complete picture of my lifetime,
             I have been collecting data on each hour I spend since the beginning of 2017.
-            This visualisation shows the proportion of time each day spent on various types of activities,
-            smoothed using a Gaussian filter.
+            This visualisation shows the proportion of time each day spent
+            on various types of activities (on the y-axis), over time (on the x-axis).
+            These proportions are smoothed using a Gaussian filter.
         </div>
         <div>
-            This data gives me great insight into my past, as I can identify various events and stages of my life,
-            and allows me to set goals for the future.
-            Hopefully other people will find it interesting too.
+            The analysis is done using a Python script. It requires three input files:
+            one describing the activities,
+            one describing the categorisation of the activities
+            (as the visualisation groups similar activities together),
+            and one file containing the data.
+            To facililate the recording of data throughout my day,
+            I used <a href="https://www.appsheet.com/">AppSheet</a>
+            to create a mobile app through which I can easily add data
+            to a Google Sheets spreadsheet.
+            Once I convert this to a CSV file,
+            I can append this data to my main data file using another Python script.
+        </div>
+        <div>
+            Despite the inadequacy of the necessary discretisation, both of time and type,
+            against the intricate complexity of human activity,
+            I believe that the generous degree of smoothing can allow some
+            meaningful patterns and trends to emerge over the long-term.
+            I take great joy and comfort in rediscovering the events and stages which defined my past,
+            and establishing a framework with which I can set goals for the future.
         </div>
         <br>
         <div>
