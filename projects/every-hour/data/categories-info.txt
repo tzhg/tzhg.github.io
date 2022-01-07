@@ -1,8 +1,8 @@
-Name,Activities,Colour
-Learning,ic,#1f9663
-Leisure,it|vi,#709f0f
-Creative,pg|pi|mu|kn|re,#cc4c3e
-Career,co|ca|fi,#c49196
-Social,so|vo,#7d525f
-Other,ex|wa|pd,#3f646e
-Sleep,sl,#7ea4af
+name,colour
+Learning,#1f9663
+Leisure,#709f0f
+Creative,#cc4c3e
+Career,#c49196
+Social,#7d525f
+Other,#3f646e
+Sleep,#7ea4af

@@ -1,4 +1,5 @@
 import json, datetime, os, csv, re, math
+from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 
@@ -7,15 +8,14 @@ import pandas as pd
 # ==============================================================================
 # Requires input files in current directory:
 #     * data.txt
-#     * start-date.txt
-#     * category-info.txt
-#     * category-info-mangled.txt (if mangling data)
-# Note: for privacy reasons, I have not added these files to GitHub
+#     * categories-info.txt
+#     * activities-info.txt
+# Note: for privacy reasons, I have not added all these files to GitHub
 #
 # Output:
 # ==============================================================================
 # Run to take the activity data from data.txt and:
-#     * group activities into categories using the mapping in category-info.txt
+#     * group activities into categories using the mapping in activities-info.txt
 #     * count the occurrence of each category in each day
 #     * for various levels of smoothness:
 #         * smooth
@@ -28,16 +28,18 @@ import pandas as pd
 #         * nDays
 #         * startDate
 #
-# category-info.txt:
+# categories-info.txt:
 # ==============================================================================
 # List of categories in csv form, with columns
-#     1. Category name
-#     2. Unique identifiers of activities in each category, pipe-separated
-#     3. Colours of each category, in hex format
+#     name: category name
+#     colour: colours of each category, in hex format
 #
-# start-date.txt:
+# activities-info.txt:
 # ==============================================================================
-# Start date of data in YYYY-MM-DD format
+# List of activities in csv form, with columns
+#     id: unique identifier
+#     activity: name
+#     cat: id (row number) of containing category
 #
 # data.txt:
 # ==============================================================================
@@ -51,7 +53,10 @@ import pandas as pd
 # "+" is used to join activities for hours with multiple activities
 #     (due to moving through time zones etc.)
 
-years = [365, 365, 365, 366, 365, 365]
+date_format = "%Y-%m-%d"
+
+# This needs to be manually updated for new years (I will make it automatic)
+years = 365 + np.array([0, 0, 0, 1, 0, 0])
 
 # Range of days for each year
 year_ranges = np.transpose(
@@ -63,27 +68,17 @@ year_ranges = np.transpose(
 dirname = os.path.dirname(os.path.abspath(__file__))
 
 
-# Returns regex list for mapping activites to categories
-def process_categories_info():
-    categories_info_df = pd.read_csv("categories-info.txt")
+def process_data(data):
+    categories_info_df["cat_id"] = categories_info_df.index
+    act_cat_df = pd.merge(categories_info_df, activities_info_df, on="cat_id")
+    act_cat_df = act_cat_df.groupby("cat_id").agg({"id": "|".join})["id"]
 
-    cat_regex_list = [
-        re.compile(pattern)
-        for pattern in categories_info_df["Activities"]]
+    # Matrix with number of hours on each activity for each day
+    hours = np.array([
+        [len(re.compile(row).findall(line)) for _, row in act_cat_df.iteritems()]
+        for line in data])
 
-    cat_info_list = [
-        [row["Name"], row["Colour"]]
-        for _, row in categories_info_df.iterrows()]
-
-    return (cat_info_list, cat_regex_list)
-
-
-def process_data(cat_regex_list):
-    with open("data.txt", "r") as file:
-        # Matrix with number of hours on each activity for each day
-        hours = np.array([
-            [len(regex.findall(line)) for regex in cat_regex_list]
-            for line in file])
+    print(hours)
 
     data_string = "["
 
@@ -130,18 +125,17 @@ def process_data(cat_regex_list):
     return Y_all
 
 
-cat_info_list, cat_regex_list = process_categories_info()
+with open("data.txt", "r") as file:
+    act_data = [line for line in file]
 
-with open("start-year.txt", "r") as file:
-    start_year = int(file.read())
-
-data = process_data(cat_regex_list)
+categories_info_df = pd.read_csv("categories-info.txt")
+activities_info_df = pd.read_csv("activities-info.txt")
 
 # Data as an object
 data_obj = {
-    "startYear": start_year,
-    "categoryInfo": cat_info_list,
-    "data": data
+    "startYear": datetime.strptime(act_data[0].strip("\n"), date_format).year,
+    "categoryInfo": categories_info_df.values.tolist(),
+    "data": process_data(act_data[1:])
 }
 
 # Data as a JSON string

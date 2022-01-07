@@ -1,0 +1,18 @@
+id,activity,cat_id
+ic,Intellectual,0
+it,Internet,1
+vi,Video games,1
+pg,Programming,2
+pi,Piano,2
+mu,Music,2
+kn,Knitting,2
+re,Reading,2
+fi,Film and TV,2
+co,College,3
+ca,Career,3
+so,Social,4
+vo,Volunteering,4
+ex,Exercise,5
+wa,Wasted time,5
+pd,Personal,5
+sl,Sleep,6
