@@ -1,57 +1,12 @@
+#!/bin/bash
+
+# See read-me.txt for details
+
 import json, datetime, os, csv, re, math
 from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 
-
-# Input:
-# ==============================================================================
-# Requires input files in current directory:
-#     * data.txt
-#     * categories-info.txt
-#     * activities-info.txt
-# Note: for privacy reasons, I have not added all these files to GitHub
-#
-# Output:
-# ==============================================================================
-# Run to take the activity data from data.txt and:
-#     * group activities into categories using the mapping in activities-info.txt
-#     * count the occurrence of each category in each day
-#     * for various levels of smoothness:
-#         * smooth
-#         * normalise each day to sum to 1
-#         * apply cumulative sum (in reverse)
-#     * output js module ../js/importData.js with object containing
-#         * categoryLabels
-#         * categoryColours
-#         * data
-#         * nDays
-#         * startDate
-#
-# categories-info.txt:
-# ==============================================================================
-# List of categories in csv form, with columns
-#     name: category name
-#     colour: colours of each category, in hex format
-#
-# activities-info.txt:
-# ==============================================================================
-# List of activities in csv form, with columns
-#     id: unique identifier
-#     activity: name
-#     cat: id (row number) of containing category
-#
-# data.txt:
-# ==============================================================================
-# The rows of the data correspond to days (starting at the start date),
-#     and columns correspond to hours (starting at the hour from midnight
-#     to 01:00) in the local timezone.
-# For a given hour of a given day, the value in the table consists of
-#     zero or more activities (denoted by unique identifiers)
-#     corresponding to that hour.
-# "_" is for hours with 0 activities (due to moving through time zones etc.)
-# "+" is used to join activities for hours with multiple activities
-#     (due to moving through time zones etc.)
 
 date_format = "%Y-%m-%d"
 

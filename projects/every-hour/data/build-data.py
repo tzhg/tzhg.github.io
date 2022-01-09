@@ -1,24 +1,10 @@
+#!/bin/bash
+
+# See read-me.txt for details
+
 from datetime import datetime, timedelta
 import csv
 import pandas as pd
-
-#!/bin/bash
-
-# Validates and reformats input data, and appends it to output data
-#
-# Input:
-# ==============================================================================
-# data-input.txt: csv file with columns
-#     date: YYYY-MM-DD
-#     hour: HH
-#     activity: activity id from categories-info.txt
-#         The script only processes 1 activity per hour.
-#         For 0 or 2+ activities, you must edit the output file manually.
-
-# Output:
-# ==============================================================================
-# data.txt:
-#     see analyse-data.py for description
 
 
 input_date_format = "%d/%m/%Y"
@@ -84,7 +70,7 @@ if not df1.empty:
     day_df = pd.merge(df1, activities_df, on="activity")
     day_df = day_df.sort_values(["hour", "date"])
     day_df = day_df.groupby("date").agg({"id": ",".join})["id"]
-    
+
     for d in day_df.index.tolist():
         print(f"Appending {d}")
     day_df.to_csv("data.txt", index=False, mode="a", header=False, sep=";")

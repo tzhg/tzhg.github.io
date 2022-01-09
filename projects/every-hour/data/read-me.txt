@@ -1,0 +1,108 @@
+# activities-info.txt:
+================================================================================
+
+Description of activities.
+
+CSV table with one row per activity, and columns
+    id: unique identifier of activity
+    activity: activity name
+    cat: id (row number) of containing category
+
+
+# categories-info.txt:
+================================================================================
+
+Description of categories (groups of activities).
+
+CSV table with one row per category, and columns
+    name: category name
+    colour: colour of category, in hex format
+
+
+# data.txt
+================================================================================
+
+The complete data.
+
+Line 1: the date of the first day in YYYY-MM-DD format
+Lines 2+: CSV table (no header), with one row per day
+    and 24 columns corresponding to each hour (starting at 00:00).
+    The cell value represents the activity at that hour and that day.
+
+In certain situations, when the local timezone changes,
+there may be more or fewer than 24 hours in a day.
+In that case, multiple activities may be added to an hour, joined by "+",
+or an hour may contain no activities, denoted by "_".
+In any case there will still be 24 values in each row.
+
+The values representing each activity are
+defined in activities-info.txt (column "id").
+
+Example:
+
+2021-03-05
+x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
+x,x,x,x,x,x,x,x,x,x,x,x,x,x,x+x,x,x,x,x,x,x,x,x,x
+x,x,x,x,x,x,_,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
+
+
+# every-hour-input.txt
+================================================================================
+
+This is the file in which new data should be added.
+
+CSV table, with one row per each hour (24 exactly) of each day, and columns
+    date: date in DD/MM/YYYY format
+    hour: hour in HH (00-23) format
+    activity: activity from categories-info.txt (column "activity")
+
+Example:
+
+date,hour,activity
+01/01/2017,00,Sleep
+01/01/2017,01,Social
+
+
+# build-data.py
+================================================================================
+
+Input:
+    ./activities-info.txt
+    ./every-hour-input.txt
+
+Output:
+    ./data.txt
+
+Validates and reformats input data, and appends it to output data.
+Only appends complete (and valid) days,
+and leaves remaining data behind in every-hour-input.txt.
+
+Warning:
+The input file every-hour-input.txt requires exactly one activity per hour,
+whereas the output file data.txt can accommodate zero or multiple activities.
+The output must be edited manually if zero or multiple activities are required.
+
+
+
+# analyse-data.py
+================================================================================
+
+Input:
+    ./activities-info.txt
+    ./categories-info.txt
+    ./data-input.txt
+
+Output:
+    ../js/importData.js
+
+Takes activity data from data.txt and:
+    groups activities into categories using the mapping in activities-info.txt,
+    counts the occurrence of each category in each day,
+    smooths counts,
+    normalises to sum to 1, and applies reverse cumulative summation
+    output js module ../js/importData.js with object containing
+        categoryLabels
+        categoryColours
+        data
+        nDays
+        startDate
