@@ -24,16 +24,10 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 
 def process_data(data):
-    categories_info_df["cat_id"] = categories_info_df.index
-    act_cat_df = pd.merge(categories_info_df, activities_info_df, on="cat_id")
-    act_cat_df = act_cat_df.groupby("cat_id").agg({"id": "|".join})["id"]
-
-    # Matrix with number of hours on each activity for each day
+    # Matrix with number of hours of each category for each day
     hours = np.array([
-        [len(re.compile(row).findall(line)) for _, row in act_cat_df.iteritems()]
+        [len(re.compile(row).findall(line)) for _, row in categories_info_df["id"].iteritems()]
         for line in data])
-
-    print(hours)
 
     data_string = "["
 
@@ -73,7 +67,7 @@ def process_data(data):
 
         Y_smooth_y = Y_smooth_y / Y_smooth_y.sum(axis=0)
 
-        Y_smooth_y = np.cumsum(Y_smooth_y, axis=0)[:-1,:]
+        Y_smooth_y = np.cumsum(Y_smooth_y, axis=0)[:-1, :]
 
         Y_all.append(Y_smooth_y.tolist())
 
@@ -81,16 +75,15 @@ def process_data(data):
 
 
 with open("data.txt", "r") as file:
-    act_data = [line for line in file]
+    hour_data = [line for line in file]
 
 categories_info_df = pd.read_csv("categories-info.txt")
-activities_info_df = pd.read_csv("activities-info.txt")
 
 # Data as an object
 data_obj = {
-    "startYear": datetime.strptime(act_data[0].strip("\n"), date_format).year,
-    "categoryInfo": categories_info_df.values.tolist(),
-    "data": process_data(act_data[1:])
+    "startYear": datetime.strptime(hour_data[0].strip("\n"), date_format).year,
+    "categoryInfo": categories_info_df[["category", "colour"]].values.tolist(),
+    "data": process_data(hour_data[1:])
 }
 
 # Data as a JSON string

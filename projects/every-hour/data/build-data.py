@@ -15,13 +15,6 @@ output_date_format = "%Y-%m-%d"
 #     the first containing valid complete days
 #     the second containing the remaining rows
 def valid_days(df):
-    # Get list of valid categories
-    #categories_info_df = pd.read_csv("categories-info.txt")
-    #act_list = [
-    #    cat.split(sep="|")
-    #    for cat in categories_info_df["Activities"].tolist()]
-    #act_list = [act for sublist in act_list for act in sublist]
-
     # Get valid starting date (ending date of existing data in output)
     last_day = 0
     with open("data.txt", "r") as data_file:
@@ -45,8 +38,8 @@ def valid_days(df):
             print(f"Error: Hour {row['hour']} should equal {hour} on row {2 + i}")
             break
 
-        curr_act = activities_df.loc[activities_df["activity"] == row["activity"]]
-        if curr_act.empty:
+        cat = categories_info_df.loc[categories_info_df["category"] == row["category"]]
+        if cat.empty:
             print(f"Error: Activity not valid on row {2 + i}")
             break
 
@@ -61,13 +54,13 @@ def valid_days(df):
 
 
 df = pd.read_csv("data-input.txt")
-activities_df = pd.read_csv("activities-info.txt")
+categories_info_df = pd.read_csv("categories-info.txt")
 
 df1, df2 = valid_days(df)
 
 # Appends valid data to data.txt
 if not df1.empty:
-    day_df = pd.merge(df1, activities_df, on="activity")
+    day_df = pd.merge(df1, categories_info_df, on="category")
     day_df = day_df.sort_values(["hour", "date"])
     day_df = day_df.groupby("date").agg({"id": ",".join})["id"]
 
