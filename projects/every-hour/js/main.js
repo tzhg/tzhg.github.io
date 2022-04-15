@@ -229,10 +229,12 @@ const initToolTip = () => {
                 const dayIdx = Math.round(x * (data[0][0].length - 1));
 
                 /* If day in future */
+                    console.log(1)
                 if (dayIdx >= data[year][0].length) {
-                    $(elem).off("pointermove", ttUpdate);
                     $(".tooltip").hide();
                     return;
+                } else {
+                    $(".tooltip").show();
                 }
 
                 const dayArr = data[year].map((arr) => arr[dayIdx]);
