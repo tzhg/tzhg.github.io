@@ -25,10 +25,13 @@ def valid_days(df):
             last_day += 1
     end_date = start_date + timedelta(days=last_day)
 
+    # Converts date to YYYY-MM-DD format for easy sorting
+    df["date"] = df["date"].apply(lambda x: datetime.strftime(datetime.strptime(x, input_date_format), "%Y-%m-%d"))
+
     hour = 0
     day = 0
     for i, row in df.iterrows():
-        date = datetime.strftime(end_date + timedelta(days=day), input_date_format)
+        date = datetime.strftime(end_date + timedelta(days=day), "%Y-%m-%d")
 
         if row["date"] != date:
             print(f"Error: Date {row['date']} should equal {date} on row {2 + i}")
@@ -62,6 +65,7 @@ df1, df2 = valid_days(df)
 if not df1.empty:
     day_df = pd.merge(df1, categories_info_df, on="category")
     day_df = day_df.sort_values(["hour", "date"])
+    print(day_df)
     day_df = day_df.groupby("date").agg({"id": ",".join})["id"]
 
     for d in day_df.index.tolist():
