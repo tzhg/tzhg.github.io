@@ -1,0 +1,3 @@
+[submodule "cash-flower"]
+	path = cash-flower
+	url = https://github.com/tzhg/cash-flower
