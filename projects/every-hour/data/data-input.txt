@@ -1,8 +1,0 @@
-date,hour,category
-16/04/2022,0,Creating
-16/04/2022,1,Sleeping
-16/04/2022,2,Sleeping
-16/04/2022,3,Sleeping
-16/04/2022,4,Sleeping
-16/04/2022,5,Sleeping
-16/04/2022,6,Sleeping
