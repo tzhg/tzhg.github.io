@@ -10,81 +10,115 @@ import pandas as pd
 
 date_format = "%Y-%m-%d"
 
-# This needs to be manually updated for new years (I will make it automatic)
-years = 365 + np.array([0, 0, 0, 1, 0, 0])
-
-# Range of days for each year
-year_ranges = np.transpose(
-    np.vstack((
-        (np.insert(np.cumsum(years), 0, -1) + 1)[:-1],
-        np.cumsum(years))))
-
 # Current directory
 dirname = os.path.dirname(os.path.abspath(__file__))
 
 
 def process_data(data):
+    # Smooths array with Gaussian filter
+    def smooth(hours_seq):
+        # a: full width at half maximum of filter
+        a = 14
+
+        sigma = a / 2.355
+
+        # Truncates Gaussian filter at 3 sigma
+        b = math.ceil(3 * sigma)
+        trunc = np.array([-b, 1 + b])
+
+        w = np.array([np.exp(-0.5 * x ** 2 / sigma ** 2) for x in range(*trunc)])
+        w = w / sum(w)
+
+        # Pads start and end so we don't have to truncate data
+        pad_start = [hours_seq[0]] * b
+        pad_end = [hours_seq[-1]] * b
+
+        hours_seq_a = np.concatenate((pad_start, hours_seq, pad_end), axis=0)
+
+        H = np.fromfunction(lambda i, j: hours_seq_a[i + j], (len(hours_seq), 2 * b + 1), dtype=int)
+
+        return np.dot(H, w)
+
+
+    # Returns subset of days (grouped by year) to simplify the visualisation.
+    # For each year, the subset ranges from the first day of the year,
+    # to the first day of the next year inclusive (apart from the last year).
+    # This ensures there will be no gaps when the years are graphed side by side.
+    def idx_subset(given_days):
+        # Number of days to choose in each full year
+        n = 300
+
+        year = start_year
+        start_day = 0
+        days_remaining = given_days
+        idx_list = []
+        while days_remaining >= 0:
+            # Checks if leap year
+            if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
+                year_len = 366
+            else:
+                year_len = 365
+
+            end_day = min(start_day + year_len, given_days)
+
+            norm_days = math.floor(min(days_remaining / year_len, 1) * n)
+
+            norm_days_idx = np.linspace(start_day, min(end_day, given_days - 1), num=norm_days)
+            norm_days_idx = np.round(norm_days_idx)
+
+            idx_list.append(norm_days_idx.astype(int))
+
+            start_day = end_day
+            year += 1
+            days_remaining -= year_len
+
+        return idx_list
+
+
     # Matrix with number of hours of each category for each day
     hours = np.array([
         [len(re.compile(row).findall(line)) for _, row in categories_info_df["id"].iteritems()]
         for line in data])
 
-    data_string = "["
+    hours = hours * mangle_arr
 
-    def d(sigma, x, y):
-        return np.exp(-0.5 * (x - y) ** 2 / sigma ** 2)
-
-    # Smooths array Y with Gaussian filter
-    def smooth(hours_seq, Y):
-        # a: full width at half maximum of filter
-        a = 14
-
-        sigma = a / 2.355
-        def f(i):
-            x1 = max(math.ceil(i - 3 * sigma), 0)
-            x2 = min(math.ceil(i + 1 + 3 * sigma), len(hours_seq))
-            w = np.array([d(sigma, i, x) for x in range(x1, x2)])
-            w = w / sum(w)
-            return np.dot([hours_seq[x] for x in range(x1, x2)], w)
-        return np.array([f(y) for y in Y])
-
-    Y_all = []
-
-    # Number of points to divide each year into
-    num_pts = 300
-    Y = np.linspace(0, sum(years) - 1, num=num_pts * len(years))
-
+    # Smooths array of hours (for each category independently)
     Y_smooth = np.array([
-        smooth(hours_seq, Y[Y < len(hours)])
+        smooth(hours_seq)
         for hours_seq in np.transpose(hours)])
 
-    for y in range(len(years)):
-        yearIndices = (y + np.array([0, 1])) * num_pts
+    # Ensures values >= 0
+    Y_smooth = Y_smooth.clip(min=0)
 
-        Y_smooth_y = Y_smooth[:, yearIndices[0]:yearIndices[1]]
+    # Converts count to proportion
+    Y_smooth = Y_smooth / Y_smooth.sum(axis=0)
 
-        Y_smooth_y = Y_smooth_y.clip(min=0)
+    # Cumulative sum
+    Y_smooth = np.cumsum(Y_smooth, axis=0)[:-1, :]
 
-        Y_smooth_y = Y_smooth_y / Y_smooth_y.sum(axis=0)
+    # Subset of days
+    idx_list = idx_subset(len(hours))
 
-        Y_smooth_y = np.cumsum(Y_smooth_y, axis=0)[:-1, :]
-
-        Y_all.append(Y_smooth_y.tolist())
-
-    return Y_all
+    return [Y_smooth[:, l].tolist() for l in idx_list]
 
 
 with open("data.txt", "r") as file:
     hour_data = [line for line in file]
 
+with open("mangle.npy", "rb") as f:
+    mangle_arr = np.load(f)
+
 categories_info_df = pd.read_csv("categories-info.txt")
+
+start_year = datetime.strptime(hour_data[0].strip("\n"), date_format).year
+category_info = categories_info_df[["category", "colour"]].values.tolist()
+data = process_data(hour_data[1:])
 
 # Data as an object
 data_obj = {
-    "startYear": datetime.strptime(hour_data[0].strip("\n"), date_format).year,
-    "categoryInfo": categories_info_df[["category", "colour"]].values.tolist(),
-    "data": process_data(hour_data[1:])
-}
+    "startYear": start_year,
+    "categoryInfo": category_info,
+    "data": data}
 
 # Data as a JSON string
 data_json = json.dumps(data_obj, indent=4)

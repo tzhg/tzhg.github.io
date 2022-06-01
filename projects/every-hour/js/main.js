@@ -69,6 +69,7 @@ const draw = () => {
 		yearArr.forEach((catArr, i) => {
 			const $path = $(document.createElementNS(NS, "path"));
 			let pathBottom = "";
+            
 			catArr.forEach((val, j) => {
 				pathBottom += `L ${j / (nPoints - 1)} ${val} `;
 			});

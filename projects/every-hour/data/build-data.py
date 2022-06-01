@@ -70,7 +70,7 @@ if not df1.empty:
 
     for d in day_df.index.tolist():
         print(f"Appending {d}")
-    #day_df.to_csv("data.txt", index=False, mode="a", header=False, sep=";")
+    day_df.to_csv("data.txt", index=False, mode="a", header=False, sep=";")
 
 # Replaces data-input.txt with remaining data
 df2.to_csv("data-input.txt", index=False)

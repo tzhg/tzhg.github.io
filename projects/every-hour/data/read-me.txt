@@ -91,8 +91,8 @@ Output:
 
 Takes activity data from data.txt, counts the occurrence of each category
 in each day, smooths counts, normalises counts to sum to 1, applies reverse
-cumulative summation and outputs the resulting data to the JavaScript module
-../js/importData.js with object containing:
+cumulative summation and outputs a subset of the resulting data to the
+JavaScript module ../js/importData.js with an object containing:
     - categoryLabels,
     - categoryColours,
     - data,
