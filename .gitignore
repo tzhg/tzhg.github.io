@@ -1,2 +1,5 @@
 projects/every-hour/data/data.txt
+projects/every-hour/data/data-input.txt
+projects/every-hour/data/gen-mangle.py
+projects/every-hour/data/mangle.npy
 projects/unequal-americas/other
