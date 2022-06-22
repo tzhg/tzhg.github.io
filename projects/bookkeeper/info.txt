@@ -3,3 +3,5 @@ data.csv
 class: main Dewey Decimal class (e.g. 8xx -> 8)
 pages: prioritise amazon.co.uk paperback page count
 year: first edition publication year
+
+layout: [10, 15] (10 books first shelf, 15 books second shelf) or [35]
