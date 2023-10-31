@@ -6,12 +6,12 @@ body {
 	font-weight: 400;
     color: var(--dark-grey);
     font-size: 12px;
-    min-width: 350px;
+    margin: 10px;
 }
 
 .main-container {
-    max-width: 600px;
-    margin: 5px;
+    width: 100%;
+    max-width: 500px;
     padding: 0;
 }
 
@@ -27,7 +27,7 @@ body {
 	font-family: "Cabin", sans-serif;
 	font-weight: 700;
     text-align: center;
-    margin: 15px 0 5px 0;
+    margin: 10px 0 5px 0;
 }
 
 .desc {
@@ -126,8 +126,8 @@ Media queries
         margin-left: 10px;
     }
 
-    .main-container {
-        margin: 10px;
+    body {
+        margin: 20px;
     }
 }
 
@@ -137,11 +137,8 @@ Media queries
     	height: 14px;
     }
 
-    .main-container {
-        margin: 15px;
-    }
-
     body {
+        margin: 30px;
         font-size: 14px;
     }
 
@@ -165,7 +162,7 @@ Media queries
         margin-left: 15px;
     }
 
-    .main-container {
-        margin: 20px;
+    body {
+        margin: 40px;
     }
 }
