@@ -67,7 +67,7 @@ const draw = () => {
 				"width": "10px",
 				"height": "10px",
 				"stroke": "white",
-				"stroke-width": "1.5",
+				"stroke-width": "1",
 				"vector-effect": "non-scaling-stroke",
 				"stroke-linejoin": "round"
 			});
