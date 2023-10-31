@@ -6,7 +6,7 @@ body {
 	font-weight: 400;
     color: var(--dark-grey);
     font-size: 12px;
-    margin: 10px;
+    margin: 15px;
 }
 
 .main-container {
@@ -27,7 +27,7 @@ body {
 	font-family: "Cabin", sans-serif;
 	font-weight: 700;
     text-align: center;
-    margin: 10px 0 5px 0;
+    margin: 5px 0 5px 0;
 }
 
 .desc {
@@ -131,7 +131,7 @@ Media queries
     }
 }
 
-@media all and (min-width: 500px) {
+@media all and (min-width: 550px) {
     .legend-square {
     	width: 14px;
     	height: 14px;
