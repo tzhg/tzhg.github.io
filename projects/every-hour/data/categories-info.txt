@@ -1,8 +1,0 @@
-id,category,colour
-so,Socialising,#1f9663
-re,Relaxing,#709f0f
-le,Learning,#7d525f
-cr,Creating,#c49196
-wo,Working,#cc4c3e
-sl,Sleeping,#7ea4af
-ot,Other,#3f646e

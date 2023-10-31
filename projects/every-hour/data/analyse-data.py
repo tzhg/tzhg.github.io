@@ -1,11 +1,25 @@
 #!/bin/bash
 
-# See read-me.txt for details
+# Input:
+#     ./data.xlsx
 
-import json, datetime, os, csv, re, math
-from datetime import datetime, timedelta
+# Output:
+#     ../js/importData.js
+
+# Takes activity data from data.xlsx, counts the occurrence of each category
+# in each day, smooths counts, normalises counts to sum to 1, applies reverse
+# cumulative summation and outputs a subset of the resulting data to the
+# JavaScript module ../js/importData.js with an object containing:
+#     - categoryLabels,
+#     - categoryColours,
+#     - data,
+#     - nDays,
+#     - startDate.
+
+import json, os, math
 import numpy as np
 import pandas as pd
+from openpyxl import load_workbook
 
 
 date_format = "%Y-%m-%d"
@@ -18,7 +32,7 @@ def process_data(data):
     # Smooths array with Gaussian filter
     def smooth(hours_seq):
         # a: full width at half maximum of filter
-        a = 14
+        a = 7
 
         sigma = a / 2.355
 
@@ -73,14 +87,7 @@ def process_data(data):
             days_remaining -= year_len
 
         return idx_list
-
-
-    # Matrix with number of hours of each category for each day
-    hours = np.array([
-        [len(re.compile(row).findall(line)) for _, row in categories_info_df["id"].iteritems()]
-        for line in data])
-
-    hours = hours * mangle_arr
+    
 
     # Smooths array of hours (for each category independently)
     Y_smooth = np.array([
@@ -101,28 +108,71 @@ def process_data(data):
 
     return [Y_smooth[:, l].tolist() for l in idx_list]
 
+# Loads input file
 
-with open("data.txt", "r") as file:
-    hour_data = [line for line in file]
+workbook = load_workbook(os.path.join(dirname, "data.xlsx"))
 
-with open("mangle.npy", "rb") as f:
-    mangle_arr = np.load(f)
+wb_cats = workbook["Categories"].values
+df_cats = pd.DataFrame(wb_cats, columns=next(wb_cats))
+df_cats["ID"] = df_cats["ID"].astype("string")
 
-categories_info_df = pd.read_csv("categories-info.txt")
+no_cats = len(df_cats)
+cat_ids = df_cats["ID"].tolist()
+cat_pos = [""] * (no_cats + 1)
+for _, row in df_cats.iterrows():
+    cat_pos[int(row["ID"])] = int(row["Position"])
 
-start_year = datetime.strptime(hour_data[0].strip("\n"), date_format).year
-category_info = categories_info_df[["category", "colour"]].values.tolist()
-data = process_data(hour_data[1:])
+hours = []
+
+last_row = len(list(workbook["Input"].values)) - 1
+
+for i, row in enumerate(workbook["Input"].values):
+    end = False
+
+    if i == 0:
+        continue
+
+    if i == last_row:
+        end = True
+
+    counts = [0] * no_cats
+
+    row = list(row[:24])
+
+    # Checks for 24 values
+    for value in row:
+        if value == None:
+            if last_row:
+                end = True
+            else:
+                raise ValueError(f"input/data.xlsx: missing value in row {i}")
+            
+    row = "".join([str(value) for value in row])
+
+    if end:
+        break
+
+    for value in row:
+        if value == "0":
+            pass
+        elif value in cat_ids:
+            counts[cat_pos[int(value)]] += 1
+        else:
+            raise ValueError(f"input/data.xlsx: '{value}' invalid value in row {i}")
+        
+    hours.append(counts)
+
+start_year = workbook["Dates"]["b1"].value.year
 
 # Data as an object
 data_obj = {
     "startYear": start_year,
-    "categoryInfo": category_info,
-    "data": data}
+    "categoryInfo": df_cats.sort_values(["Position"])[["Category", "Colour"]].values.tolist(),
+    "data": process_data(hours)}
 
 # Data as a JSON string
 data_json = json.dumps(data_obj, indent=4)
 
 # Wraps JSON string in JavaScript module syntax, and saves it to ../js
-with open(os.path.join(dirname, "../js/importData.js"), "w") as file:
+with open(os.path.join(dirname, "../js/importData-2.js"), "w") as file:
     file.write(f"export function importData() {{\n	return {data_json};\n}}")

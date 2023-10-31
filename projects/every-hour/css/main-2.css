@@ -1,0 +1,119 @@
+.main-container {
+    max-width: 600px;
+    margin-top: 50px;
+}
+
+/* =============================================================================
+Layout boxes
+============================================================================= */
+
+.eh .outer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+}
+
+/* =============================================================================
+Chart
+============================================================================= */
+
+.eh .chart-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.eh .viz-container {
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    margin-bottom: 10px;
+}
+
+.eh .chart-container svg {
+    aspect-ratio: 5 / 1;
+}
+
+.eh .viz-container > svg * {
+    pointer-events: none;
+}
+
+.eh .year-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+/* =============================================================================
+Legend
+============================================================================= */
+
+.eh .legend-container {
+	margin-left: 5px;
+	margin-top: 0;
+	justify-content: center;
+    flex-flow: column nowrap;
+}
+
+.eh .legend-button {
+    border-radius: 0;
+    width: auto;
+    justify-content: center;
+    justify-content: flex-start;
+}
+
+.eh .legend-button span {
+    width: 82px;
+    width: auto;
+}
+
+.eh .legend-square {
+	width: 12px;
+	height: 12px;
+	margin-left: 1px;
+    margin-right: 5px;
+	position: relative;
+}
+
+/* =============================================================================
+Tooltips
+============================================================================= */
+
+.eh .tt-row span:first-child {
+    margin-right: 3px;
+    font-weight: 550;
+}
+
+.eh .tt-row span:first-child {
+    margin-right: 3px;
+    font-weight: 550;
+}
+
+/* =============================================================================
+Media queries
+============================================================================= */
+
+@media all and (min-width: 400px) {
+    .eh .legend-container {
+        margin-left: 15px;
+    }
+}
+
+@media all and (min-width: 500px) {
+    .eh .legend-container {
+        margin-left: 10px;
+    }
+
+    .eh .legend-square {
+    	width: 14px;
+    	height: 14px;
+    }
+}
+
+
+@media all and (min-width: 900px) {
+    .eh .legend-container {
+        margin-left: 25px;
+    }
+}
