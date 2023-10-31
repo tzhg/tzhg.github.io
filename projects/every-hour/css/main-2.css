@@ -1,44 +1,67 @@
-.main-container {
-    max-width: 600px;
-    margin-top: 50px;
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    font-family: "Recursive", sans-serif;
+	font-weight: 400;
+    color: var(--dark-grey);
+    font-size: 12px;
+    min-width: 350px;
 }
 
-/* =============================================================================
-Layout boxes
-============================================================================= */
+.main-container {
+    max-width: 600px;
+    margin: 5px;
+    padding: 0;
+}
 
-.eh .outer {
+.outer {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
+    margin: 0;
+}
+
+.title {
+	font-size: 22px;
+	font-family: "Cabin", sans-serif;
+	font-weight: 700;
+    text-align: center;
+    margin: 15px 0 5px 0;
+}
+
+.desc {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /* =============================================================================
 Chart
 ============================================================================= */
 
-.eh .chart-container {
+.chart-container {
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
 }
 
-.eh .viz-container {
+.viz-container {
     display: flex;
     width: 100%;
     flex-flow: row nowrap;
     margin-bottom: 10px;
 }
 
-.eh .chart-container svg {
-    aspect-ratio: 5 / 1;
+.chart-container svg {
+    aspect-ratio: 4 / 1;
 }
 
-.eh .viz-container > svg * {
+.viz-container > svg * {
     pointer-events: none;
 }
 
-.eh .year-container {
+.year-container {
     display: flex;
     align-items: center;
     margin-right: 10px;
@@ -49,26 +72,30 @@ Chart
 Legend
 ============================================================================= */
 
-.eh .legend-container {
+.legend-container {
 	margin-left: 5px;
 	margin-top: 0;
 	justify-content: center;
     flex-flow: column nowrap;
 }
 
-.eh .legend-button {
+.legend-button {
     border-radius: 0;
     width: auto;
     justify-content: center;
     justify-content: flex-start;
+	display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 2px 4px;
 }
 
-.eh .legend-button span {
+.legend-button span {
     width: 82px;
     width: auto;
 }
 
-.eh .legend-square {
+.legend-square {
 	width: 12px;
 	height: 12px;
 	margin-left: 1px;
@@ -80,12 +107,12 @@ Legend
 Tooltips
 ============================================================================= */
 
-.eh .tt-row span:first-child {
+.tt-row span:first-child {
     margin-right: 3px;
     font-weight: 550;
 }
 
-.eh .tt-row span:first-child {
+.tt-row span:first-child {
     margin-right: 3px;
     font-weight: 550;
 }
@@ -94,26 +121,51 @@ Tooltips
 Media queries
 ============================================================================= */
 
-@media all and (min-width: 400px) {
-    .eh .legend-container {
-        margin-left: 15px;
+@media all and (min-width: 450px) {
+    .legend-container {
+        margin-left: 10px;
+    }
+
+    .main-container {
+        margin: 10px;
     }
 }
 
 @media all and (min-width: 500px) {
-    .eh .legend-container {
-        margin-left: 10px;
-    }
-
-    .eh .legend-square {
+    .legend-square {
     	width: 14px;
     	height: 14px;
+    }
+
+    .main-container {
+        margin: 15px;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .header-content {
+        text-align: left;
+    }
+
+    .title {
+        text-align: left;
+        font-size: 27px;
+    }
+
+    .desc {
+        text-align: left;
     }
 }
 
 
 @media all and (min-width: 900px) {
-    .eh .legend-container {
-        margin-left: 25px;
+    .legend-container {
+        margin-left: 15px;
+    }
+
+    .main-container {
+        margin: 20px;
     }
 }
