@@ -3,16 +3,18 @@ body {
     flex-flow: column nowrap;
     align-items: center;
     font-family: "Recursive", sans-serif;
-	font-weight: 400;
+	font-weight: 550;
     color: var(--dark-grey);
-    font-size: 12px;
+    font-size: 10px;
     margin: 15px;
+    margin-top: 0;
 }
 
 .main-container {
     width: 100%;
-    max-width: 500px;
+    width: 402px;
     padding: 0;
+    margin-top: 100px;
 }
 
 .outer {
@@ -27,12 +29,28 @@ body {
 	font-family: "Cabin", sans-serif;
 	font-weight: 700;
     text-align: center;
-    margin: 5px 0 5px 0;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 .desc {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    height: 100px;
+}
+
+.header-content {
+    display: flex;
+    flex-flow: column nowrap;
     text-align: center;
 }
 
@@ -49,23 +67,16 @@ Chart
 .viz-container {
     display: flex;
     width: 100%;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     margin-bottom: 10px;
 }
 
 .chart-container svg {
-    aspect-ratio: 5 / 1;
+    aspect-ratio: 10 / 1;
 }
 
 .viz-container > svg * {
     pointer-events: none;
-}
-
-.year-container {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    font-weight: 700;
 }
 
 /* =============================================================================
@@ -73,10 +84,9 @@ Legend
 ============================================================================= */
 
 .legend-container {
-	margin-left: 5px;
-	margin-top: 0;
+    display: flex;
 	justify-content: center;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
 }
 
 .legend-button {
@@ -87,7 +97,12 @@ Legend
 	display: flex;
     align-items: center;
     white-space: nowrap;
-    padding: 2px 4px;
+    padding-right: 6px;
+}
+
+
+.legend-button:last-child {
+    padding-right: 0px;
 }
 
 .legend-button span {
@@ -96,73 +111,76 @@ Legend
 }
 
 .legend-square {
-	width: 12px;
-	height: 12px;
-	margin-left: 1px;
-    margin-right: 5px;
+	width: 8px;
+	height: 8px;
+    border-radius: 8px;
+    margin-right: 2px;
 	position: relative;
-}
-
-/* =============================================================================
-Tooltips
-============================================================================= */
-
-.tt-row span:first-child {
-    margin-right: 3px;
-    font-weight: 550;
-}
-
-.tt-row span:first-child {
-    margin-right: 3px;
-    font-weight: 550;
+    top: -1px;
 }
 
 /* =============================================================================
 Media queries
 ============================================================================= */
 
-@media all and (min-width: 450px) {
-    .legend-container {
-        margin-left: 10px;
-    }
-
-    body {
-        margin: 20px;
-    }
-}
-
-@media all and (min-width: 550px) {
-    .legend-square {
-    	width: 14px;
-    	height: 14px;
-    }
-
+@media all and (min-width: 500px) {
     body {
         margin: 30px;
-        font-size: 14px;
-    }
-
-    .header-content {
-        text-align: left;
+        margin-top: 0;
     }
 
     .title {
-        text-align: left;
-        font-size: 27px;
+        margin-top: 30px;
     }
 
-    .desc {
-        text-align: left;
+    .header {
+        height: 115px;
+    }
+
+    
+    .main-container {
+        margin-top: 115px;
+        width: 414px;
+    }
+
+    .legend-button {
+        padding-right: 8px;
     }
 }
 
-
-@media all and (min-width: 900px) {
-    .legend-container {
-        margin-left: 15px;
+@media all and (min-width: 600px) {
+    .legend-square {
+    	width: 10px;
+    	height: 10px;
+        border-radius: 10px;
     }
 
     body {
         margin: 40px;
+        margin-top: 0;
+        font-size: 12px;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-top: 40px;
+    }
+
+    .header {
+        height: 130px;
+    }
+
+    
+    .main-container {
+        margin-top: 130px;
+        width: 506px;
+    }
+
+    .legend-button {
+        padding-right: 10px;
+    }
+
+    .legend-square {
+        margin-right: 3px;
     }
 }

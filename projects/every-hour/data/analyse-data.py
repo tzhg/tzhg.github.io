@@ -30,18 +30,27 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 
 def process_data(data):
     # Smooths array with Gaussian filter
-    def smooth(hours_seq):
-        # a: full width at half maximum of filter
-        a = 7
+    def smooth(hours_seq, type):
+        if type == "gaussian":
+            # a: full width at half maximum of filter
+            a = 7
 
-        sigma = a / 2.355
+            sigma = a / 2.355
 
-        # Truncates Gaussian filter at 3 sigma
-        b = math.ceil(3 * sigma)
-        trunc = np.array([-b, 1 + b])
+            # Truncates Gaussian filter at 3 sigma
+            b = math.ceil(3 * sigma)
+            trunc = np.array([-b, 1 + b])
 
-        w = np.array([np.exp(-0.5 * x ** 2 / sigma ** 2) for x in range(*trunc)])
-        w = w / sum(w)
+            w = np.array([np.exp(-0.5 * x ** 2 / sigma ** 2) for x in range(*trunc)])
+            w = w / sum(w)
+        elif type == "moving_av":
+             # a: days in moving average (must be odd)
+            a = 7
+            b = int((a - 1) / 2)
+            
+            trunc = np.array([-b, 1 + b])
+            w = np.array([1] * a)
+            w = w / sum(w)
 
         # Pads start and end so we don't have to truncate data
         pad_start = [hours_seq[0]] * b
@@ -51,7 +60,7 @@ def process_data(data):
 
         H = np.fromfunction(lambda i, j: hours_seq_a[i + j], (len(hours_seq), 2 * b + 1), dtype=int)
 
-        return np.dot(H, w)
+        return np.dot(H, w)          
 
 
     # Returns subset of days (grouped by year) to simplify the visualisation.
@@ -60,7 +69,7 @@ def process_data(data):
     # This ensures there will be no gaps when the years are graphed side by side.
     def idx_subset(given_days):
         # Number of days to choose in each full year
-        n = 300
+        n = 1000
 
         year = start_year
         start_day = 0
@@ -91,7 +100,7 @@ def process_data(data):
 
     # Smooths array of hours (for each category independently)
     Y_smooth = np.array([
-        smooth(hours_seq)
+        smooth(hours_seq, "moving_av")
         for hours_seq in np.transpose(hours)])
 
     # Ensures values >= 0
