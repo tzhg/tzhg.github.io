@@ -69,7 +69,7 @@ def process_data(data):
     # This ensures there will be no gaps when the years are graphed side by side.
     def idx_subset(given_days):
         # Number of days to choose in each full year
-        n = 1000
+        n = 500
 
         year = start_year
         start_day = 0

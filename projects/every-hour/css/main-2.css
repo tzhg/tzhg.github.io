@@ -12,7 +12,7 @@ body {
 
 .main-container {
     width: 100%;
-    width: 402px;
+    width: 289px;
     padding: 0;
     margin-top: 100px;
 }
@@ -72,7 +72,7 @@ Chart
 }
 
 .chart-container svg {
-    aspect-ratio: 10 / 1;
+    aspect-ratio: 6 / 1;
 }
 
 .viz-container > svg * {
@@ -97,7 +97,7 @@ Legend
 	display: flex;
     align-items: center;
     white-space: nowrap;
-    padding-right: 6px;
+    padding-right: 8px;
 }
 
 
@@ -123,7 +123,7 @@ Legend
 Media queries
 ============================================================================= */
 
-@media all and (min-width: 500px) {
+@media all and (min-width: 350px) {
     body {
         margin: 30px;
         margin-top: 0;
@@ -140,15 +140,10 @@ Media queries
     
     .main-container {
         margin-top: 115px;
-        width: 414px;
-    }
-
-    .legend-button {
-        padding-right: 8px;
     }
 }
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 450px) {
     .legend-square {
     	width: 10px;
     	height: 10px;
@@ -173,7 +168,7 @@ Media queries
     
     .main-container {
         margin-top: 130px;
-        width: 506px;
+        width: 356px;
     }
 
     .legend-button {
