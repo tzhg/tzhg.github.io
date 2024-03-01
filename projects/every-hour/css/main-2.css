@@ -11,10 +11,9 @@ body {
 }
 
 .main-container {
-    width: 100%;
-    width: 289px;
+    width: 258px;
     padding: 0;
-    margin-top: 100px;
+    margin-top: 115px;
 }
 
 .outer {
@@ -22,6 +21,7 @@ body {
     flex-flow: row nowrap;
     align-items: flex-start;
     margin: 0;
+    padding-bottom: 5px;
 }
 
 .title {
@@ -45,7 +45,7 @@ body {
     display: flex;
     justify-content: center;
     background-color: white;
-    height: 100px;
+    height: 115px;
 }
 
 .header-content {
@@ -61,7 +61,7 @@ Chart
 .chart-container {
     width: 100%;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column-reverse nowrap;
 }
 
 .viz-container {
@@ -72,7 +72,7 @@ Chart
 }
 
 .chart-container svg {
-    aspect-ratio: 6 / 1;
+    height: 45px;
 }
 
 .viz-container > svg * {
@@ -84,15 +84,16 @@ Legend
 ============================================================================= */
 
 .legend-container {
-    display: flex;
-	justify-content: center;
-    flex-flow: row nowrap;
+    display: grid;
+    grid-template-areas:
+        "l1 l2 l3"
+        "l4 l5 l6"
+        "l7 l5 l9";
 }
 
 .legend-button {
     border-radius: 0;
     width: auto;
-    justify-content: center;
     justify-content: flex-start;
 	display: flex;
     align-items: center;
@@ -123,7 +124,7 @@ Legend
 Media queries
 ============================================================================= */
 
-@media all and (min-width: 350px) {
+@media all and (min-width: 300px) {
     body {
         margin: 30px;
         margin-top: 0;
@@ -134,20 +135,23 @@ Media queries
     }
 
     .header {
-        height: 115px;
+        height: 130px;
     }
-
     
     .main-container {
-        margin-top: 115px;
+        margin-top: 130px;
     }
 }
 
-@media all and (min-width: 450px) {
+@media all and (min-width: 400px) {
     .legend-square {
     	width: 10px;
     	height: 10px;
         border-radius: 10px;
+    }
+
+    .outer {
+        padding-bottom: 10px;
     }
 
     body {
@@ -162,13 +166,12 @@ Media queries
     }
 
     .header {
-        height: 130px;
+        height: 150px;
     }
-
     
     .main-container {
-        margin-top: 130px;
-        width: 356px;
+        margin-top: 150px;
+        width: 320px;
     }
 
     .legend-button {
@@ -177,5 +180,16 @@ Media queries
 
     .legend-square {
         margin-right: 3px;
+    }
+
+    .chart-container svg {
+        height: 60px;
+    }
+}
+
+@media all and (min-width: 720px) {
+    .main-container {
+        width: 50%;
+        max-width: 450px;
     }
 }
